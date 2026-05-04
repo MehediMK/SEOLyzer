@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+{% load static %}
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>{% block title %}SEO Insight Pro{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}Enterprise SEO dashboard for analytics, audits, keywords, and backlinks.{% endblock %}">
+
+    <!-- Tailwind CSS CDN with Plugins -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+    <!-- Project Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/main.css' %}"/>
+
+    <!-- Tailwind Config: Precision SEO Design Tokens -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-secondary-fixed": "#25005a",
+                        "on-surface": "#191c1d",
+                        "primary-fixed": "#e2dfff",
+                        "surface-container-low": "#f3f4f5",
+                        "tertiary": "#7e3000",
+                        "error-container": "#ffdad6",
+                        "outline-variant": "#c7c4d8",
+                        "surface-tint": "#4d44e3",
+                        "tertiary-container": "#a44100",
+                        "surface-container-high": "#e7e8e9",
+                        "on-tertiary-container": "#ffd2be",
+                        "surface-container-highest": "#e1e3e4",
+                        "on-tertiary-fixed": "#351000",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#0f0069",
+                        "on-background": "#191c1d",
+                        "surface-container": "#edeeef",
+                        "on-primary-container": "#dad7ff",
+                        "outline": "#777587",
+                        "primary": "#3525cd",
+                        "tertiary-fixed-dim": "#ffb695",
+                        "inverse-surface": "#2e3132",
+                        "primary-container": "#4f46e5",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed-dim": "#d2bbff",
+                        "secondary-fixed": "#eaddff",
+                        "tertiary-fixed": "#ffdbcc",
+                        "on-surface-variant": "#464555",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "on-error": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "surface-variant": "#e1e3e4",
+                        "inverse-on-surface": "#f0f1f2",
+                        "on-secondary-fixed-variant": "#5a00c6",
+                        "secondary-container": "#8a4cfc",
+                        "surface-dim": "#d9dadb",
+                        "surface-bright": "#f8f9fa",
+                        "error": "#ba1a1a",
+                        "on-primary": "#ffffff",
+                        "surface": "#f8f9fa",
+                        "background": "#f8f9fa",
+                        "secondary": "#712ae2",
+                        "on-secondary-container": "#fffbff",
+                        "inverse-primary": "#c3c0ff",
+                        "on-error-container": "#93000a"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "sm": "0.25rem",
+                        "md": "0.75rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "base": "4px",
+                        "xs": "4px",
+                        "sm": "8px",
+                        "md": "16px",
+                        "lg": "24px",
+                        "xl": "32px",
+                        "gutter": "16px",
+                        "margin-page": "24px",
+                        "max-width": "1440px"
+                    },
+                    fontFamily: {
+                        "h1": ["Inter", "sans-serif"],
+                        "h2": ["Inter", "sans-serif"],
+                        "h3": ["Inter", "sans-serif"],
+                        "body-lg": ["Inter", "sans-serif"],
+                        "body-md": ["Inter", "sans-serif"],
+                        "body-sm": ["Inter", "sans-serif"],
+                        "label-caps": ["Inter", "sans-serif"],
+                        "table-data": ["Inter", "sans-serif"],
+                        "inter": ["Inter", "sans-serif"]
+                    },
+                    fontSize: {
+                        "h1": ["36px", { lineHeight: "44px", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "h2": ["30px", { lineHeight: "38px", letterSpacing: "-0.01em", fontWeight: "600" }],
+                        "h3": ["24px", { lineHeight: "32px", letterSpacing: "-0.01em", fontWeight: "600" }],
+                        "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+                        "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+                        "body-sm": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+                        "label-caps": ["12px", { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "600" }],
+                        "table-data": ["13px", { lineHeight: "18px", fontWeight: "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="bg-background text-on-background min-h-screen">
+
+<!-- ========================
+     MOBILE SIDEBAR OVERLAY
+     ======================== -->
+<div id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+<!-- ========================
+     MOBILE SIDEBAR (off-canvas)
+     ======================== -->
+<div id="mobile-sidebar" class="fixed inset-y-0 left-0 z-50 w-64 flex flex-col bg-white border-r border-gray-200 lg:hidden">
+    <div class="flex flex-col flex-grow overflow-y-auto px-6 pb-4">
+        <div class="flex h-16 shrink-0 items-center justify-between gap-x-3">
+            <div class="flex items-center gap-x-3">
+                <div class="h-8 w-8 rounded-lg bg-primary-container flex items-center justify-center">
+                    <span class="material-symbols-outlined text-white text-body-md" style="font-variation-settings: 'FILL' 1;">analytics</span>
+                </div>
+                <div>
+                    <h2 class="font-black tracking-tight text-gray-900 text-lg leading-tight">SEO Insight Pro</h2>
+                    <p class="text-[10px] uppercase tracking-wider text-gray-500 font-bold">Enterprise SEO</p>
+                </div>
+            </div>
+            <button onclick="closeSidebar()" class="text-gray-400 hover:text-gray-600">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <nav class="mt-6 flex flex-1 flex-col">
+            <ul class="flex flex-1 flex-col gap-y-7" role="list">
+                <li>
+                    <ul class="-mx-2 space-y-1" role="list">
+                        <li>
+                            <a class="{% if request.resolver_match.url_name == 'dashboard' %}bg-gray-50 text-indigo-600 border-r-2 border-indigo-600 rounded-l-md{% else %}text-gray-600 hover:text-indigo-600 hover:bg-gray-50 rounded-md{% endif %} group flex gap-x-3 p-2 text-sm font-medium transition-all duration-200 ease-in-out" href="{% url 'dashboard' %}">
+                                <span class="material-symbols-outlined">dashboard</span>
+                                Dashboard
+                            </a>
+                        </li>
+                        <li>
+                            <a class="{% if request.resolver_match.url_name == 'seo_audit' %}bg-gray-50 text-indigo-600 border-r-2 border-indigo-600 rounded-l-md{% else %}text-gray-600 hover:text-indigo-600 hover:bg-gray-50 rounded-md{% endif %} group flex gap-x-3 p-2 text-sm font-medium transition-all duration-200 ease-in-out" href="{% url 'seo_audit' %}">
+                                <span class="material-symbols-outlined">analytics</span>
+                                Audit
+                            </a>
+                        </li>
+                        <li>
+                            <a class="{% if request.resolver_match.url_name == 'keywords' %}bg-gray-50 text-indigo-600 border-r-2 border-indigo-600 rounded-l-md{% else %}text-gray-600 hover:text-indigo-600 hover:bg-gray-50 rounded-md{% endif %} group flex gap-x-3 p-2 text-sm font-medium transition-all duration-200 ease-in-out" href="{% url 'keywords' %}">
+                                <span class="material-symbols-outlined">key</span>
+                                Keywords
+                            </a>
+                        </li>
+                        <li>
+                            <a class="{% if request.resolver_match.url_name == 'backlinks' %}bg-gray-50 text-indigo-600 border-r-2 border-indigo-600 rounded-l-md{% else %}text-gray-600 hover:text-indigo-600 hover:bg-gray-50 rounded-md{% endif %} group flex gap-x-3 p-2 text-sm font-medium transition-all duration-200 ease-in-out" href="{% url 'backlinks' %}">
+                                <span class="material-symbols-outlined">link</span>
+                                Backlinks
+                            </a>
+                        </li>
+                        <li>
+                            <a class="{% if request.resolver_match.url_name == 'competitors' %}bg-gray-50 text-indigo-600 border-r-2 border-indigo-600 rounded-l-md{% else %}text-gray-600 hover:text-indigo-600 hover:bg-gray-50 rounded-md{% endif %} group flex gap-x-3 p-2 text-sm font-medium transition-all duration-200 ease-in-out" href="{% url 'competitors' %}">
+                                <span class="material-symbols-outlined">compare_arrows</span>
+                                Competitors
+                            </a>
+                        </li>
+                        <li>
+                            <a class="{% if request.resolver_match.url_name == 'settings' %}bg-gray-50 text-indigo-600 border-r-2 border-indigo-600 rounded-l-md{% else %}text-gray-600 hover:text-indigo-600 hover:bg-gray-50 rounded-md{% endif %} group flex gap-x-3 p-2 text-sm font-medium transition-all duration-200 ease-in-out" href="{% url 'settings' %}">
+                                <span class="material-symbols-outlined">settings</span>
+                                Settings
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="mt-auto">
+                    <div class="px-2 py-4 mb-4 rounded-xl bg-primary-container/10 border border-primary-container/20">
+                        <p class="text-xs font-semibold text-primary mb-2 px-2">QUICK ACTIONS</p>
+                        <button class="w-full flex items-center gap-2 px-2 py-2 text-sm font-semibold text-white bg-primary-container rounded-lg shadow-sm hover:opacity-90 transition-opacity">
+                            <span class="material-symbols-outlined text-[18px]">add</span>
+                            New Analysis
+                        </button>
+                    </div>
+                    <ul class="-mx-2 space-y-1" role="list">
+                        <li>
+                            <a class="{% if request.resolver_match.url_name == 'pricing' %}bg-gray-50 text-indigo-600 border-r-2 border-indigo-600 rounded-l-md{% else %}text-gray-600 hover:text-indigo-600 hover:bg-gray-50 rounded-md{% endif %} group flex gap-x-3 p-2 text-sm font-medium transition-all duration-200 ease-in-out" href="{% url 'pricing' %}">
+                                <span class="material-symbols-outlined">payments</span>
+                                Pricing
+                            </a>
+                        </li>
+                        <li>
+                            <a class="text-gray-600 hover:text-indigo-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm font-medium" href="#">
+                                <span class="material-symbols-outlined">help</span>
+                                Help Center
+                            </a>
+                        </li>
+                        <li>
+                            <a class="text-gray-600 hover:text-indigo-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm font-medium" href="#">
+                                <span class="material-symbols-outlined">logout</span>
+                                Logout
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<!-- ========================
+     DESKTOP SIDEBAR (fixed)
+     ======================== -->
+<aside class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-64 lg:flex-col bg-white border-r border-gray-200">
+    <div class="flex flex-col flex-grow overflow-y-auto px-6 pb-4">
+        <div class="flex h-16 shrink-0 items-center gap-x-3">
+            <div class="h-8 w-8 rounded-lg bg-primary-container flex items-center justify-center">
+                <span class="material-symbols-outlined text-white text-body-md" style="font-variation-settings: 'FILL' 1;">analytics</span>
+            </div>
+            <div>
+                <h2 class="font-black tracking-tight text-gray-900 text-lg leading-tight">SEO Insight Pro</h2>
+                <p class="text-[10px] uppercase tracking-wider text-gray-500 font-bold">Enterprise SEO</p>
+            </div>
+        </div>
+        <nav class="mt-6 flex flex-1 flex-col">
+            <ul class="flex flex-1 flex-col gap-y-7" role="list">
+                <li>
+                    <ul class="-mx-2 space-y-1" role="list">
+                        <li>
+                            <a class="{% if request.resolver_match.url_name == 'dashboard' %}bg-gray-50 text-indigo-600 border-r-2 border-indigo-600 rounded-l-md{% else %}text-gray-600 hover:text-indigo-600 hover:bg-gray-50 rounded-md{% endif %} group flex gap-x-3 p-2 text-sm font-medium transition-all duration-200 ease-in-out" href="{% url 'dashboard' %}">
+                                <span class="material-symbols-outlined">dashboard</span>
+                                Dashboard
+                            </a>
+                        </li>
+                        <li>
+                            <a class="{% if request.resolver_match.url_name == 'seo_audit' %}bg-gray-50 text-indigo-600 border-r-2 border-indigo-600 rounded-l-md{% else %}text-gray-600 hover:text-indigo-600 hover:bg-gray-50 rounded-md{% endif %} group flex gap-x-3 p-2 text-sm font-medium transition-all duration-200 ease-in-out" href="{% url 'seo_audit' %}">
+                                <span class="material-symbols-outlined">analytics</span>
+                                Audit
+                            </a>
+                        </li>
+                        <li>
+                            <a class="{% if request.resolver_match.url_name == 'keywords' %}bg-gray-50 text-indigo-600 border-r-2 border-indigo-600 rounded-l-md{% else %}text-gray-600 hover:text-indigo-600 hover:bg-gray-50 rounded-md{% endif %} group flex gap-x-3 p-2 text-sm font-medium transition-all duration-200 ease-in-out" href="{% url 'keywords' %}">
+                                <span class="material-symbols-outlined">key</span>
+                                Keywords
+                            </a>
+                        </li>
+                        <li>
+                            <a class="{% if request.resolver_match.url_name == 'backlinks' %}bg-gray-50 text-indigo-600 border-r-2 border-indigo-600 rounded-l-md{% else %}text-gray-600 hover:text-indigo-600 hover:bg-gray-50 rounded-md{% endif %} group flex gap-x-3 p-2 text-sm font-medium transition-all duration-200 ease-in-out" href="{% url 'backlinks' %}">
+                                <span class="material-symbols-outlined">link</span>
+                                Backlinks
+                            </a>
+                        </li>
+                        <li>
+                            <a class="{% if request.resolver_match.url_name == 'competitors' %}bg-gray-50 text-indigo-600 border-r-2 border-indigo-600 rounded-l-md{% else %}text-gray-600 hover:text-indigo-600 hover:bg-gray-50 rounded-md{% endif %} group flex gap-x-3 p-2 text-sm font-medium transition-all duration-200 ease-in-out" href="{% url 'competitors' %}">
+                                <span class="material-symbols-outlined">compare_arrows</span>
+                                Competitors
+                            </a>
+                        </li>
+                        <li>
+                            <a class="{% if request.resolver_match.url_name == 'settings' %}bg-gray-50 text-indigo-600 border-r-2 border-indigo-600 rounded-l-md{% else %}text-gray-600 hover:text-indigo-600 hover:bg-gray-50 rounded-md{% endif %} group flex gap-x-3 p-2 text-sm font-medium transition-all duration-200 ease-in-out" href="{% url 'settings' %}">
+                                <span class="material-symbols-outlined">settings</span>
+                                Settings
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="mt-auto">
+                    <div class="px-2 py-4 mb-4 rounded-xl bg-primary-container/10 border border-primary-container/20">
+                        <p class="text-xs font-semibold text-primary mb-2 px-2">QUICK ACTIONS</p>
+                        <button class="w-full flex items-center gap-2 px-2 py-2 text-sm font-semibold text-white bg-primary-container rounded-lg shadow-sm hover:opacity-90 transition-opacity">
+                            <span class="material-symbols-outlined text-[18px]">add</span>
+                            New Analysis
+                        </button>
+                    </div>
+                    <ul class="-mx-2 space-y-1" role="list">
+                        <li>
+                            <a class="{% if request.resolver_match.url_name == 'pricing' %}bg-gray-50 text-indigo-600 border-r-2 border-indigo-600 rounded-l-md{% else %}text-gray-600 hover:text-indigo-600 hover:bg-gray-50 rounded-md{% endif %} group flex gap-x-3 p-2 text-sm font-medium transition-all duration-200 ease-in-out" href="{% url 'pricing' %}">
+                                <span class="material-symbols-outlined">payments</span>
+                                Pricing
+                            </a>
+                        </li>
+                        <li>
+                            <a class="text-gray-600 hover:text-indigo-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm font-medium" href="#">
+                                <span class="material-symbols-outlined">help</span>
+                                Help Center
+                            </a>
+                        </li>
+                        <li>
+                            <a class="text-gray-600 hover:text-indigo-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm font-medium" href="#">
+                                <span class="material-symbols-outlined">logout</span>
+                                Logout
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</aside>
+
+<!-- ========================
+     MAIN CONTENT WRAPPER
+     ======================== -->
+<div class="lg:pl-64">
+
+    <!-- TOP APP BAR -->
+    <header class="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 bg-white border-b border-gray-200 px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
+        <!-- Mobile hamburger -->
+        <button type="button" class="lg:hidden -m-2.5 p-2.5 text-gray-700" onclick="openSidebar()">
+            <span class="sr-only">Open sidebar</span>
+            <span class="material-symbols-outlined">menu</span>
+        </button>
+        <!-- Divider -->
+        <div class="h-6 w-px bg-gray-200 lg:hidden" aria-hidden="true"></div>
+
+        <div class="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
+            <!-- Search -->
+            <form action="#" class="relative flex flex-1" method="GET">
+                <label class="sr-only" for="search-field">Search</label>
+                <span class="material-symbols-outlined absolute inset-y-0 left-0 h-full w-5 text-gray-400 flex items-center pointer-events-none">search</span>
+                <input class="block h-full w-full border-0 py-0 pl-8 pr-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm bg-transparent" id="search-field" name="search" placeholder="Search rankings, keywords, or competitors..." type="search"/>
+            </form>
+
+            <!-- Right actions -->
+            <div class="flex items-center gap-x-4 lg:gap-x-6">
+                <button class="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500 transition-colors" type="button">
+                    <span class="sr-only">View notifications</span>
+                    <span class="material-symbols-outlined">notifications</span>
+                </button>
+                <div aria-hidden="true" class="hidden lg:block lg:h-6 lg:w-px lg:bg-gray-200"></div>
+                <div class="flex items-center gap-x-4">
+                    <a href="{% url 'landing_page' %}" class="hidden lg:block text-sm font-semibold text-gray-700 hover:text-indigo-600 transition-colors">Support</a>
+                    <img alt="User profile" class="h-8 w-8 rounded-full bg-gray-50 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdRFgECxkMtYNLNtbsl_ZTyd8sImqbPpXCQlC2xDhBZxi3llWlJGESFXs52bYl4dkrWAUKafL-vZnPnWhDxqk1KnEKeu--4JHLaYWwmBTGEvd4nWRcf6pwiV35XbhkFCSJ507kiGSSNNKEsst6w3QWtqnMakYVl50Y2rbZV2kgOtkpl3tRoCGJyAnOiJlZFDnSaobJqCO8CkcOtbFOAfPBYrdmkCI0r5MLP4xwM5jOh8nUG-PtyHFKxbYMGHl7xPPPGQzz4PPzVnI"/>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- PAGE CONTENT -->
+    <main class="py-10">
+        <div class="px-4 sm:px-6 lg:px-8">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-50 border-t border-gray-200 py-12">
+        <div class="mx-auto max-w-7xl px-6 md:flex md:items-center md:justify-between lg:px-8">
+            <div class="flex justify-center space-x-6 md:order-2">
+                <a class="text-xs text-gray-500 hover:text-gray-900 hover:underline transition-colors" href="#">Privacy Policy</a>
+                <a class="text-xs text-gray-500 hover:text-gray-900 hover:underline transition-colors" href="#">Terms of Service</a>
+                <a class="text-xs text-gray-500 hover:text-gray-900 hover:underline transition-colors" href="#">API Status</a>
+                <a class="text-xs text-gray-500 hover:text-gray-900 hover:underline transition-colors" href="#">Cookie Settings</a>
+            </div>
+            <div class="mt-8 md:order-1 md:mt-0">
+                <p class="text-center text-xs leading-5 text-gray-500">© 2024 SEO Insight Pro. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+</div><!-- end lg:pl-64 -->
+
+<!-- ========================
+     MOBILE SIDEBAR JS
+     ======================== -->
+<script>
+    function openSidebar() {
+        document.getElementById('mobile-sidebar').classList.add('open');
+        document.getElementById('sidebar-overlay').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeSidebar() {
+        document.getElementById('mobile-sidebar').classList.remove('open');
+        document.getElementById('sidebar-overlay').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+</script>
+
+{% block extra_js %}{% endblock %}
+</body>
+</html>

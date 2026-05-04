@@ -1,0 +1,255 @@
+{% extends 'base.html' %}
+
+{% block title %}Competitor Analysis - SEO Insight Pro{% endblock %}
+{% block meta_description %}Benchmark your domain performance against industry leaders and direct rivals.{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<div class="md:flex md:items-center md:justify-between mb-8">
+    <div class="min-w-0 flex-1">
+        <h1 class="font-h1 text-h1 text-gray-900">Competitor Analysis</h1>
+        <p class="mt-2 font-body-md text-gray-500">Benchmark your domain performance against industry leaders and direct rivals.</p>
+    </div>
+    <div class="mt-4 flex md:ml-4 md:mt-0 space-x-3">
+        <button class="inline-flex items-center rounded-lg bg-white px-4 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 transition-colors" type="button">
+            <span class="material-symbols-outlined mr-2 text-gray-400">file_download</span>
+            Export PDF
+        </button>
+    </div>
+</div>
+
+<!-- Compare Domains Search Bar -->
+<div class="mb-10 p-6 bg-white rounded-xl shadow-sm border border-gray-200">
+    <div class="flex flex-col space-y-4">
+        <h2 class="font-h3 text-h3 text-gray-900">Compare Domains</h2>
+        <div class="flex flex-col md:flex-row gap-3">
+            <div class="flex-1 relative">
+                <div class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+                    <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-1.5 rounded">YOU</span>
+                </div>
+                <input class="block w-full rounded-lg border-0 py-3 pl-14 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 bg-gray-50 sm:text-sm font-medium" readonly type="text" value="acme-saas.com"/>
+            </div>
+            <div class="flex items-center justify-center px-2">
+                <span class="material-symbols-outlined text-gray-400">bolt</span>
+            </div>
+            <div class="flex-1 relative">
+                <div class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+                    <span class="material-symbols-outlined text-gray-400">language</span>
+                </div>
+                <input class="block w-full rounded-lg border-0 py-3 pl-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm" placeholder="Enter competitor domain (e.g. competitor.com)" type="text"/>
+            </div>
+            <div class="flex-1 relative">
+                <div class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+                    <span class="material-symbols-outlined text-gray-400">language</span>
+                </div>
+                <input class="block w-full rounded-lg border-0 py-3 pl-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm" placeholder="Enter competitor domain" type="text"/>
+            </div>
+            <button class="bg-indigo-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition-colors shadow-md">Compare</button>
+        </div>
+    </div>
+</div>
+
+<!-- Bento Grid Visualization -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 mb-10">
+
+    <!-- Organic Traffic Comparison (Bar Chart) -->
+    <div class="md:col-span-8 p-6 bg-white rounded-xl shadow-sm border border-gray-200">
+        <div class="flex justify-between items-center mb-6">
+            <div>
+                <h3 class="font-h3 text-h3 text-gray-900">Organic Traffic Volume</h3>
+                <p class="text-sm text-gray-500">Estimated monthly visits from organic search</p>
+            </div>
+            <div class="flex items-center space-x-4">
+                <div class="flex items-center"><span class="h-3 w-3 rounded-full bg-indigo-600 mr-2"></span><span class="text-xs font-medium text-gray-600">You</span></div>
+                <div class="flex items-center"><span class="h-3 w-3 rounded-full bg-purple-500 mr-2"></span><span class="text-xs font-medium text-gray-600">Comp A</span></div>
+                <div class="flex items-center"><span class="h-3 w-3 rounded-full bg-teal-400 mr-2"></span><span class="text-xs font-medium text-gray-600">Comp B</span></div>
+            </div>
+        </div>
+        <div class="relative h-64 w-full flex items-end justify-between px-4 pb-4 border-b border-l border-gray-100">
+            <div class="absolute inset-0 flex flex-col justify-between pointer-events-none pb-4">
+                <div class="border-t border-gray-50 w-full h-0"></div>
+                <div class="border-t border-gray-50 w-full h-0"></div>
+                <div class="border-t border-gray-50 w-full h-0"></div>
+                <div class="border-t border-gray-50 w-full h-0"></div>
+            </div>
+            <div class="flex flex-col items-center gap-2 w-full">
+            <div class="flex items-end gap-1 h-48 w-full justify-center">
+                <div class="w-4 bg-indigo-600 rounded-t-sm h-[60%]"></div>
+                <div class="w-4 bg-purple-500 rounded-t-sm h-[85%]"></div>
+                <div class="w-4 bg-teal-400 rounded-t-sm h-[40%]"></div>
+            </div>
+            <span class="text-[10px] font-semibold text-gray-400 uppercase">Nov</span>
+        </div>
+        <div class="flex flex-col items-center gap-2 w-full">
+            <div class="flex items-end gap-1 h-48 w-full justify-center">
+                <div class="w-4 bg-indigo-600 rounded-t-sm h-[65%]"></div>
+                <div class="w-4 bg-purple-500 rounded-t-sm h-[75%]"></div>
+                <div class="w-4 bg-teal-400 rounded-t-sm h-[45%]"></div>
+            </div>
+            <span class="text-[10px] font-semibold text-gray-400 uppercase">Dec</span>
+        </div>
+        <div class="flex flex-col items-center gap-2 w-full">
+            <div class="flex items-end gap-1 h-48 w-full justify-center">
+                <div class="w-4 bg-indigo-600 rounded-t-sm h-[75%]"></div>
+                <div class="w-4 bg-purple-500 rounded-t-sm h-[70%]"></div>
+                <div class="w-4 bg-teal-400 rounded-t-sm h-[55%]"></div>
+            </div>
+            <span class="text-[10px] font-semibold text-gray-400 uppercase">Jan</span>
+        </div>
+        <div class="flex flex-col items-center gap-2 w-full">
+            <div class="flex items-end gap-1 h-48 w-full justify-center">
+                <div class="w-4 bg-indigo-600 rounded-t-sm h-[85%]"></div>
+                <div class="w-4 bg-purple-500 rounded-t-sm h-[65%]"></div>
+                <div class="w-4 bg-teal-400 rounded-t-sm h-[60%]"></div>
+            </div>
+            <span class="text-[10px] font-semibold text-gray-400 uppercase">Feb</span>
+        </div>
+        <div class="flex flex-col items-center gap-2 w-full">
+            <div class="flex items-end gap-1 h-48 w-full justify-center">
+                <div class="w-4 bg-indigo-600 rounded-t-sm h-[95%]"></div>
+                <div class="w-4 bg-purple-500 rounded-t-sm h-[60%]"></div>
+                <div class="w-4 bg-teal-400 rounded-t-sm h-[65%]"></div>
+            </div>
+            <span class="text-[10px] font-semibold text-gray-400 uppercase">Mar</span>
+        </div>
+        </div>
+    </div>
+
+    <!-- Keyword Overlap -->
+    <div class="md:col-span-4 p-6 bg-white rounded-xl shadow-sm border border-gray-200 flex flex-col">
+        <h3 class="font-h3 text-h3 text-gray-900 mb-2">Keyword Overlap</h3>
+        <p class="text-sm text-gray-500 mb-8">Shared vs unique keywords</p>
+        <div class="relative flex-1 flex items-center justify-center">
+            <svg class="w-48 h-48 overflow-visible opacity-80" viewBox="0 0 100 100">
+                <circle class="text-indigo-600/30" cx="40" cy="50" fill="currentColor" r="30"></circle>
+                <circle class="text-purple-500/30" cx="60" cy="50" fill="currentColor" r="30"></circle>
+                <circle class="text-teal-400/30" cx="50" cy="40" fill="currentColor" r="30"></circle>
+            </svg>
+            <div class="absolute text-[10px] font-bold text-gray-700 bg-white/90 px-1.5 py-0.5 rounded shadow-sm">12,403 Common</div>
+        </div>
+        <div class="mt-6 space-y-3">
+            <div class="flex justify-between items-center text-sm">
+                <span class="flex items-center"><span class="h-2 w-2 rounded-full bg-indigo-600 mr-2"></span>Unique to You</span>
+                <span class="font-semibold">4.2k</span>
+            </div>
+            <div class="w-full bg-gray-100 h-1 rounded-full overflow-hidden"><div class="bg-indigo-600 h-full w-[35%]"></div></div>
+            <div class="flex justify-between items-center text-sm">
+                <span class="flex items-center"><span class="h-2 w-2 rounded-full bg-purple-500 mr-2"></span>Shared with All</span>
+                <span class="font-semibold">12.4k</span>
+            </div>
+            <div class="w-full bg-gray-100 h-1 rounded-full overflow-hidden"><div class="bg-purple-500 h-full w-[85%]"></div></div>
+        </div>
+    </div>
+
+    <!-- Market Share Card -->
+    <div class="md:col-span-4 p-6 bg-indigo-600 rounded-xl shadow-lg border border-indigo-700 text-white relative overflow-hidden">
+        <div class="relative z-10">
+            <div class="flex justify-between items-start mb-4">
+                <span class="bg-white/20 p-2 rounded-lg">
+                    <span class="material-symbols-outlined">insights</span>
+                </span>
+                <span class="text-xs font-bold bg-white/30 px-2 py-1 rounded">+12.4%</span>
+            </div>
+            <h4 class="text-indigo-100 font-semibold text-sm">Projected Market Share</h4>
+            <div class="text-4xl font-bold mt-1">28.4%</div>
+            <p class="text-indigo-200 text-xs mt-4">Growth attributed to "Cloud Security" keyword clusters.</p>
+        </div>
+        <div class="absolute bottom-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-3xl -mb-16 -mr-16"></div>
+    </div>
+
+    <!-- Domain Authority Comparison -->
+    <div class="md:col-span-8 p-6 bg-white rounded-xl shadow-sm border border-gray-200">
+        <h3 class="font-h3 text-h3 text-gray-900 mb-6">Domain Authority Metrics</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
+            <div class="flex flex-col items-center p-4 rounded-lg bg-gray-50 border border-gray-100">
+                <span class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Your Domain</span>
+                <div class="text-3xl font-black text-indigo-600">84</div>
+                <div class="mt-4 w-full bg-gray-200 h-1.5 rounded-full"><div class="bg-indigo-600 h-full w-[84%]"></div></div>
+            </div>
+            <div class="flex flex-col items-center p-4 rounded-lg border border-gray-100">
+                <span class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Competitor A</span>
+                <div class="text-3xl font-black text-gray-900">79</div>
+                <div class="mt-4 w-full bg-gray-200 h-1.5 rounded-full"><div class="bg-purple-500 h-full w-[79%]"></div></div>
+            </div>
+            <div class="flex flex-col items-center p-4 rounded-lg border border-gray-100">
+                <span class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Competitor B</span>
+                <div class="text-3xl font-black text-gray-900">91</div>
+                <div class="mt-4 w-full bg-gray-200 h-1.5 rounded-full"><div class="bg-teal-400 h-full w-[91%]"></div></div>
+            </div>
+        </div>
+    </div>
+
+</div><!-- end Bento Grid -->
+
+<!-- Keyword Gap Analysis Table -->
+<div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+    <div class="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
+        <h3 class="text-lg font-bold text-gray-900">Keyword Gap Analysis</h3>
+        <div class="flex gap-2">
+            <button class="text-xs font-bold text-indigo-600 px-3 py-1.5 bg-indigo-50 rounded-lg">Missing Keywords</button>
+            <button class="text-xs font-bold text-gray-500 px-3 py-1.5 hover:bg-gray-50 rounded-lg transition-colors">Shared Content</button>
+        </div>
+    </div>
+    <div class="overflow-x-auto">
+        <table class="w-full text-left font-table-data text-table-data">
+            <thead class="bg-gray-50 text-gray-600 sticky top-0">
+                <tr>
+                    <th class="px-6 py-3 font-semibold text-[11px] uppercase tracking-wider">Keyword</th>
+                    <th class="px-6 py-3 font-semibold text-[11px] uppercase tracking-wider">Volume</th>
+                    <th class="px-6 py-3 font-semibold text-[11px] uppercase tracking-wider">Difficulty</th>
+                    <th class="px-6 py-3 font-semibold text-[11px] uppercase tracking-wider">Your Pos.</th>
+                    <th class="px-6 py-3 font-semibold text-[11px] uppercase tracking-wider">Comp A Pos.</th>
+                    <th class="px-6 py-3 font-semibold text-[11px] uppercase tracking-wider">Comp B Pos.</th>
+                    <th class="px-6 py-3 font-semibold text-[11px] uppercase tracking-wider">Opportunity</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100 zebra-hover">
+                <tr class="hover:bg-gray-50 transition-colors">
+                    <td class="px-6 py-4 font-medium text-gray-900">enterprise seo automation</td>
+                    <td class="px-6 py-4 text-gray-500">22.4k</td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center"><span class="text-amber-600 font-bold mr-2">68</span><div class="w-16 bg-gray-100 h-1.5 rounded-full overflow-hidden"><div class="bg-amber-500 h-full w-[68%]"></div></div></div>
+                    </td>
+                    <td class="px-6 py-4 text-red-500 font-bold">Not Found</td>
+                    <td class="px-6 py-4 font-semibold text-gray-900">2</td>
+                    <td class="px-6 py-4 font-semibold text-gray-900">4</td>
+                    <td class="px-6 py-4"><span class="inline-flex items-center rounded-full bg-emerald-50 px-2 py-1 text-xs font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20">High</span></td>
+                </tr>
+                <tr class="hover:bg-gray-50 transition-colors">
+                    <td class="px-6 py-4 font-medium text-gray-900">saas backlink strategy</td>
+                    <td class="px-6 py-4 text-gray-500">18.1k</td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center"><span class="text-red-600 font-bold mr-2">82</span><div class="w-16 bg-gray-100 h-1.5 rounded-full overflow-hidden"><div class="bg-red-500 h-full w-[82%]"></div></div></div>
+                    </td>
+                    <td class="px-6 py-4 text-gray-900 font-semibold">14</td>
+                    <td class="px-6 py-4 font-semibold text-gray-900">1</td>
+                    <td class="px-6 py-4 font-semibold text-gray-900">3</td>
+                    <td class="px-6 py-4"><span class="inline-flex items-center rounded-full bg-amber-50 px-2 py-1 text-xs font-medium text-amber-700 ring-1 ring-inset ring-amber-600/20">Medium</span></td>
+                </tr>
+                <tr class="hover:bg-gray-50 transition-colors">
+                    <td class="px-6 py-4 font-medium text-gray-900">ai content gap analysis</td>
+                    <td class="px-6 py-4 text-gray-500">9.5k</td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center"><span class="text-emerald-600 font-bold mr-2">34</span><div class="w-16 bg-gray-100 h-1.5 rounded-full overflow-hidden"><div class="bg-emerald-500 h-full w-[34%]"></div></div></div>
+                    </td>
+                    <td class="px-6 py-4 text-red-500 font-bold">Not Found</td>
+                    <td class="px-6 py-4 font-semibold text-gray-900">18</td>
+                    <td class="px-6 py-4 font-semibold text-gray-900">1</td>
+                    <td class="px-6 py-4"><span class="inline-flex items-center rounded-full bg-emerald-50 px-2 py-1 text-xs font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20">Critical</span></td>
+                </tr>
+                <tr class="hover:bg-gray-50 transition-colors">
+                    <td class="px-6 py-4 font-medium text-gray-900">keyword overlap tool</td>
+                    <td class="px-6 py-4 text-gray-500">12.0k</td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center"><span class="text-amber-600 font-bold mr-2">55</span><div class="w-16 bg-gray-100 h-1.5 rounded-full overflow-hidden"><div class="bg-amber-500 h-full w-[55%]"></div></div></div>
+                    </td>
+                    <td class="px-6 py-4 text-indigo-600 font-black">1</td>
+                    <td class="px-6 py-4 font-semibold text-gray-900">3</td>
+                    <td class="px-6 py-4 font-semibold text-gray-900">8</td>
+                    <td class="px-6 py-4"><span class="inline-flex items-center rounded-full bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">Defend</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

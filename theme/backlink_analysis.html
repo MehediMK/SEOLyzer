@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Backlink Analysis - SEO Insight Pro</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed": "#25005a",
+                        "on-surface": "#191c1d",
+                        "primary-fixed": "#e2dfff",
+                        "surface-container-low": "#f3f4f5",
+                        "tertiary": "#7e3000",
+                        "error-container": "#ffdad6",
+                        "outline-variant": "#c7c4d8",
+                        "surface-tint": "#4d44e3",
+                        "tertiary-container": "#a44100",
+                        "surface-container-high": "#e7e8e9",
+                        "on-tertiary-container": "#ffd2be",
+                        "surface-container-highest": "#e1e3e4",
+                        "on-tertiary-fixed": "#351000",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#0f0069",
+                        "on-background": "#191c1d",
+                        "surface-container": "#edeeef",
+                        "on-primary-container": "#dad7ff",
+                        "outline": "#777587",
+                        "primary": "#3525cd",
+                        "tertiary-fixed-dim": "#ffb695",
+                        "inverse-surface": "#2e3132",
+                        "primary-container": "#4f46e5",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed-dim": "#d2bbff",
+                        "secondary-fixed": "#eaddff",
+                        "tertiary-fixed": "#ffdbcc",
+                        "on-surface-variant": "#464555",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "on-error": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "surface-variant": "#e1e3e4",
+                        "inverse-on-surface": "#f0f1f2",
+                        "on-secondary-fixed-variant": "#5a00c6",
+                        "secondary-container": "#8a4cfc",
+                        "surface-dim": "#d9dadb",
+                        "surface-bright": "#f8f9fa",
+                        "error": "#ba1a1a",
+                        "on-primary": "#ffffff",
+                        "surface": "#f8f9fa",
+                        "background": "#f8f9fa",
+                        "secondary": "#712ae2",
+                        "on-secondary-container": "#fffbff",
+                        "inverse-primary": "#c3c0ff",
+                        "on-error-container": "#93000a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "xs": "4px",
+                        "margin-page": "24px",
+                        "xl": "32px",
+                        "lg": "24px",
+                        "gutter": "16px",
+                        "sm": "8px",
+                        "base": "4px",
+                        "max-width": "1440px"
+                    },
+                    "fontFamily": {
+                        "h3": ["Inter"],
+                        "h1": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "h2": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "table-data": ["Inter"]
+                    },
+                    "fontSize": {
+                        "h3": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "h1": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "h2": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "table-data": ["13px", {"lineHeight": "18px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background font-body-md text-on-surface">
+<!-- Sidebar Navigation -->
+<aside class="fixed inset-y-0 left-0 w-[260px] border-r border-gray-200 bg-white z-50 flex flex-col font-inter text-sm font-medium">
+<div class="p-6 flex items-center gap-3">
+<div class="h-8 w-8 bg-primary rounded flex items-center justify-center text-white">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">analytics</span>
+</div>
+<div>
+<h1 class="text-lg font-black tracking-tight text-gray-900">SEO Insight Pro</h1>
+<p class="text-[10px] text-gray-500 uppercase tracking-widest">Enterprise SEO</p>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-gray-600 hover:bg-gray-50 hover:text-indigo-600 rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-gray-600 hover:bg-gray-50 hover:text-indigo-600 rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span>Audit</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-gray-600 hover:bg-gray-50 hover:text-indigo-600 rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="key">key</span>
+<span>Keywords</span>
+</a>
+<!-- Active State for Backlinks -->
+<a class="flex items-center gap-3 px-3 py-2 bg-gray-50 text-indigo-600 border-r-2 border-indigo-600 rounded-l-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="link" style="font-variation-settings: 'FILL' 1;">link</span>
+<span class="font-semibold">Backlinks</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-gray-600 hover:bg-gray-50 hover:text-indigo-600 rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="compare_arrows">compare_arrows</span>
+<span>Competitors</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-gray-600 hover:bg-gray-50 hover:text-indigo-600 rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<div class="p-4 border-t border-gray-200">
+<button class="w-full bg-primary-container text-white py-2 px-4 rounded-lg font-semibold shadow-sm hover:bg-primary transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">add</span>
+                New Analysis
+            </button>
+</div>
+<div class="p-4 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-gray-500 hover:text-gray-900 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span>Help Center</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-gray-500 hover:text-gray-900 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="lg:pl-[260px] min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 px-4 sm:gap-x-6 sm:px-6 lg:px-8 bg-white border-b border-gray-200 shadow-sm">
+<div class="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
+<form action="#" class="relative flex flex-1 items-center" method="GET">
+<span class="material-symbols-outlined absolute left-0 text-gray-400">search</span>
+<input class="block h-full w-full border-0 py-0 pl-8 pr-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm" placeholder="Search domains or keywords..." type="search"/>
+</form>
+<div class="flex items-center gap-x-4 lg:gap-x-6">
+<button class="text-gray-400 hover:text-gray-500 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div aria-hidden="true" class="hidden lg:block lg:h-6 lg:w-px lg:bg-gray-200"></div>
+<button class="flex items-center gap-x-4 lg:gap-x-6 text-sm font-semibold leading-6 text-gray-900">
+<img alt="User profile" class="h-8 w-8 rounded-full bg-gray-50" data-alt="A professional headshot of a corporate executive in a modern office setting. The lighting is soft and flattering, emphasizing a trustworthy and confident persona. The color palette is clean and professional with neutral tones and a soft blurred background of a workspace." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBEEX2s1rxJINWHeizHdTMHwqyVirgHc0Y90MbkixcJWfQWLfvlN3hEWAr5T-Ab1A_XPsuLPZH_VhFhPHdUOIaH6BxgkOgEVjR6cHhVHj_Jga1D4bK2R5qWl1OrwEKvV37FhDniu8J5asXZ_dFMuFtFinrtfZtpoK-FZQfbyQfkVBWAKENH4mlkp9izzaKKcnEkSng7uA7hSnsivk70kQtdyy1QQh7n9RW-a5o1vX87c4WJMzc5V70tRhuo1v0Z6Az6lsb8VTUtKU"/>
+<span class="hidden lg:flex lg:items-center">
+<span aria-hidden="true" class="ml-4 text-sm font-semibold leading-6 text-gray-900">Alex Rivera</span>
+<span class="material-symbols-outlined ml-2 text-gray-400">expand_more</span>
+</span>
+</button>
+</div>
+</div>
+</header>
+<div class="p-6 lg:p-8 space-y-8 max-w-7xl mx-auto w-full">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+<div>
+<h2 class="font-h2 text-h2 text-gray-900">Backlink Analysis</h2>
+<p class="text-gray-500 font-body-md mt-1">Deep dive into your domain's link profile and authority growth.</p>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex -space-x-2 overflow-hidden">
+<img alt="competitor 1" class="inline-block h-8 w-8 rounded-full ring-2 ring-white" data-alt="A small circular avatar representing a technology company logo with minimalist blue geometric shapes." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8QLrz84AqaSgk5QJDG889ydFxMZkMWLnyXDo7cLQIjEy6BhqPZmm8YKvrezNotVCzKeAmxodGxYFO67xd0eaJA0JCaL4KlL_7_5eVVia50hCxxJE5wME1XbzS9E4QCHI-xIwODwYGMrn5Xfu9WwFmjIqnfdDpJcYEZSQy-Ar0suRcqojbUp0fzWV4Fo4aWxsQ8LcV5UPKtb4Kim3161Ydy8hKCbbSLSjiVQLGpDGRo680qAtUkHXi1tgeTiImjPTI0XIJU4t86G8"/>
+<img alt="competitor 2" class="inline-block h-8 w-8 rounded-full ring-2 ring-white" data-alt="A small circular avatar representing a digital marketing firm with a vibrant purple gradient design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBooh8u4ml3UxC79EMAUWDelFZ_QU9N3jfsIe4g8AquuP9AtvXftCSxrAQDmjfJT3jDUS7PehVyrsKmEbKTLSoo3VCdZ8bL-OuikfgAFpriZd3Qr3b2Q_yk4hUHTOjd08rDYp7qR4jA6nt1IgoLAOZY36gocNJJe3U17rjroHidHSkXhQw9jNs4zNKVzCJA6av43ylNYJwjkHzkppUyTX7XsjQnXPP7NebSkDmlCs2fCkhbA7fytlVosrm0tdSD5k-eEOpTKGefMko"/>
+<img alt="competitor 3" class="inline-block h-8 w-8 rounded-full ring-2 ring-white" data-alt="A small circular avatar of a modern business consulting brand with a sleek monochrome icon." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBB6SmzIHQsciJCa_CVP2vyYLLbd-HGBQwdxJcIa_EqaqdEX4FGRVgjmTMRuvHxQ0ZVkKo0sXUzlZHwr4YrCN3zexoUSkBVc2Ae8aQpyaHfl7xl9a8l4qqx5Wl1BYrAFfGKBUDGS3UIO6nW9v9JVVxoBeI7GMDpf7N60cFJwVjGZqjjTIMVAYmLpRyWJvVmnrQQHA3CjczvmOBetmYHWJF8RvJ9n9kNbw8DFiQ41YqEhEV8E-1SECcbGTr5GQ9amqBDPgXRXglCDuU"/>
+</div>
+<button class="text-sm text-indigo-600 font-medium hover:underline">Compare Competitors</button>
+</div>
+</div>
+<!-- Top Stats Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Total Backlinks -->
+<div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex flex-col justify-between hover:border-indigo-200 transition-colors">
+<div class="flex items-center justify-between">
+<span class="text-gray-500 font-label-caps uppercase">Total Backlinks</span>
+<span class="material-symbols-outlined text-indigo-600 bg-indigo-50 p-2 rounded-lg">link</span>
+</div>
+<div class="mt-4">
+<div class="flex items-baseline gap-2">
+<h3 class="text-3xl font-bold text-gray-900">128,492</h3>
+<span class="text-xs font-semibold text-emerald-600 flex items-center">+4.2%</span>
+</div>
+<div class="w-full bg-gray-100 h-1 mt-4 rounded-full overflow-hidden">
+<div class="bg-indigo-600 h-full w-[65%]"></div>
+</div>
+</div>
+</div>
+<!-- Referring Domains -->
+<div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex flex-col justify-between hover:border-indigo-200 transition-colors">
+<div class="flex items-center justify-between">
+<span class="text-gray-500 font-label-caps uppercase">Referring Domains</span>
+<span class="material-symbols-outlined text-purple-600 bg-purple-50 p-2 rounded-lg">language</span>
+</div>
+<div class="mt-4">
+<div class="flex items-baseline gap-2">
+<h3 class="text-3xl font-bold text-gray-900">4,108</h3>
+<span class="text-xs font-semibold text-emerald-600 flex items-center">+1.8%</span>
+</div>
+<div class="w-full bg-gray-100 h-1 mt-4 rounded-full overflow-hidden">
+<div class="bg-purple-600 h-full w-[42%]"></div>
+</div>
+</div>
+</div>
+<!-- Domain Rating -->
+<div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex flex-col justify-between hover:border-indigo-200 transition-colors">
+<div class="flex items-center justify-between">
+<span class="text-gray-500 font-label-caps uppercase">Domain Rating</span>
+<span class="material-symbols-outlined text-teal-600 bg-teal-50 p-2 rounded-lg">verified</span>
+</div>
+<div class="mt-4">
+<div class="flex items-baseline gap-2">
+<h3 class="text-3xl font-bold text-gray-900">74</h3>
+<span class="text-xs font-semibold text-gray-400">/ 100</span>
+</div>
+<div class="w-full bg-gray-100 h-1 mt-4 rounded-full overflow-hidden">
+<div class="bg-teal-600 h-full w-[74%]"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Analytics Section: Chart and Trend -->
+<div class="bg-white p-8 rounded-xl border border-gray-200 shadow-sm">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h4 class="font-h3 text-gray-900">New vs Lost Backlinks</h4>
+<p class="text-sm text-gray-500">Backlink acquisition trend over the last 6 months</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<span class="h-3 w-3 rounded-full bg-indigo-600"></span>
+<span class="text-xs font-medium text-gray-600">New Links</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="h-3 w-3 rounded-full bg-error"></span>
+<span class="text-xs font-medium text-gray-600">Lost Links</span>
+</div>
+</div>
+</div>
+<!-- Mock Chart Visualization -->
+<div class="h-[300px] w-full relative flex items-end justify-between gap-4 px-2 overflow-hidden">
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none">
+<div class="w-full border-t border-gray-100 h-px"></div>
+<div class="w-full border-t border-gray-100 h-px"></div>
+<div class="w-full border-t border-gray-100 h-px"></div>
+<div class="w-full border-t border-gray-100 h-px"></div>
+<div class="w-full border-t border-gray-100 h-px"></div>
+</div>
+<!-- Month 1 -->
+<div class="flex-1 flex flex-col items-center justify-end group">
+<div class="flex gap-1 w-full justify-center">
+<div class="w-6 bg-indigo-200 hover:bg-indigo-400 rounded-t-sm transition-all" style="height: 120px;"></div>
+<div class="w-6 bg-red-100 hover:bg-red-300 rounded-t-sm transition-all" style="height: 40px;"></div>
+</div>
+<span class="text-[10px] text-gray-400 mt-2 font-medium">JAN</span>
+</div>
+<!-- Month 2 -->
+<div class="flex-1 flex flex-col items-center justify-end group">
+<div class="flex gap-1 w-full justify-center">
+<div class="w-6 bg-indigo-200 hover:bg-indigo-400 rounded-t-sm transition-all" style="height: 150px;"></div>
+<div class="w-6 bg-red-100 hover:bg-red-300 rounded-t-sm transition-all" style="height: 30px;"></div>
+</div>
+<span class="text-[10px] text-gray-400 mt-2 font-medium">FEB</span>
+</div>
+<!-- Month 3 -->
+<div class="flex-1 flex flex-col items-center justify-end group">
+<div class="flex gap-1 w-full justify-center">
+<div class="w-6 bg-indigo-200 hover:bg-indigo-400 rounded-t-sm transition-all" style="height: 180px;"></div>
+<div class="w-6 bg-red-100 hover:bg-red-300 rounded-t-sm transition-all" style="height: 55px;"></div>
+</div>
+<span class="text-[10px] text-gray-400 mt-2 font-medium">MAR</span>
+</div>
+<!-- Month 4 -->
+<div class="flex-1 flex flex-col items-center justify-end group">
+<div class="flex gap-1 w-full justify-center">
+<div class="w-6 bg-indigo-600 rounded-t-sm transition-all" style="height: 220px;"></div>
+<div class="w-6 bg-red-200 rounded-t-sm transition-all" style="height: 45px;"></div>
+</div>
+<span class="text-[10px] text-gray-900 mt-2 font-bold">APR</span>
+</div>
+<!-- Month 5 -->
+<div class="flex-1 flex flex-col items-center justify-end group">
+<div class="flex gap-1 w-full justify-center">
+<div class="w-6 bg-indigo-200 hover:bg-indigo-400 rounded-t-sm transition-all" style="height: 190px;"></div>
+<div class="w-6 bg-red-100 hover:bg-red-300 rounded-t-sm transition-all" style="height: 25px;"></div>
+</div>
+<span class="text-[10px] text-gray-400 mt-2 font-medium">MAY</span>
+</div>
+<!-- Month 6 -->
+<div class="flex-1 flex flex-col items-center justify-end group">
+<div class="flex gap-1 w-full justify-center">
+<div class="w-6 bg-indigo-200 hover:bg-indigo-400 rounded-t-sm transition-all" style="height: 210px;"></div>
+<div class="w-6 bg-red-100 hover:bg-red-300 rounded-t-sm transition-all" style="height: 35px;"></div>
+</div>
+<span class="text-[10px] text-gray-400 mt-2 font-medium">JUN</span>
+</div>
+</div>
+</div>
+<!-- Detailed Data Table Section -->
+<div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+<div class="px-6 py-5 border-b border-gray-100 flex items-center justify-between bg-gray-50">
+<h4 class="font-h3 text-lg text-gray-900">Recent Backlinks</h4>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1.5 text-xs font-semibold text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">Export CSV</button>
+<button class="px-3 py-1.5 text-xs font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700">Filter View</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-gray-50 text-gray-500 font-label-caps uppercase text-[10px] border-b border-gray-200">
+<tr>
+<th class="px-6 py-4 font-semibold tracking-wider">Referring Domain</th>
+<th class="px-6 py-4 font-semibold tracking-wider">Anchor Text</th>
+<th class="px-6 py-4 font-semibold tracking-wider">Authority Score</th>
+<th class="px-6 py-4 font-semibold tracking-wider text-right">First Seen</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-gray-100 font-table-data">
+<!-- Row 1 -->
+<tr class="hover:bg-gray-50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="text-sm font-semibold text-gray-900">techcrunch.com</span>
+<span class="text-[11px] text-indigo-600">/2024/05/new-saas-trends</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800">SEO Software solution</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-12 bg-gray-100 h-1.5 rounded-full">
+<div class="bg-emerald-500 h-full w-[92%] rounded-full"></div>
+</div>
+<span class="text-xs font-bold text-gray-700">92</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right text-gray-500 text-xs">2 hours ago</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-gray-50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="text-sm font-semibold text-gray-900">forbes.com</span>
+<span class="text-[11px] text-indigo-600">/business/digital-growth-strategies</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800">Advanced Analytics Platform</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-12 bg-gray-100 h-1.5 rounded-full">
+<div class="bg-emerald-500 h-full w-[88%] rounded-full"></div>
+</div>
+<span class="text-xs font-bold text-gray-700">88</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right text-gray-500 text-xs">May 24, 2024</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-gray-50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="text-sm font-semibold text-gray-900">github.com</span>
+<span class="text-[11px] text-indigo-600">/open-source/seo-tools</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800">Insight Pro API</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-12 bg-gray-100 h-1.5 rounded-full">
+<div class="bg-indigo-500 h-full w-[96%] rounded-full"></div>
+</div>
+<span class="text-xs font-bold text-gray-700">96</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right text-gray-500 text-xs">May 22, 2024</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-gray-50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="text-sm font-semibold text-gray-900">medium.com</span>
+<span class="text-[11px] text-indigo-600">/@marketingpro/seo-insight-review</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800">best seo analytics</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-12 bg-gray-100 h-1.5 rounded-full">
+<div class="bg-yellow-500 h-full w-[64%] rounded-full"></div>
+</div>
+<span class="text-xs font-bold text-gray-700">64</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right text-gray-500 text-xs">May 20, 2024</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-6 py-4 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
+<span>Showing 1 to 10 of 4,108 referring domains</span>
+<div class="flex gap-2">
+<button class="px-3 py-1 border border-gray-200 rounded hover:bg-gray-50">Previous</button>
+<button class="px-3 py-1 border border-indigo-600 bg-indigo-50 text-indigo-600 rounded">1</button>
+<button class="px-3 py-1 border border-gray-200 rounded hover:bg-gray-50">2</button>
+<button class="px-3 py-1 border border-gray-200 rounded hover:bg-gray-50">3</button>
+<button class="px-3 py-1 border border-gray-200 rounded hover:bg-gray-50">Next</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Shell -->
+<footer class="mt-auto border-t border-gray-200 bg-gray-50 font-inter text-xs text-gray-500">
+<div class="mx-auto max-w-7xl px-6 py-12 md:flex md:items-center md:justify-between lg:px-8">
+<div class="flex justify-center space-x-6 md:order-2">
+<a class="text-gray-500 hover:text-gray-900 transition-colors" href="#">Privacy Policy</a>
+<a class="text-gray-500 hover:text-gray-900 transition-colors" href="#">Terms of Service</a>
+<a class="text-gray-500 hover:text-gray-900 transition-colors" href="#">API Status</a>
+<a class="text-gray-500 hover:text-gray-900 transition-colors" href="#">Cookie Settings</a>
+</div>
+<div class="mt-8 md:order-1 md:mt-0">
+<p class="text-center text-xs leading-5 text-gray-500">
+                        © 2024 SEO Insight Pro. All rights reserved.
+                    </p>
+</div>
+</div>
+</footer>
+</main>
+<!-- Contextual Floating Action Button -->
+<button class="fixed bottom-8 right-8 h-14 w-14 bg-primary text-white rounded-full shadow-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all z-50">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
+</button>
+</body></html>

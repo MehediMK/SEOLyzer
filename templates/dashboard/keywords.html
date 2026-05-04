@@ -1,0 +1,233 @@
+{% extends 'base.html' %}
+
+{% block title %}Keyword Research - SEO Insight Pro{% endblock %}
+{% block meta_description %}Discover high-value keywords with search volume, difficulty scores, CPC, and trend data.{% endblock %}
+
+{% block content %}
+<div class="space-y-8">
+
+    <!-- Header Section -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+            <nav aria-label="Breadcrumb" class="flex mb-2">
+                <ol class="flex items-center space-x-2 text-xs font-medium text-gray-500">
+                    <li><a class="hover:text-indigo-600 transition-colors" href="{% url 'keywords' %}">Keywords</a></li>
+                    <li class="flex items-center gap-x-2">
+                        <span class="material-symbols-outlined text-[12px]">chevron_right</span>
+                        <span class="text-indigo-600">Overview</span>
+                    </li>
+                </ol>
+            </nav>
+            <h1 class="font-h2 text-h2 text-on-surface flex items-center gap-3">
+                SEO Strategy 2024
+                <span class="inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-700 ring-1 ring-inset ring-green-600/20">Active</span>
+            </h1>
+        </div>
+        <div class="flex gap-3">
+            <button class="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 transition-colors">
+                <span class="material-symbols-outlined text-sm">file_download</span>
+                Export Report
+            </button>
+            <button class="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 transition-colors">
+                <span class="material-symbols-outlined text-sm">share</span>
+                Share View
+            </button>
+        </div>
+    </div>
+
+    <!-- Bento Grid Dashboard -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <!-- Keyword Difficulty -->
+        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex flex-col justify-between card-hover">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="font-label-caps text-label-caps text-gray-500 uppercase tracking-wider">Keyword Difficulty</h3>
+                <span class="material-symbols-outlined text-gray-400">info</span>
+            </div>
+            <div class="relative flex items-center justify-center py-4">
+                <svg class="h-32 w-32 transform -rotate-90">
+                    <circle class="text-gray-100" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-width="10"></circle>
+                    <circle class="text-indigo-600" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-dasharray="364.4" stroke-dashoffset="100" stroke-width="10"></circle>
+                </svg>
+                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                    <span class="text-3xl font-bold text-gray-900">72</span>
+                    <span class="text-[10px] font-bold text-gray-500 uppercase tracking-tight">Hard</span>
+                </div>
+            </div>
+            <p class="text-body-sm text-gray-500 mt-4 text-center">It will take a lot of on-page SEO and link building to rank.</p>
+        </div>
+
+        <!-- Search Volume -->
+        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm card-hover">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="font-label-caps text-label-caps text-gray-500 uppercase tracking-wider">Search Volume</h3>
+                <div class="flex items-center gap-1 text-green-600 bg-green-50 px-2 py-0.5 rounded-md text-xs font-bold">
+                    <span class="material-symbols-outlined text-xs">arrow_upward</span>
+                    12%
+                </div>
+            </div>
+            <div class="mt-2 flex items-baseline gap-2">
+                <span class="text-4xl font-bold text-gray-900">45.2K</span>
+                <span class="text-body-sm text-gray-500">avg/mo</span>
+            </div>
+            <div class="mt-8 space-y-3">
+                <div class="flex justify-between text-xs">
+                    <span class="text-gray-500">Mobile Search</span>
+                    <span class="font-semibold">28.4K (63%)</span>
+                </div>
+                <div class="h-1.5 w-full bg-gray-100 rounded-full overflow-hidden">
+                    <div class="h-full bg-indigo-600 rounded-full" style="width: 63%"></div>
+                </div>
+                <div class="flex justify-between text-xs pt-1">
+                    <span class="text-gray-500">Desktop Search</span>
+                    <span class="font-semibold">16.8K (37%)</span>
+                </div>
+                <div class="h-1.5 w-full bg-gray-100 rounded-full overflow-hidden">
+                    <div class="h-full bg-indigo-300 rounded-full" style="width: 37%"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 12-Month Trend Chart -->
+        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm relative overflow-hidden card-hover">
+            <div class="flex items-center justify-between mb-2">
+                <h3 class="font-label-caps text-label-caps text-gray-500 uppercase tracking-wider">12-Month Trend</h3>
+                <span class="text-xs text-gray-400">Monthly Volume</span>
+            </div>
+            <div class="h-40 flex items-end justify-between gap-1 mt-4">
+                <div class="w-full bg-indigo-100 h-[40%] rounded-t-sm hover:bg-indigo-600 transition-colors"></div>
+                <div class="w-full bg-indigo-100 h-[45%] rounded-t-sm hover:bg-indigo-600 transition-colors"></div>
+                <div class="w-full bg-indigo-100 h-[50%] rounded-t-sm hover:bg-indigo-600 transition-colors"></div>
+                <div class="w-full bg-indigo-100 h-[48%] rounded-t-sm hover:bg-indigo-600 transition-colors"></div>
+                <div class="w-full bg-indigo-100 h-[60%] rounded-t-sm hover:bg-indigo-600 transition-colors"></div>
+                <div class="w-full bg-indigo-200 h-[75%] rounded-t-sm hover:bg-indigo-600 transition-colors"></div>
+                <div class="w-full bg-indigo-300 h-[85%] rounded-t-sm hover:bg-indigo-600 transition-colors"></div>
+                <div class="w-full bg-indigo-400 h-[95%] rounded-t-sm hover:bg-indigo-600 transition-colors"></div>
+                <div class="w-full bg-indigo-600 h-[100%] rounded-t-sm hover:bg-indigo-600 transition-colors"></div>
+                <div class="w-full bg-indigo-400 h-[80%] rounded-t-sm hover:bg-indigo-600 transition-colors"></div>
+                <div class="w-full bg-indigo-300 h-[70%] rounded-t-sm hover:bg-indigo-600 transition-colors"></div>
+                <div class="w-full bg-indigo-200 h-[65%] rounded-t-sm hover:bg-indigo-600 transition-colors"></div>
+            </div>
+            <div class="flex justify-between mt-2 text-[10px] text-gray-400 font-medium">
+                <span>OCT 2023</span>
+                <span>SEP 2024</span>
+            </div>
+        </div>
+
+    </div><!-- end Bento Grid -->
+
+    <!-- Related Keywords Table -->
+    <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+        <div class="p-6 border-b border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <h3 class="font-h3 text-h3 text-on-surface">Related Keywords</h3>
+            <div class="flex items-center gap-2">
+                <div class="flex items-center border border-gray-200 rounded-lg overflow-hidden h-9 bg-gray-50">
+                    <button class="px-3 border-r border-gray-200 hover:bg-white text-xs font-medium text-gray-600 h-full">All</button>
+                    <button class="px-3 border-r border-gray-200 hover:bg-white text-xs font-medium text-gray-600 h-full">Questions</button>
+                    <button class="px-3 hover:bg-white text-xs font-medium text-gray-600 h-full">Comparison</button>
+                </div>
+                <button class="p-2 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                    <span class="material-symbols-outlined text-gray-500 text-sm">filter_list</span>
+                </button>
+            </div>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left">
+                <thead class="bg-gray-50 border-b border-gray-100">
+                    <tr>
+                        <th class="px-6 py-4 text-[11px] font-semibold text-gray-500 uppercase tracking-wider">Keyword</th>
+                        <th class="px-6 py-4 text-[11px] font-semibold text-gray-500 uppercase tracking-wider">Volume</th>
+                        <th class="px-6 py-4 text-[11px] font-semibold text-gray-500 uppercase tracking-wider">CPC (USD)</th>
+                        <th class="px-6 py-4 text-[11px] font-semibold text-gray-500 uppercase tracking-wider">Competition</th>
+                        <th class="px-6 py-4 text-[11px] font-semibold text-gray-500 uppercase tracking-wider">Trend</th>
+                        <th class="px-6 py-4 text-right text-[11px] font-semibold text-gray-500 uppercase tracking-wider">Action</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100">
+                    <tr class="hover:bg-gray-50 transition-colors cursor-pointer">
+                        <td class="px-6 py-4">
+                            <div class="font-medium text-gray-900">saas seo strategy guide</div>
+                            <div class="text-[11px] text-gray-400">Informational intent</div>
+                        </td>
+                        <td class="px-6 py-4 font-table-data text-table-data text-gray-700">12,400</td>
+                        <td class="px-6 py-4 font-table-data text-table-data text-gray-700">$4.20</td>
+                        <td class="px-6 py-4">
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs font-medium text-amber-700">0.65</span>
+                                <div class="h-1.5 w-16 bg-gray-100 rounded-full"><div class="h-full bg-amber-500 rounded-full" style="width: 65%"></div></div>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4"><span class="material-symbols-outlined text-indigo-400">trending_up</span></td>
+                        <td class="px-6 py-4 text-right"><button class="text-gray-400 hover:text-indigo-600 transition-colors"><span class="material-symbols-outlined">more_vert</span></button></td>
+                    </tr>
+                    <tr class="hover:bg-gray-50 transition-colors cursor-pointer">
+                        <td class="px-6 py-4">
+                            <div class="font-medium text-gray-900">enterprise keyword research</div>
+                            <div class="text-[11px] text-gray-400">Commercial intent</div>
+                        </td>
+                        <td class="px-6 py-4 font-table-data text-table-data text-gray-700">8,900</td>
+                        <td class="px-6 py-4 font-table-data text-table-data text-gray-700">$12.50</td>
+                        <td class="px-6 py-4">
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs font-medium text-red-700">0.92</span>
+                                <div class="h-1.5 w-16 bg-gray-100 rounded-full"><div class="h-full bg-red-500 rounded-full" style="width: 92%"></div></div>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4"><span class="material-symbols-outlined text-green-400">trending_up</span></td>
+                        <td class="px-6 py-4 text-right"><button class="text-gray-400 hover:text-indigo-600 transition-colors"><span class="material-symbols-outlined">more_vert</span></button></td>
+                    </tr>
+                    <tr class="hover:bg-gray-50 transition-colors cursor-pointer">
+                        <td class="px-6 py-4">
+                            <div class="font-medium text-gray-900">best seo tools 2024</div>
+                            <div class="text-[11px] text-gray-400">Transactional intent</div>
+                        </td>
+                        <td class="px-6 py-4 font-table-data text-table-data text-gray-700">32,100</td>
+                        <td class="px-6 py-4 font-table-data text-table-data text-gray-700">$8.15</td>
+                        <td class="px-6 py-4">
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs font-medium text-red-700">0.88</span>
+                                <div class="h-1.5 w-16 bg-gray-100 rounded-full"><div class="h-full bg-red-500 rounded-full" style="width: 88%"></div></div>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4"><span class="material-symbols-outlined text-indigo-400">trending_flat</span></td>
+                        <td class="px-6 py-4 text-right"><button class="text-gray-400 hover:text-indigo-600 transition-colors"><span class="material-symbols-outlined">more_vert</span></button></td>
+                    </tr>
+                    <tr class="hover:bg-gray-50 transition-colors cursor-pointer">
+                        <td class="px-6 py-4">
+                            <div class="font-medium text-gray-900">free keyword ranking tool</div>
+                            <div class="text-[11px] text-gray-400">Informational intent</div>
+                        </td>
+                        <td class="px-6 py-4 font-table-data text-table-data text-gray-700">45,000</td>
+                        <td class="px-6 py-4 font-table-data text-table-data text-gray-700">$0.85</td>
+                        <td class="px-6 py-4">
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs font-medium text-green-700">0.24</span>
+                                <div class="h-1.5 w-16 bg-gray-100 rounded-full"><div class="h-full bg-green-500 rounded-full" style="width: 24%"></div></div>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4"><span class="material-symbols-outlined text-indigo-400">trending_up</span></td>
+                        <td class="px-6 py-4 text-right"><button class="text-gray-400 hover:text-indigo-600 transition-colors"><span class="material-symbols-outlined">more_vert</span></button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="p-4 border-t border-gray-100 flex items-center justify-between">
+            <span class="text-xs text-gray-500">Showing 1 to 4 of 1,248 keywords</span>
+            <div class="flex gap-2">
+                <button class="p-2 border border-gray-200 rounded-lg hover:bg-gray-50 disabled:opacity-50 transition-colors" disabled>
+                    <span class="material-symbols-outlined text-sm">chevron_left</span>
+                </button>
+                <button class="p-2 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                    <span class="material-symbols-outlined text-sm">chevron_right</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div><!-- end space-y-8 -->
+
+<!-- Mobile FAB -->
+<button class="lg:hidden fixed bottom-6 right-6 h-14 w-14 bg-indigo-600 text-white rounded-full shadow-lg flex items-center justify-center hover:bg-indigo-700 active:scale-95 transition-all z-50">
+    <span class="material-symbols-outlined">add</span>
+</button>
+{% endblock %}

@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SEO Audit Report - SEO Insight Pro</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-fixed": "#25005a",
+                    "on-surface": "#191c1d",
+                    "primary-fixed": "#e2dfff",
+                    "surface-container-low": "#f3f4f5",
+                    "tertiary": "#7e3000",
+                    "error-container": "#ffdad6",
+                    "outline-variant": "#c7c4d8",
+                    "surface-tint": "#4d44e3",
+                    "tertiary-container": "#a44100",
+                    "surface-container-high": "#e7e8e9",
+                    "on-tertiary-container": "#ffd2be",
+                    "surface-container-highest": "#e1e3e4",
+                    "on-tertiary-fixed": "#351000",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed": "#0f0069",
+                    "on-background": "#191c1d",
+                    "surface-container": "#edeeef",
+                    "on-primary-container": "#dad7ff",
+                    "outline": "#777587",
+                    "primary": "#3525cd",
+                    "tertiary-fixed-dim": "#ffb695",
+                    "inverse-surface": "#2e3132",
+                    "primary-container": "#4f46e5",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-fixed-dim": "#d2bbff",
+                    "secondary-fixed": "#eaddff",
+                    "tertiary-fixed": "#ffdbcc",
+                    "on-surface-variant": "#464555",
+                    "on-tertiary-fixed-variant": "#7b2f00",
+                    "on-primary-fixed-variant": "#3323cc",
+                    "on-error": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "surface-variant": "#e1e3e4",
+                    "inverse-on-surface": "#f0f1f2",
+                    "on-secondary-fixed-variant": "#5a00c6",
+                    "secondary-container": "#8a4cfc",
+                    "surface-dim": "#d9dadb",
+                    "surface-bright": "#f8f9fa",
+                    "error": "#ba1a1a",
+                    "on-primary": "#ffffff",
+                    "surface": "#f8f9fa",
+                    "background": "#f8f9fa",
+                    "secondary": "#712ae2",
+                    "on-secondary-container": "#fffbff",
+                    "inverse-primary": "#c3c0ff",
+                    "on-error-container": "#93000a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "md": "16px",
+                    "xs": "4px",
+                    "margin-page": "24px",
+                    "xl": "32px",
+                    "lg": "24px",
+                    "gutter": "16px",
+                    "sm": "8px",
+                    "base": "4px",
+                    "max-width": "1440px"
+            },
+            "fontFamily": {
+                    "h3": ["Inter"],
+                    "h1": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "h2": ["Inter"],
+                    "label-caps": ["Inter"],
+                    "table-data": ["Inter"]
+            },
+            "fontSize": {
+                    "h3": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "h1": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "h2": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "table-data": ["13px", {"lineHeight": "18px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface antialiased">
+<!-- Sidebar Navigation -->
+<aside class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-64 lg:flex-col bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800">
+<div class="flex flex-col gap-y-5 overflow-y-auto px-6 pb-4 h-full">
+<div class="flex h-16 shrink-0 items-center gap-x-3">
+<div class="h-8 w-8 rounded bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-white" data-icon="analytics">analytics</span>
+</div>
+<span class="text-lg font-black tracking-tight text-gray-900 dark:text-white">SEO Insight Pro</span>
+</div>
+<nav class="flex flex-1 flex-col">
+<ul class="flex flex-1 flex-col gap-y-7" role="list">
+<li>
+<ul class="-mx-2 space-y-1" role="list">
+<li>
+<a class="flex gap-x-3 rounded-md p-2 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-inter text-sm font-medium">Dashboard</span>
+</a>
+</li>
+<li>
+<a class="flex gap-x-3 rounded-md p-2 bg-gray-50 dark:bg-gray-800 text-indigo-600 dark:text-indigo-400 border-r-2 border-indigo-600 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-inter text-sm font-medium">Audit</span>
+</a>
+</li>
+<li>
+<a class="flex gap-x-3 rounded-md p-2 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="key">key</span>
+<span class="font-inter text-sm font-medium">Keywords</span>
+</a>
+</li>
+<li>
+<a class="flex gap-x-3 rounded-md p-2 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="link">link</span>
+<span class="font-inter text-sm font-medium">Backlinks</span>
+</a>
+</li>
+</ul>
+</li>
+<li class="mt-auto">
+<ul class="-mx-2 space-y-1 border-t border-gray-100 pt-4" role="list">
+<li>
+<a class="flex gap-x-3 rounded-md p-2 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-inter text-sm font-medium">Help Center</span>
+</a>
+</li>
+<li>
+<a class="flex gap-x-3 rounded-md p-2 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-inter text-sm font-medium">Logout</span>
+</a>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="lg:pl-64 min-h-screen">
+<!-- Top App Bar -->
+<header class="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 px-4 sm:gap-x-6 sm:px-6 lg:px-8 bg-white dark:bg-gray-900 shadow-sm border-b border-gray-200 dark:border-gray-800">
+<div class="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
+<div class="flex flex-1 items-center">
+<div class="relative w-full max-w-md">
+<span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+<span class="material-symbols-outlined text-gray-400" data-icon="search">search</span>
+</span>
+<input class="block w-full rounded-lg border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Search pages or keywords..." type="search"/>
+</div>
+</div>
+<div class="flex items-center gap-x-4 lg:gap-x-6">
+<button class="text-gray-500 hover:text-indigo-600 transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<div aria-hidden="true" class="hidden lg:block lg:h-6 lg:w-px lg:bg-gray-200"></div>
+<div class="flex items-center gap-2">
+<img alt="User profile" class="h-8 w-8 rounded-full bg-gray-50 object-cover" data-alt="A professional headshot of a corporate male executive with a warm, confident smile, set against a blurred modern office background. The lighting is soft and natural, emphasizing a clean and trustworthy business professional persona. High-end portrait photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuApVjXfZAByoWg4XGWISyY1D-5BHD_hwa0YEk5BUaXjP65xDWn3kGr8KPiHI5NKNiBtF-VYTfk2uXyvG8fygHR2zPef2c10LD3VPuXtyoo1uDXtiEemsbJvc2l_ygLUl4eGGZbMf0tKTZR-bav_ed7spMx8slo10HT4GO-m6FqKsffcpvqgCNRdS4HAuHlwfV1ZzIWmXP7EtR2IoqNGLWP4b7fpKDYcjrndvYvP1rURv0lkAUEp5k5T830kxizfoqGHh7XBYPUhZio"/>
+<span class="text-sm font-semibold text-gray-900">Alex Chen</span>
+</div>
+</div>
+</div>
+</header>
+<div class="p-margin-page lg:p-xl space-y-lg">
+<!-- Hero Bento Section -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-lg">
+<!-- Main Score Gauge Card -->
+<div class="md:col-span-8 bg-white border border-gray-200 rounded-xl p-xl shadow-sm flex flex-col items-center justify-center text-center relative overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-error via-amber-500 to-green-500"></div>
+<div class="space-y-sm">
+<h1 class="font-h1 text-h1 text-on-surface">SEO Health Score</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Last audited: October 24, 2024 at 10:42 AM</p>
+</div>
+<div class="mt-xl relative flex items-center justify-center">
+<!-- Simplified Gauge Representation -->
+<svg class="w-64 h-64 transform -rotate-90">
+<circle cx="128" cy="128" fill="transparent" r="110" stroke="#f3f4f6" stroke-width="20"></circle>
+<circle cx="128" cy="128" fill="transparent" r="110" stroke="#3525cd" stroke-dasharray="690.8" stroke-dashoffset="138" stroke-linecap="round" stroke-width="20"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-7xl font-extrabold text-primary">82</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Excellent</span>
+</div>
+</div>
+<div class="mt-xl grid grid-cols-3 w-full gap-md">
+<div class="text-center p-md bg-surface-container-low rounded-lg">
+<p class="font-label-caps text-label-caps text-on-surface-variant">CRITICAL</p>
+<p class="font-h3 text-h3 text-error">12</p>
+</div>
+<div class="text-center p-md bg-surface-container-low rounded-lg">
+<p class="font-label-caps text-label-caps text-on-surface-variant">WARNINGS</p>
+<p class="font-h3 text-h3 text-amber-600">28</p>
+</div>
+<div class="text-center p-md bg-surface-container-low rounded-lg">
+<p class="font-label-caps text-label-caps text-on-surface-variant">PASSED</p>
+<p class="font-h3 text-h3 text-green-600">145</p>
+</div>
+</div>
+</div>
+<!-- Page Speed Insight Card -->
+<div class="md:col-span-4 space-y-lg">
+<div class="bg-white border border-gray-200 rounded-xl p-lg shadow-sm">
+<div class="flex items-center justify-between mb-md">
+<h3 class="font-h3 text-h3">Performance</h3>
+<span class="material-symbols-outlined text-green-500" data-icon="bolt">bolt</span>
+</div>
+<div class="space-y-lg">
+<div class="space-y-xs">
+<div class="flex justify-between text-sm">
+<span class="text-on-surface-variant">LCP (Largest Contentful Paint)</span>
+<span class="font-semibold text-green-600">1.2s</span>
+</div>
+<div class="w-full bg-gray-100 h-1.5 rounded-full">
+<div class="bg-green-500 h-1.5 rounded-full w-[85%]"></div>
+</div>
+</div>
+<div class="space-y-xs">
+<div class="flex justify-between text-sm">
+<span class="text-on-surface-variant">FID (First Input Delay)</span>
+<span class="font-semibold text-green-600">18ms</span>
+</div>
+<div class="w-full bg-gray-100 h-1.5 rounded-full">
+<div class="bg-green-500 h-1.5 rounded-full w-[92%]"></div>
+</div>
+</div>
+<div class="space-y-xs">
+<div class="flex justify-between text-sm">
+<span class="text-on-surface-variant">CLS (Cumulative Layout Shift)</span>
+<span class="font-semibold text-amber-500">0.08</span>
+</div>
+<div class="w-full bg-gray-100 h-1.5 rounded-full">
+<div class="bg-amber-500 h-1.5 rounded-full w-[60%]"></div>
+</div>
+</div>
+</div>
+<button class="w-full mt-lg py-2 border border-outline rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors">
+                            View Full Lighthouse Report
+                        </button>
+</div>
+<div class="bg-indigo-600 rounded-xl p-lg shadow-md text-white">
+<p class="font-label-caps text-[10px] tracking-widest opacity-80 mb-sm uppercase">Quick Recommendation</p>
+<h4 class="font-h3 text-[20px] mb-md leading-tight">Optimize image assets for mobile delivery</h4>
+<p class="text-sm opacity-90 mb-lg">Converting PNGs to WebP could improve your score by up to 14 points.</p>
+<button class="bg-white text-indigo-600 px-4 py-2 rounded-lg text-sm font-bold shadow-sm hover:bg-indigo-50 transition-colors">
+                            Fix Now
+                        </button>
+</div>
+</div>
+</div>
+<!-- Issues Tabs Section -->
+<div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+<div class="border-b border-gray-200 bg-gray-50/50">
+<nav aria-label="Tabs" class="flex px-lg">
+<button class="border-b-2 border-indigo-600 py-4 px-6 text-sm font-semibold text-indigo-600 flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-error"></span> Critical Issues
+                        </button>
+<button class="border-b-2 border-transparent py-4 px-6 text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-amber-500"></span> Warnings
+                        </button>
+<button class="border-b-2 border-transparent py-4 px-6 text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-green-500"></span> Passed
+                        </button>
+</nav>
+</div>
+<div class="divide-y divide-gray-100">
+<!-- Issue Row 1 -->
+<div class="p-lg flex items-start justify-between group hover:bg-gray-50/50 transition-colors">
+<div class="flex gap-lg">
+<div class="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-red-50 text-error">
+<span class="material-symbols-outlined" data-icon="block">block</span>
+</div>
+<div>
+<h4 class="text-body-md font-semibold text-on-surface">Broken internal links detected (404)</h4>
+<p class="text-body-sm text-on-surface-variant mt-1">12 pages are currently linking to non-existent URLs, harming crawl budget and UX.</p>
+<div class="mt-sm flex gap-xs">
+<span class="px-2 py-0.5 bg-gray-100 text-[11px] font-medium rounded text-gray-600 uppercase">Crawlability</span>
+<span class="px-2 py-0.5 bg-gray-100 text-[11px] font-medium rounded text-gray-600 uppercase">Technical</span>
+</div>
+</div>
+</div>
+<button class="flex items-center gap-1 text-sm font-semibold text-indigo-600 hover:underline">
+                            Details
+                            <span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+<!-- Issue Row 2 -->
+<div class="p-lg flex items-start justify-between group hover:bg-gray-50/50 transition-colors">
+<div class="flex gap-lg">
+<div class="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-red-50 text-error">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+</div>
+<div>
+<h4 class="text-body-md font-semibold text-on-surface">Missing Meta Descriptions</h4>
+<p class="text-body-sm text-on-surface-variant mt-1">8 priority landing pages are missing meta descriptions, which may reduce CTR in SERPs.</p>
+<div class="mt-sm flex gap-xs">
+<span class="px-2 py-0.5 bg-gray-100 text-[11px] font-medium rounded text-gray-600 uppercase">On-Page</span>
+<span class="px-2 py-0.5 bg-gray-100 text-[11px] font-medium rounded text-gray-600 uppercase">Content</span>
+</div>
+</div>
+</div>
+<button class="flex items-center gap-1 text-sm font-semibold text-indigo-600 hover:underline">
+                            Details
+                            <span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+<!-- Issue Row 3 -->
+<div class="p-lg flex items-start justify-between group hover:bg-gray-50/50 transition-colors">
+<div class="flex gap-lg">
+<div class="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-red-50 text-error">
+<span class="material-symbols-outlined" data-icon="dns">dns</span>
+</div>
+<div>
+<h4 class="text-body-md font-semibold text-on-surface">SSL Certificate Expiration</h4>
+<p class="text-body-sm text-on-surface-variant mt-1">Your certificate expires in less than 7 days. Automatic renewal failed.</p>
+<div class="mt-sm flex gap-xs">
+<span class="px-2 py-0.5 bg-gray-100 text-[11px] font-medium rounded text-gray-600 uppercase">Security</span>
+</div>
+</div>
+</div>
+<button class="flex items-center gap-1 text-sm font-semibold text-indigo-600 hover:underline">
+                            Details
+                            <span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="bg-gray-50 p-md text-center border-t border-gray-100">
+<button class="text-sm font-medium text-on-surface-variant hover:text-primary transition-colors">Load more issues</button>
+</div>
+</div>
+<!-- Two Column Layout: Recommendations & Checklist -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-lg">
+<!-- On-Page SEO Checklist -->
+<div class="bg-white border border-gray-200 rounded-xl p-lg shadow-sm">
+<h3 class="font-h3 text-h3 mb-lg flex items-center gap-2">
+<span class="material-symbols-outlined text-indigo-600" data-icon="checklist">checklist</span>
+                        On-Page SEO Checklist
+                    </h3>
+<div class="space-y-md">
+<div class="flex items-center gap-md p-md border border-gray-100 rounded-lg hover:border-primary/20 transition-all">
+<div class="h-6 w-6 rounded border-2 border-green-500 flex items-center justify-center bg-green-50">
+<span class="material-symbols-outlined text-green-600 text-sm" data-icon="check">check</span>
+</div>
+<div class="flex-1">
+<span class="font-body-md font-medium text-on-surface">H1 tags are present</span>
+</div>
+<span class="text-xs text-green-600 font-semibold bg-green-50 px-2 py-1 rounded">PASSED</span>
+</div>
+<div class="flex items-center gap-md p-md border border-gray-100 rounded-lg hover:border-primary/20 transition-all">
+<div class="h-6 w-6 rounded border-2 border-green-500 flex items-center justify-center bg-green-50">
+<span class="material-symbols-outlined text-green-600 text-sm" data-icon="check">check</span>
+</div>
+<div class="flex-1">
+<span class="font-body-md font-medium text-on-surface">Image Alt Text optimized</span>
+</div>
+<span class="text-xs text-green-600 font-semibold bg-green-50 px-2 py-1 rounded">PASSED</span>
+</div>
+<div class="flex items-center gap-md p-md border border-error/20 rounded-lg bg-red-50/20 transition-all">
+<div class="h-6 w-6 rounded border-2 border-error flex items-center justify-center"></div>
+<div class="flex-1">
+<span class="font-body-md font-medium text-on-surface">Target keyword in Title tag</span>
+</div>
+<span class="text-xs text-error font-semibold bg-red-50 px-2 py-1 rounded">REQUIRED</span>
+</div>
+<div class="flex items-center gap-md p-md border border-gray-100 rounded-lg hover:border-primary/20 transition-all">
+<div class="h-6 w-6 rounded border-2 border-gray-300 flex items-center justify-center"></div>
+<div class="flex-1">
+<span class="font-body-md font-medium text-on-surface">External links use nofollow</span>
+</div>
+<span class="text-xs text-gray-500 font-semibold bg-gray-50 px-2 py-1 rounded">PENDING</span>
+</div>
+</div>
+</div>
+<!-- Strategic Recommendations -->
+<div class="bg-white border border-gray-200 rounded-xl p-lg shadow-sm">
+<h3 class="font-h3 text-h3 mb-lg flex items-center gap-2">
+<span class="material-symbols-outlined text-indigo-600" data-icon="lightbulb">lightbulb</span>
+                        Action Plan
+                    </h3>
+<div class="space-y-lg">
+<div class="flex gap-md">
+<div class="text-h2 font-black text-indigo-100 leading-none">01</div>
+<div class="space-y-sm">
+<h4 class="font-body-md font-bold">Compress Large Assets</h4>
+<p class="text-sm text-on-surface-variant">Your homepage is currently 4.2MB. Use Brotli compression and serve images in next-gen formats (AVIF/WebP) to reduce load by 60%.</p>
+<a class="text-sm font-semibold text-primary inline-flex items-center gap-1" href="#">Instruction Guide <span class="material-symbols-outlined text-sm" data-icon="open_in_new">open_in_new</span></a>
+</div>
+</div>
+<div class="flex gap-md">
+<div class="text-h2 font-black text-indigo-100 leading-none">02</div>
+<div class="space-y-sm">
+<h4 class="font-body-md font-bold">Fix Schema Markups</h4>
+<p class="text-sm text-on-surface-variant">The 'Organization' and 'Product' schemas have parsing errors. Update the JSON-LD blocks to comply with Schema.org v12.0.</p>
+<a class="text-sm font-semibold text-primary inline-flex items-center gap-1" href="#">View Errors <span class="material-symbols-outlined text-sm" data-icon="open_in_new">open_in_new</span></a>
+</div>
+</div>
+<div class="flex gap-md">
+<div class="text-h2 font-black text-indigo-100 leading-none">03</div>
+<div class="space-y-sm">
+<h4 class="font-body-md font-bold">Consolidate Redirect Chains</h4>
+<p class="text-sm text-on-surface-variant">We found 5 instances of multi-hop redirects. Update the source links to point directly to the destination URL.</p>
+<a class="text-sm font-semibold text-primary inline-flex items-center gap-1" href="#">Download List <span class="material-symbols-outlined text-sm" data-icon="download">download</span></a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<footer class="bg-gray-50 dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800">
+<div class="mx-auto max-w-7xl px-6 py-12 md:flex md:items-center md:justify-between lg:px-8">
+<p class="font-inter text-xs text-gray-500 dark:text-gray-400">© 2024 SEO Insight Pro. All rights reserved.</p>
+<div class="mt-8 flex justify-center space-x-6 md:mt-0">
+<a class="font-inter text-xs text-gray-500 hover:text-gray-900 dark:hover:text-gray-200 transition-colors" href="#">Privacy Policy</a>
+<a class="font-inter text-xs text-gray-500 hover:text-gray-900 dark:hover:text-gray-200 transition-colors" href="#">Terms of Service</a>
+<a class="font-inter text-xs text-gray-500 hover:text-gray-900 dark:hover:text-gray-200 transition-colors" href="#">API Status</a>
+<a class="font-inter text-xs text-gray-500 hover:text-gray-900 dark:hover:text-gray-200 transition-colors" href="#">Cookie Settings</a>
+</div>
+</div>
+</footer>
+</main>
+<!-- Contextual FAB -->
+<button class="fixed bottom-8 right-8 h-14 w-14 bg-indigo-600 rounded-full text-white shadow-xl hover:bg-indigo-700 transition-all active:scale-95 flex items-center justify-center z-50">
+<span class="material-symbols-outlined" data-icon="refresh">refresh</span>
+</button>
+</body></html>

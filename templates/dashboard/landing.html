@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+{% load static %}
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>SEO Insight Pro — Analyze &amp; Improve Your Website SEO</title>
+    <meta name="description" content="Get instant insights into your search performance. Identify technical issues, discover high-value keywords, and monitor your backlinks with precision."/>
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}"/>
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-secondary-fixed": "#25005a", "on-surface": "#191c1d", "primary-fixed": "#e2dfff",
+                        "surface-container-low": "#f3f4f5", "tertiary": "#7e3000", "error-container": "#ffdad6",
+                        "outline-variant": "#c7c4d8", "surface-tint": "#4d44e3", "tertiary-container": "#a44100",
+                        "surface-container-high": "#e7e8e9", "on-tertiary-container": "#ffd2be",
+                        "surface-container-highest": "#e1e3e4", "on-tertiary-fixed": "#351000",
+                        "on-tertiary": "#ffffff", "on-primary-fixed": "#0f0069", "on-background": "#191c1d",
+                        "surface-container": "#edeeef", "on-primary-container": "#dad7ff", "outline": "#777587",
+                        "primary": "#3525cd", "tertiary-fixed-dim": "#ffb695", "inverse-surface": "#2e3132",
+                        "primary-container": "#4f46e5", "surface-container-lowest": "#ffffff",
+                        "secondary-fixed-dim": "#d2bbff", "secondary-fixed": "#eaddff",
+                        "tertiary-fixed": "#ffdbcc", "on-surface-variant": "#464555",
+                        "on-tertiary-fixed-variant": "#7b2f00", "on-primary-fixed-variant": "#3323cc",
+                        "on-error": "#ffffff", "on-secondary": "#ffffff", "primary-fixed-dim": "#c3c0ff",
+                        "surface-variant": "#e1e3e4", "inverse-on-surface": "#f0f1f2",
+                        "on-secondary-fixed-variant": "#5a00c6", "secondary-container": "#8a4cfc",
+                        "surface-dim": "#d9dadb", "surface-bright": "#f8f9fa", "error": "#ba1a1a",
+                        "on-primary": "#ffffff", "surface": "#f8f9fa", "background": "#f8f9fa",
+                        "secondary": "#712ae2", "on-secondary-container": "#fffbff",
+                        "inverse-primary": "#c3c0ff", "on-error-container": "#93000a"
+                    },
+                    fontFamily: { "h1": ["Inter"], "h2": ["Inter"], "h3": ["Inter"], "body-md": ["Inter"], "body-lg": ["Inter"], "body-sm": ["Inter"], "label-caps": ["Inter"], "table-data": ["Inter"], "inter": ["Inter"] },
+                    fontSize: {
+                        "h1": ["36px", { lineHeight: "44px", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "h2": ["30px", { lineHeight: "38px", letterSpacing: "-0.01em", fontWeight: "600" }],
+                        "h3": ["24px", { lineHeight: "32px", letterSpacing: "-0.01em", fontWeight: "600" }],
+                        "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+                        "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+                        "body-sm": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+                        "label-caps": ["12px", { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "600" }],
+                        "table-data": ["13px", { lineHeight: "18px", fontWeight: "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface font-body-md text-on-surface">
+
+<!-- TopAppBar -->
+<header class="bg-white sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 px-4 sm:gap-x-6 sm:px-6 lg:px-8 border-b border-gray-200 shadow-sm">
+    <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-primary">insights</span>
+        <span class="font-inter text-xl font-bold text-indigo-600 antialiased">SEO Insight Pro</span>
+    </div>
+    <nav class="ml-auto hidden md:flex items-center gap-8">
+        <a class="font-inter text-sm font-medium text-indigo-600 hover:text-indigo-800 transition-colors" href="{% url 'dashboard' %}">Dashboard</a>
+        <a class="font-inter text-sm font-medium text-gray-500 hover:text-indigo-600 transition-colors" href="{% url 'seo_audit' %}">Audit</a>
+        <a class="font-inter text-sm font-medium text-gray-500 hover:text-indigo-600 transition-colors" href="{% url 'keywords' %}">Keywords</a>
+        <a class="font-inter text-sm font-medium text-gray-500 hover:text-indigo-600 transition-colors" href="{% url 'pricing' %}">Pricing</a>
+    </nav>
+    <div class="ml-auto flex items-center gap-4">
+        <span class="material-symbols-outlined text-gray-500 hover:bg-gray-50 p-2 rounded-full transition-colors cursor-pointer">notifications</span>
+        <span class="material-symbols-outlined text-gray-500 hover:bg-gray-50 p-2 rounded-full transition-colors cursor-pointer">help</span>
+        <a href="{% url 'dashboard' %}" class="hidden sm:block text-sm font-semibold text-white bg-indigo-600 px-4 py-2 hover:bg-indigo-700 rounded-lg transition-colors">Go to Dashboard</a>
+    </div>
+</header>
+
+<main>
+
+    <!-- Hero Section -->
+    <section class="relative isolate overflow-hidden bg-white px-6 py-24 sm:py-32 lg:px-8">
+        <div class="mx-auto max-w-4xl text-center">
+            <h1 class="font-h1 text-h1 text-on-surface sm:text-5xl lg:text-6xl tracking-tight">
+                Analyze &amp; Improve Your Website <span class="text-primary">SEO in Seconds</span>
+            </h1>
+            <p class="mt-6 text-body-lg text-on-surface-variant font-body-lg max-w-2xl mx-auto">
+                Get instant insights into your search performance. Identify technical issues, discover high-value keywords, and monitor your backlinks with precision.
+            </p>
+            <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 max-w-2xl mx-auto">
+                <div class="relative w-full">
+                    <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
+                        <span class="material-symbols-outlined text-outline">language</span>
+                    </div>
+                    <input class="block w-full rounded-xl border-0 py-4 pl-12 pr-4 text-on-surface ring-1 ring-inset ring-outline-variant placeholder:text-outline focus:ring-2 focus:ring-inset focus:ring-primary font-body-md" id="url" name="url" placeholder="https://yourwebsite.com" type="url"/>
+                </div>
+                <a href="{% url 'seo_audit' %}" class="w-full sm:w-auto flex-none rounded-xl bg-primary px-8 py-4 text-lg font-semibold text-white shadow-sm hover:bg-indigo-700 transition-all active:opacity-80 text-center">
+                    Check SEO
+                </a>
+            </div>
+            <div class="mt-8 flex items-center justify-center gap-x-6 text-xs font-label-caps uppercase tracking-widest text-outline">
+                <span>No credit card required</span>
+                <span class="h-1 w-1 bg-outline-variant rounded-full"></span>
+                <span>Free analysis report</span>
+            </div>
+        </div>
+        <!-- Dashboard Preview -->
+        <div class="mt-16 flow-root sm:mt-24">
+            <div class="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
+                <img alt="SEO Dashboard Preview" class="rounded-lg shadow-2xl ring-1 ring-gray-900/10" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZvrtjiuC24pAf5kvr7IoA48l02RCuJEpk266WdWw0coHh16DsbVOG32NsEVwhG3gqUkb0AcqJEHKPiiZBiHe_yQrV9v5-92rszUok6x8fZsQ-UyB3nrWP4kYfh7us3qLTn5qG5Jiw1GRsvj0TgUMbNh1aFhEdRvXhGOT4j6YRX2XwhzUKbFiAP2bqAuTXwVsUKxjnm6CbHkqb-S-zs8Y9-6kBGjuUV5bjtV9g8PcSaH0QIVyt8F488AeIIlUkYrWapH4WoP0qxzc"/>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bento Grid Features Section -->
+    <section class="py-24 bg-surface-container-lowest">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="mx-auto max-w-2xl text-center mb-16">
+                <h2 class="font-h2 text-h2 text-on-surface">Powerful Tools for Growth</h2>
+                <p class="mt-4 text-body-md text-on-surface-variant font-body-md">Advanced precision analytics for the modern SEO professional.</p>
+            </div>
+            <div class="bento-grid">
+                <!-- Feature: Audit (Large) -->
+                <div class="col-span-12 lg:col-span-7 bg-white p-8 rounded-2xl border border-outline-variant shadow-sm flex flex-col justify-between card-hover">
+                    <div>
+                        <div class="h-12 w-12 rounded-lg bg-primary-fixed flex items-center justify-center mb-6">
+                            <span class="material-symbols-outlined text-primary">analytics</span>
+                        </div>
+                        <h3 class="font-h3 text-h3 mb-4">Deep Site Audit</h3>
+                        <p class="text-on-surface-variant font-body-md mb-8">Scan over 100+ technical parameters including Core Web Vitals, metadata, and crawlability. Get actionable fixes prioritized by impact.</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm font-medium">SEO Health Score</span>
+                            <span class="text-sm font-bold text-green-600">84/100</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-1.5">
+                            <div class="bg-primary h-1.5 rounded-full w-[84%]"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature: Keywords -->
+                <div class="col-span-12 md:col-span-6 lg:col-span-5 bg-white p-8 rounded-2xl border border-outline-variant shadow-sm card-hover">
+                    <div class="h-12 w-12 rounded-lg bg-tertiary-fixed flex items-center justify-center mb-6">
+                        <span class="material-symbols-outlined text-tertiary">key</span>
+                    </div>
+                    <h3 class="font-h3 text-h3 mb-4">Keyword Intelligence</h3>
+                    <p class="text-on-surface-variant font-body-md">Discover untapped keyword opportunities with precise search volume and difficulty metrics tailored to your niche.</p>
+                </div>
+
+                <!-- Feature: Backlinks -->
+                <div class="col-span-12 md:col-span-6 lg:col-span-4 bg-white p-8 rounded-2xl border border-outline-variant shadow-sm card-hover">
+                    <div class="h-12 w-12 rounded-lg bg-secondary-fixed flex items-center justify-center mb-6">
+                        <span class="material-symbols-outlined text-secondary">link</span>
+                    </div>
+                    <h3 class="font-h3 text-h3 mb-4">Backlink Profile</h3>
+                    <p class="text-on-surface-variant font-body-md">Monitor your link-building progress and analyze competitor profiles to find high-authority link opportunities.</p>
+                </div>
+
+                <!-- Feature: Competitors (Wide) -->
+                <div class="col-span-12 lg:col-span-8 bg-indigo-600 p-8 rounded-2xl text-white overflow-hidden relative">
+                    <div class="relative z-10">
+                        <h3 class="font-h3 text-h3 mb-4">Competitive Edge</h3>
+                        <p class="text-indigo-100 font-body-md max-w-lg">Benchmark your site against competitors. Track their rankings, content updates, and keyword shifts in real-time to stay ahead of the curve.</p>
+                        <a href="{% url 'competitors' %}" class="mt-6 inline-block px-6 py-2 bg-white text-indigo-600 font-semibold rounded-lg hover:bg-indigo-50 transition-colors">Compare Now</a>
+                    </div>
+                    <span class="material-symbols-outlined absolute -bottom-10 -right-10 text-[200px] opacity-10 rotate-12 select-none">compare_arrows</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial Section -->
+    <section class="py-24 bg-white">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="grid grid-cols-1 gap-16 lg:grid-cols-2 items-center">
+                <div>
+                    <h2 class="font-h2 text-h2 text-on-surface mb-8">Trusted by Global Teams</h2>
+                    <div class="flex gap-1 mb-6">
+                        {% for i in "12345" %}<span class="material-symbols-outlined text-yellow-400" style="font-variation-settings: 'FILL' 1;">star</span>{% endfor %}
+                    </div>
+                    <blockquote class="text-body-lg font-body-lg italic text-on-surface">
+                        "Precision SEO transformed our workflow. We were able to identify technical debt that was holding back our organic traffic for years. Within three months of using their Audit and Keyword tools, our organic traffic increased by 140%."
+                    </blockquote>
+                    <div class="mt-8 flex items-center gap-4">
+                        <img alt="Sarah Jenkins" class="h-12 w-12 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_f3p5Y616toeQn-pL8d_rK8rziex3LwZBH492Y1Dddb6IqTjidhgVp1bSZ3-rpDVZYKGLgdW2XQhNVj7s0Xc_MonPzpH_qMZ0FdhNi_sehb8GpxHz6CwdNxympUwpuVIN764AA_NyxUoqvwigeJkkHUCZDvYHAId63M89CkKQ8nPOAc39s-L0JLzs_qA8huavH-96u_bxcvK2pyVTh3Ih1m1BL3DsztEULaG93ArHN6PIUgLqGZBFHE7EH94y1EpgZf-nR66hZtA"/>
+                        <div>
+                            <div class="font-bold text-on-surface">Sarah Jenkins</div>
+                            <div class="text-body-sm text-on-surface-variant font-body-sm">Head of Marketing, CloudStream</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-4">
+                        <img alt="Workplace" class="rounded-2xl shadow-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB03NCoEfsakhb0kX7jW5W5PFbfHLjigA8EGqJONL3H0bt1lH2KO0t6r46qonn9EqVgBUMXQqqUBATJSmyAk-ACzB_XSNJiu5g1ki4uwxGkXP_FPcaLIgfaV6Elh53AF8sl7Y3FdD_NriEuaqSM87MTqKqUWeNJftuPtjLgml0IIuzDq9b40kHIX8BtJ9sLpW_A3YcDk4wv6ebl6XmDMaHcHZqgZuyRfPvnUrAc1oZKyuZAXQSE2ZoCOkQnfoYRLuLEsm0ZRql-vYQ"/>
+                        <div class="bg-surface-container-high p-6 rounded-2xl flex flex-col items-center justify-center text-center">
+                            <span class="text-3xl font-bold text-primary">140%</span>
+                            <span class="text-xs font-label-caps uppercase text-on-surface-variant">Traffic Growth</span>
+                        </div>
+                    </div>
+                    <div class="space-y-4 pt-8">
+                        <div class="bg-indigo-600 p-6 rounded-2xl flex flex-col items-center justify-center text-center text-white">
+                            <span class="text-3xl font-bold">12k+</span>
+                            <span class="text-xs font-label-caps uppercase text-indigo-200">Active Users</span>
+                        </div>
+                        <img alt="Team Meeting" class="rounded-2xl shadow-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbIFl3Q7-K8tWXCtuvpyuacASeMjNDwXVAfTuWbjPBXLcjDkxL6IKD_Xx8xlzvVYXe6HXrhkS78EwMW9Z9-wHfS5SM1rvr7dt2xlx097R9vaFDgmqOXMk-Scz5x6kgMSA_vl6wvi6yw7JzDvnZpC0xIPej0oeEA6lOtKJ1fHjlJZtkAxY-417lDcq6ubsLpqK9wPKyLfFkji7WCqRlU0SiCQoWvVdHeatBj25WCJj2HugQ8XeDO-Dd4sZ9bn_KK2xza-FtkCfHmsQ"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Preview Section -->
+    <section class="py-24 bg-surface-container-low">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="mx-auto max-w-2xl text-center mb-16">
+                <h2 class="font-h2 text-h2 text-on-surface">Transparent Pricing</h2>
+                <p class="mt-4 text-body-md text-on-surface-variant font-body-md">Scale your SEO efforts with plans designed for every stage of growth.</p>
+            </div>
+            <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
+                <!-- Starter -->
+                <div class="bg-white p-8 rounded-2xl border border-outline-variant flex flex-col card-hover">
+                    <h3 class="font-h3 text-h3 mb-2">Starter</h3>
+                    <p class="text-on-surface-variant font-body-sm mb-6">Perfect for small projects</p>
+                    <div class="flex items-baseline gap-1 mb-8">
+                        <span class="text-4xl font-bold">$29</span>
+                        <span class="text-outline">/mo</span>
+                    </div>
+                    <ul class="space-y-4 mb-8 flex-grow">
+                        <li class="flex items-center gap-3 text-body-sm"><span class="material-symbols-outlined text-green-500 text-sm">check</span> 5 Website Audits/mo</li>
+                        <li class="flex items-center gap-3 text-body-sm"><span class="material-symbols-outlined text-green-500 text-sm">check</span> 250 Keyword Tracking</li>
+                        <li class="flex items-center gap-3 text-body-sm"><span class="material-symbols-outlined text-green-500 text-sm">check</span> Basic Backlink Reports</li>
+                    </ul>
+                    <a href="{% url 'pricing' %}" class="w-full py-3 rounded-xl border border-primary text-primary font-semibold hover:bg-primary-fixed transition-colors text-center block">Start Free Trial</a>
+                </div>
+                <!-- Professional (Featured) -->
+                <div class="bg-white p-8 rounded-2xl border-2 border-primary ring-4 ring-primary-fixed flex flex-col relative scale-105 z-10">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-white text-xs font-label-caps py-1 px-4 rounded-full">Most Popular</div>
+                    <h3 class="font-h3 text-h3 mb-2">Professional</h3>
+                    <p class="text-on-surface-variant font-body-sm mb-6">For growing businesses</p>
+                    <div class="flex items-baseline gap-1 mb-8">
+                        <span class="text-4xl font-bold">$99</span>
+                        <span class="text-outline">/mo</span>
+                    </div>
+                    <ul class="space-y-4 mb-8 flex-grow">
+                        <li class="flex items-center gap-3 text-body-sm"><span class="material-symbols-outlined text-green-500 text-sm">check</span> Unlimited Website Audits</li>
+                        <li class="flex items-center gap-3 text-body-sm"><span class="material-symbols-outlined text-green-500 text-sm">check</span> 2,500 Keyword Tracking</li>
+                        <li class="flex items-center gap-3 text-body-sm"><span class="material-symbols-outlined text-green-500 text-sm">check</span> Advanced Competitor Analysis</li>
+                        <li class="flex items-center gap-3 text-body-sm"><span class="material-symbols-outlined text-green-500 text-sm">check</span> White-label Reports</li>
+                    </ul>
+                    <a href="{% url 'pricing' %}" class="w-full py-3 rounded-xl bg-primary text-white font-semibold hover:bg-indigo-700 shadow-md transition-colors text-center block">Get Started</a>
+                </div>
+                <!-- Enterprise -->
+                <div class="bg-white p-8 rounded-2xl border border-outline-variant flex flex-col card-hover">
+                    <h3 class="font-h3 text-h3 mb-2">Enterprise</h3>
+                    <p class="text-on-surface-variant font-body-sm mb-6">Custom solutions for agencies</p>
+                    <div class="flex items-baseline gap-1 mb-8">
+                        <span class="text-4xl font-bold">Custom</span>
+                    </div>
+                    <ul class="space-y-4 mb-8 flex-grow">
+                        <li class="flex items-center gap-3 text-body-sm"><span class="material-symbols-outlined text-green-500 text-sm">check</span> Custom Limits</li>
+                        <li class="flex items-center gap-3 text-body-sm"><span class="material-symbols-outlined text-green-500 text-sm">check</span> API Access</li>
+                        <li class="flex items-center gap-3 text-body-sm"><span class="material-symbols-outlined text-green-500 text-sm">check</span> Dedicated Account Manager</li>
+                    </ul>
+                    <button class="w-full py-3 rounded-xl border border-outline text-on-surface-variant font-semibold hover:bg-gray-50 transition-colors">Contact Sales</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="bg-gray-50 border-t border-gray-200">
+    <div class="mx-auto max-w-7xl px-6 py-12 md:flex md:items-center md:justify-between lg:px-8">
+        <div class="flex flex-col gap-4 md:order-2">
+            <div class="flex justify-center space-x-6 md:justify-end">
+                <a class="font-inter text-xs text-gray-500 hover:text-gray-900 transition-colors hover:underline" href="#">Privacy Policy</a>
+                <a class="font-inter text-xs text-gray-500 hover:text-gray-900 transition-colors hover:underline" href="#">Terms of Service</a>
+                <a class="font-inter text-xs text-gray-500 hover:text-gray-900 transition-colors hover:underline" href="#">API Status</a>
+                <a class="font-inter text-xs text-gray-500 hover:text-gray-900 transition-colors hover:underline" href="#">Cookie Settings</a>
+            </div>
+            <div class="flex justify-center space-x-4 md:justify-end">
+                <span class="material-symbols-outlined text-gray-400 cursor-pointer hover:text-indigo-600 transition-colors">social_leaderboard</span>
+                <span class="material-symbols-outlined text-gray-400 cursor-pointer hover:text-indigo-600 transition-colors">public</span>
+                <span class="material-symbols-outlined text-gray-400 cursor-pointer hover:text-indigo-600 transition-colors">share</span>
+            </div>
+        </div>
+        <div class="mt-8 md:order-1 md:mt-0">
+            <p class="font-inter text-xs text-gray-500 text-center md:text-left">© 2024 SEO Insight Pro. All rights reserved.</p>
+            <p class="font-inter text-[10px] text-gray-400 mt-1 text-center md:text-left">Precision analytics for professional results.</p>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

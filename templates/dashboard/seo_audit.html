@@ -1,0 +1,285 @@
+{% extends 'base.html' %}
+
+{% block title %}SEO Audit Report - SEO Insight Pro{% endblock %}
+{% block meta_description %}Detailed technical SEO audit report with health scores, issue tracking, and actionable recommendations.{% endblock %}
+
+{% block content %}
+<div class="space-y-lg">
+
+    <!-- Hero Bento Section -->
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+
+        <!-- Main Score Gauge Card -->
+        <div class="md:col-span-8 bg-white border border-gray-200 rounded-xl p-8 shadow-sm flex flex-col items-center justify-center text-center relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-1 score-bar-gradient"></div>
+            <div class="space-y-2">
+                <h1 class="font-h1 text-h1 text-on-surface">SEO Health Score</h1>
+                <p class="font-body-md text-body-md text-on-surface-variant">Last audited: October 24, 2024 at 10:42 AM</p>
+            </div>
+            <div class="mt-8 relative flex items-center justify-center">
+                <svg class="w-64 h-64 transform -rotate-90">
+                    <circle cx="128" cy="128" fill="transparent" r="110" stroke="#f3f4f6" stroke-width="20"></circle>
+                    <circle cx="128" cy="128" fill="transparent" r="110" stroke="#3525cd" stroke-dasharray="690.8" stroke-dashoffset="138" stroke-linecap="round" stroke-width="20"></circle>
+                </svg>
+                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                    <span class="text-7xl font-extrabold text-primary">82</span>
+                    <span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Excellent</span>
+                </div>
+            </div>
+            <div class="mt-8 grid grid-cols-3 w-full gap-4">
+                <div class="text-center p-4 bg-surface-container-low rounded-lg">
+                    <p class="font-label-caps text-label-caps text-on-surface-variant uppercase">CRITICAL</p>
+                    <p class="font-h3 text-h3 text-error">12</p>
+                </div>
+                <div class="text-center p-4 bg-surface-container-low rounded-lg">
+                    <p class="font-label-caps text-label-caps text-on-surface-variant uppercase">WARNINGS</p>
+                    <p class="font-h3 text-h3 text-amber-600">28</p>
+                </div>
+                <div class="text-center p-4 bg-surface-container-low rounded-lg">
+                    <p class="font-label-caps text-label-caps text-on-surface-variant uppercase">PASSED</p>
+                    <p class="font-h3 text-h3 text-green-600">145</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column: Performance + Quick Rec -->
+        <div class="md:col-span-4 space-y-6">
+
+            <!-- Page Speed / Performance Card -->
+            <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-h3 text-h3">Performance</h3>
+                    <span class="material-symbols-outlined text-green-500">bolt</span>
+                </div>
+                <div class="space-y-6">
+                    <div class="space-y-1">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-on-surface-variant">LCP (Largest Contentful Paint)</span>
+                            <span class="font-semibold text-green-600">1.2s</span>
+                        </div>
+                        <div class="w-full bg-gray-100 h-1.5 rounded-full">
+                            <div class="bg-green-500 h-1.5 rounded-full w-[85%]"></div>
+                        </div>
+                    </div>
+                    <div class="space-y-1">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-on-surface-variant">FID (First Input Delay)</span>
+                            <span class="font-semibold text-green-600">18ms</span>
+                        </div>
+                        <div class="w-full bg-gray-100 h-1.5 rounded-full">
+                            <div class="bg-green-500 h-1.5 rounded-full w-[92%]"></div>
+                        </div>
+                    </div>
+                    <div class="space-y-1">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-on-surface-variant">CLS (Cumulative Layout Shift)</span>
+                            <span class="font-semibold text-amber-500">0.08</span>
+                        </div>
+                        <div class="w-full bg-gray-100 h-1.5 rounded-full">
+                            <div class="bg-amber-500 h-1.5 rounded-full w-[60%]"></div>
+                        </div>
+                    </div>
+                </div>
+                <button class="w-full mt-6 py-2 border border-outline rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors">
+                    View Full Lighthouse Report
+                </button>
+            </div>
+
+            <!-- Quick Recommendation Card -->
+            <div class="bg-indigo-600 rounded-xl p-6 shadow-md text-white">
+                <p class="font-label-caps text-[10px] tracking-widest opacity-80 mb-2 uppercase">Quick Recommendation</p>
+                <h4 class="font-semibold text-xl mb-3 leading-tight">Optimize image assets for mobile delivery</h4>
+                <p class="text-sm opacity-90 mb-6">Converting PNGs to WebP could improve your score by up to 14 points.</p>
+                <button class="bg-white text-indigo-600 px-4 py-2 rounded-lg text-sm font-bold shadow-sm hover:bg-indigo-50 transition-colors">
+                    Fix Now
+                </button>
+            </div>
+
+        </div>
+    </div><!-- end Hero Bento -->
+
+    <!-- Issues Tabs Section -->
+    <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+        <div class="border-b border-gray-200 bg-gray-50/50">
+            <nav aria-label="Tabs" class="flex px-6">
+                <button class="border-b-2 border-indigo-600 py-4 px-6 text-sm font-semibold text-indigo-600 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-error"></span>
+                    Critical Issues
+                </button>
+                <button class="border-b-2 border-transparent py-4 px-6 text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 flex items-center gap-2 transition-colors">
+                    <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                    Warnings
+                </button>
+                <button class="border-b-2 border-transparent py-4 px-6 text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 flex items-center gap-2 transition-colors">
+                    <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                    Passed
+                </button>
+            </nav>
+        </div>
+        <div class="divide-y divide-gray-100">
+
+            <!-- Issue Row 1 -->
+            <div class="p-6 flex items-start justify-between group hover:bg-gray-50/50 transition-colors">
+                <div class="flex gap-6">
+                    <div class="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-red-50 text-error">
+                        <span class="material-symbols-outlined">block</span>
+                    </div>
+                    <div>
+                        <h4 class="text-body-md font-semibold text-on-surface">Broken internal links detected (404)</h4>
+                        <p class="text-body-sm text-on-surface-variant mt-1">12 pages are currently linking to non-existent URLs, harming crawl budget and UX.</p>
+                        <div class="mt-2 flex gap-1">
+                            <span class="px-2 py-0.5 bg-gray-100 text-[11px] font-medium rounded text-gray-600 uppercase">Crawlability</span>
+                            <span class="px-2 py-0.5 bg-gray-100 text-[11px] font-medium rounded text-gray-600 uppercase">Technical</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="flex items-center gap-1 text-sm font-semibold text-indigo-600 hover:underline whitespace-nowrap">
+                    Details
+                    <span class="material-symbols-outlined text-sm">chevron_right</span>
+                </button>
+            </div>
+
+            <!-- Issue Row 2 -->
+            <div class="p-6 flex items-start justify-between group hover:bg-gray-50/50 transition-colors">
+                <div class="flex gap-6">
+                    <div class="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-red-50 text-error">
+                        <span class="material-symbols-outlined">description</span>
+                    </div>
+                    <div>
+                        <h4 class="text-body-md font-semibold text-on-surface">Missing Meta Descriptions</h4>
+                        <p class="text-body-sm text-on-surface-variant mt-1">8 priority landing pages are missing meta descriptions, which may reduce CTR in SERPs.</p>
+                        <div class="mt-2 flex gap-1">
+                            <span class="px-2 py-0.5 bg-gray-100 text-[11px] font-medium rounded text-gray-600 uppercase">On-Page</span>
+                            <span class="px-2 py-0.5 bg-gray-100 text-[11px] font-medium rounded text-gray-600 uppercase">Content</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="flex items-center gap-1 text-sm font-semibold text-indigo-600 hover:underline whitespace-nowrap">
+                    Details
+                    <span class="material-symbols-outlined text-sm">chevron_right</span>
+                </button>
+            </div>
+
+            <!-- Issue Row 3 -->
+            <div class="p-6 flex items-start justify-between group hover:bg-gray-50/50 transition-colors">
+                <div class="flex gap-6">
+                    <div class="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-red-50 text-error">
+                        <span class="material-symbols-outlined">dns</span>
+                    </div>
+                    <div>
+                        <h4 class="text-body-md font-semibold text-on-surface">SSL Certificate Expiration</h4>
+                        <p class="text-body-sm text-on-surface-variant mt-1">Your certificate expires in less than 7 days. Automatic renewal failed.</p>
+                        <div class="mt-2 flex gap-1">
+                            <span class="px-2 py-0.5 bg-gray-100 text-[11px] font-medium rounded text-gray-600 uppercase">Security</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="flex items-center gap-1 text-sm font-semibold text-indigo-600 hover:underline whitespace-nowrap">
+                    Details
+                    <span class="material-symbols-outlined text-sm">chevron_right</span>
+                </button>
+            </div>
+
+        </div>
+        <div class="bg-gray-50 p-4 text-center border-t border-gray-100">
+            <button class="text-sm font-medium text-on-surface-variant hover:text-primary transition-colors">Load more issues</button>
+        </div>
+    </div><!-- end Issues Section -->
+
+    <!-- Two Column Layout: Checklist & Action Plan -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+        <!-- On-Page SEO Checklist -->
+        <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+            <h3 class="font-h3 text-h3 mb-6 flex items-center gap-2">
+                <span class="material-symbols-outlined text-indigo-600">checklist</span>
+                On-Page SEO Checklist
+            </h3>
+            <div class="space-y-4">
+                <div class="flex items-center gap-4 p-4 border border-gray-100 rounded-lg hover:border-primary/20 transition-all">
+                    <div class="h-6 w-6 rounded border-2 border-green-500 flex items-center justify-center bg-green-50">
+                        <span class="material-symbols-outlined text-green-600 text-sm">check</span>
+                    </div>
+                    <div class="flex-1">
+                        <span class="font-body-md font-medium text-on-surface">H1 tags are present</span>
+                    </div>
+                    <span class="text-xs text-green-600 font-semibold bg-green-50 px-2 py-1 rounded">PASSED</span>
+                </div>
+                <div class="flex items-center gap-4 p-4 border border-gray-100 rounded-lg hover:border-primary/20 transition-all">
+                    <div class="h-6 w-6 rounded border-2 border-green-500 flex items-center justify-center bg-green-50">
+                        <span class="material-symbols-outlined text-green-600 text-sm">check</span>
+                    </div>
+                    <div class="flex-1">
+                        <span class="font-body-md font-medium text-on-surface">Image Alt Text optimized</span>
+                    </div>
+                    <span class="text-xs text-green-600 font-semibold bg-green-50 px-2 py-1 rounded">PASSED</span>
+                </div>
+                <div class="flex items-center gap-4 p-4 border border-error/20 rounded-lg bg-red-50/20 transition-all">
+                    <div class="h-6 w-6 rounded border-2 border-error flex items-center justify-center"></div>
+                    <div class="flex-1">
+                        <span class="font-body-md font-medium text-on-surface">Target keyword in Title tag</span>
+                    </div>
+                    <span class="text-xs text-error font-semibold bg-red-50 px-2 py-1 rounded">REQUIRED</span>
+                </div>
+                <div class="flex items-center gap-4 p-4 border border-gray-100 rounded-lg hover:border-primary/20 transition-all">
+                    <div class="h-6 w-6 rounded border-2 border-gray-300 flex items-center justify-center"></div>
+                    <div class="flex-1">
+                        <span class="font-body-md font-medium text-on-surface">External links use nofollow</span>
+                    </div>
+                    <span class="text-xs text-gray-500 font-semibold bg-gray-50 px-2 py-1 rounded">PENDING</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Plan -->
+        <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+            <h3 class="font-h3 text-h3 mb-6 flex items-center gap-2">
+                <span class="material-symbols-outlined text-indigo-600">lightbulb</span>
+                Action Plan
+            </h3>
+            <div class="space-y-6">
+                <div class="flex gap-4">
+                    <div class="text-h2 font-black text-indigo-100 leading-none select-none">01</div>
+                    <div class="space-y-2">
+                        <h4 class="font-body-md font-bold">Compress Large Assets</h4>
+                        <p class="text-sm text-on-surface-variant">Your homepage is currently 4.2MB. Use Brotli compression and serve images in next-gen formats (AVIF/WebP) to reduce load by 60%.</p>
+                        <a class="text-sm font-semibold text-primary inline-flex items-center gap-1 hover:underline" href="#">
+                            Instruction Guide
+                            <span class="material-symbols-outlined text-sm">open_in_new</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <div class="text-h2 font-black text-indigo-100 leading-none select-none">02</div>
+                    <div class="space-y-2">
+                        <h4 class="font-body-md font-bold">Fix Schema Markups</h4>
+                        <p class="text-sm text-on-surface-variant">The 'Organization' and 'Product' schemas have parsing errors. Update the JSON-LD blocks to comply with Schema.org v12.0.</p>
+                        <a class="text-sm font-semibold text-primary inline-flex items-center gap-1 hover:underline" href="#">
+                            View Errors
+                            <span class="material-symbols-outlined text-sm">open_in_new</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <div class="text-h2 font-black text-indigo-100 leading-none select-none">03</div>
+                    <div class="space-y-2">
+                        <h4 class="font-body-md font-bold">Consolidate Redirect Chains</h4>
+                        <p class="text-sm text-on-surface-variant">We found 5 instances of multi-hop redirects. Update the source links to point directly to the destination URL.</p>
+                        <a class="text-sm font-semibold text-primary inline-flex items-center gap-1 hover:underline" href="#">
+                            Download List
+                            <span class="material-symbols-outlined text-sm">download</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- end Two Column -->
+
+</div><!-- end space-y-lg -->
+
+<!-- Contextual FAB -->
+<button class="fab-btn fixed bottom-8 right-8 h-14 w-14 bg-indigo-600 rounded-full text-white shadow-xl hover:bg-indigo-700 transition-all active:scale-95 flex items-center justify-center z-50">
+    <span class="material-symbols-outlined">refresh</span>
+</button>
+{% endblock %}

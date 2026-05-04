@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed": "#25005a",
+                        "on-surface": "#191c1d",
+                        "primary-fixed": "#e2dfff",
+                        "surface-container-low": "#f3f4f5",
+                        "tertiary": "#7e3000",
+                        "error-container": "#ffdad6",
+                        "outline-variant": "#c7c4d8",
+                        "surface-tint": "#4d44e3",
+                        "tertiary-container": "#a44100",
+                        "surface-container-high": "#e7e8e9",
+                        "on-tertiary-container": "#ffd2be",
+                        "surface-container-highest": "#e1e3e4",
+                        "on-tertiary-fixed": "#351000",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#0f0069",
+                        "on-background": "#191c1d",
+                        "surface-container": "#edeeef",
+                        "on-primary-container": "#dad7ff",
+                        "outline": "#777587",
+                        "primary": "#3525cd",
+                        "tertiary-fixed-dim": "#ffb695",
+                        "inverse-surface": "#2e3132",
+                        "primary-container": "#4f46e5",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed-dim": "#d2bbff",
+                        "secondary-fixed": "#eaddff",
+                        "tertiary-fixed": "#ffdbcc",
+                        "on-surface-variant": "#464555",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "on-error": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "surface-variant": "#e1e3e4",
+                        "inverse-on-surface": "#f0f1f2",
+                        "on-secondary-fixed-variant": "#5a00c6",
+                        "secondary-container": "#8a4cfc",
+                        "surface-dim": "#d9dadb",
+                        "surface-bright": "#f8f9fa",
+                        "error": "#ba1a1a",
+                        "on-primary": "#ffffff",
+                        "surface": "#f8f9fa",
+                        "background": "#f8f9fa",
+                        "secondary": "#712ae2",
+                        "on-secondary-container": "#fffbff",
+                        "inverse-primary": "#c3c0ff",
+                        "on-error-container": "#93000a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "xs": "4px",
+                        "margin-page": "24px",
+                        "xl": "32px",
+                        "lg": "24px",
+                        "gutter": "16px",
+                        "sm": "8px",
+                        "base": "4px",
+                        "max-width": "1440px"
+                    },
+                    "fontFamily": {
+                        "h3": ["Inter"],
+                        "h1": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "h2": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "table-data": ["Inter"]
+                    },
+                    "fontSize": {
+                        "h3": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "h1": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "h2": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "table-data": ["13px", {"lineHeight": "18px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body class="bg-background font-body-md text-on-surface">
+<!-- TopAppBar -->
+<header class="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 px-4 sm:gap-x-6 sm:px-6 lg:px-8 bg-white border-b border-gray-200 shadow-sm font-inter antialiased">
+<div class="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
+<div class="flex items-center">
+<span class="text-xl font-bold text-indigo-600">SEO Insight Pro</span>
+</div>
+<nav class="hidden md:flex gap-x-8 items-center ml-10">
+<a class="text-gray-500 hover:bg-gray-50 transition-colors cursor-pointer active:opacity-80 font-body-sm" href="#">Dashboard</a>
+<a class="text-gray-500 hover:bg-gray-50 transition-colors cursor-pointer active:opacity-80 font-body-sm" href="#">Audit</a>
+<a class="text-indigo-600 font-semibold transition-colors cursor-pointer active:opacity-80 font-body-sm" href="#">Pricing</a>
+<a class="text-gray-500 hover:bg-gray-50 transition-colors cursor-pointer active:opacity-80 font-body-sm" href="#">Keywords</a>
+</nav>
+<div class="flex items-center gap-x-4 ml-auto">
+<button class="material-symbols-outlined text-gray-500 hover:bg-gray-50 p-2 rounded-full transition-colors" data-icon="notifications">notifications</button>
+<button class="material-symbols-outlined text-gray-500 hover:bg-gray-50 p-2 rounded-full transition-colors" data-icon="help">help</button>
+<div class="h-8 w-8 rounded-full bg-primary-container flex items-center justify-center text-white overflow-hidden">
+<img alt="User profile" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-ONklZ3PWaUjKqZUgjR09dZ1JT-QtPWlyb8jW13UdfoQnMYabd6FBkU62ENo8AS9UlbjBhibFNpcx1BskARFLHmEZE44O1BmPKANaJN36JQu48mkVW49ozOVPQg0efEMzwdtc8MwPonqVP2iqjLVN0IgdnNnYx0dtTvC5HtNnJoN7XjtNWM44iX7E3iNSlilRride_7jtVny5gcRSfTASwFuG4mSdPSeDJdJeLbqYKLUXizdu-qa-0BiEyHygvLeCOz4JiQke2dU"/>
+</div>
+</div>
+</div>
+</header>
+<main class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+<!-- Hero Section -->
+<div class="text-center mb-16">
+<h1 class="font-h1 text-h1 text-on-surface mb-4">Scalable Intelligence for SEO Professionals</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">
+                Choose the plan that fits your growth. From individual consultants to enterprise-scale agencies.
+            </p>
+</div>
+<!-- Pricing Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
+<!-- Free Plan -->
+<div class="bg-white rounded-xl border border-outline-variant p-8 flex flex-col shadow-sm transition-all hover:shadow-md">
+<div class="mb-8">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-2 block">Entry</span>
+<h3 class="font-h3 text-h3 text-on-surface mb-2">Free</h3>
+<div class="flex items-baseline">
+<span class="text-4xl font-bold text-on-surface">$0</span>
+<span class="font-body-sm text-on-surface-variant ml-2">/mo</span>
+</div>
+</div>
+<ul class="space-y-4 mb-10 flex-grow">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-indigo-600 text-[20px]" data-icon="check_circle">check_circle</span>
+<span class="font-body-sm">1 Project Audit</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-indigo-600 text-[20px]" data-icon="check_circle">check_circle</span>
+<span class="font-body-sm">100 Keywords Tracking</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-indigo-600 text-[20px]" data-icon="check_circle">check_circle</span>
+<span class="font-body-sm">Daily Updates</span>
+</li>
+</ul>
+<button class="w-full py-3 px-4 rounded-lg bg-white border border-outline text-on-surface font-semibold hover:bg-gray-50 transition-colors cursor-pointer">
+                    Get Started
+                </button>
+</div>
+<!-- Pro Plan -->
+<div class="bg-white rounded-xl border-2 border-primary p-8 flex flex-col shadow-lg relative transform md:-translate-y-4">
+<div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+                    Most Popular
+                </div>
+<div class="mb-8">
+<span class="font-label-caps text-label-caps text-primary uppercase mb-2 block">Professional</span>
+<h3 class="font-h3 text-h3 text-on-surface mb-2">Pro</h3>
+<div class="flex items-baseline">
+<span class="text-4xl font-bold text-on-surface">$49</span>
+<span class="font-body-sm text-on-surface-variant ml-2">/mo</span>
+</div>
+</div>
+<ul class="space-y-4 mb-10 flex-grow">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-indigo-600 text-[20px]" data-icon="check_circle">check_circle</span>
+<span class="font-body-sm">15 Project Audits</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-indigo-600 text-[20px]" data-icon="check_circle">check_circle</span>
+<span class="font-body-sm">2,500 Keywords Tracking</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-indigo-600 text-[20px]" data-icon="check_circle">check_circle</span>
+<span class="font-body-sm">Backlink Monitor</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-indigo-600 text-[20px]" data-icon="check_circle">check_circle</span>
+<span class="font-body-sm">AI Content Recommendations</span>
+</li>
+</ul>
+<button class="w-full py-3 px-4 rounded-lg bg-primary text-white font-semibold hover:bg-opacity-90 transition-colors cursor-pointer shadow-sm">
+                    Get Started
+                </button>
+</div>
+<!-- Agency Plan -->
+<div class="bg-white rounded-xl border border-outline-variant p-8 flex flex-col shadow-sm transition-all hover:shadow-md">
+<div class="mb-8">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-2 block">Enterprise</span>
+<h3 class="font-h3 text-h3 text-on-surface mb-2">Agency</h3>
+<div class="flex items-baseline">
+<span class="text-4xl font-bold text-on-surface">$199</span>
+<span class="font-body-sm text-on-surface-variant ml-2">/mo</span>
+</div>
+</div>
+<ul class="space-y-4 mb-10 flex-grow">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-indigo-600 text-[20px]" data-icon="check_circle">check_circle</span>
+<span class="font-body-sm">Unlimited Projects</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-indigo-600 text-[20px]" data-icon="check_circle">check_circle</span>
+<span class="font-body-sm">15,000 Keywords Tracking</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-indigo-600 text-[20px]" data-icon="check_circle">check_circle</span>
+<span class="font-body-sm">White-label Reporting</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-indigo-600 text-[20px]" data-icon="check_circle">check_circle</span>
+<span class="font-body-sm">Multi-user Access</span>
+</li>
+</ul>
+<button class="w-full py-3 px-4 rounded-lg bg-white border border-outline text-on-surface font-semibold hover:bg-gray-50 transition-colors cursor-pointer">
+                    Get Started
+                </button>
+</div>
+</div>
+<!-- Comparison Table -->
+<div class="mt-32">
+<h2 class="font-h2 text-h2 text-on-surface mb-12 text-center">Compare every feature</h2>
+<div class="overflow-x-auto ring-1 ring-gray-200 rounded-xl shadow-sm">
+<table class="min-w-full divide-y divide-gray-200 bg-white">
+<thead class="bg-gray-50">
+<tr>
+<th class="py-4 px-6 text-left font-label-caps text-label-caps text-on-surface-variant uppercase" scope="col">Feature</th>
+<th class="py-4 px-6 text-center font-label-caps text-label-caps text-on-surface-variant uppercase" scope="col">Free</th>
+<th class="py-4 px-6 text-center font-label-caps text-label-caps text-on-surface-variant uppercase" scope="col">Pro</th>
+<th class="py-4 px-6 text-center font-label-caps text-label-caps text-on-surface-variant uppercase" scope="col">Agency</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-gray-200 font-table-data text-table-data">
+<tr class="hover:bg-gray-50 transition-colors">
+<td class="py-4 px-6 font-medium text-on-surface">Weekly Crawler Limits</td>
+<td class="py-4 px-6 text-center">500 pages</td>
+<td class="py-4 px-6 text-center font-semibold text-indigo-600">50,000 pages</td>
+<td class="py-4 px-6 text-center">Unlimited</td>
+</tr>
+<tr class="hover:bg-gray-50 transition-colors">
+<td class="py-4 px-6 font-medium text-on-surface">Keyword Tracking frequency</td>
+<td class="py-4 px-6 text-center">7 days</td>
+<td class="py-4 px-6 text-center">Daily</td>
+<td class="py-4 px-6 text-center">Real-time</td>
+</tr>
+<tr class="hover:bg-gray-50 transition-colors">
+<td class="py-4 px-6 font-medium text-on-surface">Backlink Database</td>
+<td class="py-4 px-6 text-center">—</td>
+<td class="py-4 px-6 text-center">Full Access</td>
+<td class="py-4 px-6 text-center">Full Access</td>
+</tr>
+<tr class="hover:bg-gray-50 transition-colors">
+<td class="py-4 px-6 font-medium text-on-surface">Custom API Access</td>
+<td class="py-4 px-6 text-center">—</td>
+<td class="py-4 px-6 text-center">—</td>
+<td class="py-4 px-6 text-center">
+<span class="material-symbols-outlined text-green-600" data-icon="check">check</span>
+</td>
+</tr>
+<tr class="hover:bg-gray-50 transition-colors">
+<td class="py-4 px-6 font-medium text-on-surface">White-label PDF Reports</td>
+<td class="py-4 px-6 text-center">—</td>
+<td class="py-4 px-6 text-center">Branded</td>
+<td class="py-4 px-6 text-center font-semibold text-indigo-600">Fully Custom</td>
+</tr>
+<tr class="hover:bg-gray-50 transition-colors">
+<td class="py-4 px-6 font-medium text-on-surface">Team Management</td>
+<td class="py-4 px-6 text-center">1 User</td>
+<td class="py-4 px-6 text-center">3 Users</td>
+<td class="py-4 px-6 text-center">25 Users</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Trust Section with Image -->
+<div class="mt-32 bg-indigo-50 rounded-3xl p-12 flex flex-col md:flex-row items-center gap-12 overflow-hidden">
+<div class="flex-1">
+<h2 class="font-h2 text-h2 text-on-surface mb-6">Trusted by 25,000+ SEO Experts Globally</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8">
+                    Join the world's most innovative marketing teams. We provide the data precision and technical depth required to win in modern search landscapes.
+                </p>
+<div class="flex gap-4">
+<div class="bg-white p-4 rounded-xl shadow-sm border border-indigo-100 flex items-center gap-3">
+<span class="material-symbols-outlined text-indigo-600" data-icon="stars" style="font-variation-settings: 'FILL' 1;">stars</span>
+<div>
+<p class="font-body-sm font-bold text-on-surface">4.9/5 Rating</p>
+<p class="text-[11px] text-on-surface-variant uppercase tracking-wider">On G2 Crowd</p>
+</div>
+</div>
+<div class="bg-white p-4 rounded-xl shadow-sm border border-indigo-100 flex items-center gap-3">
+<span class="material-symbols-outlined text-indigo-600" data-icon="security" style="font-variation-settings: 'FILL' 1;">security</span>
+<div>
+<p class="font-body-sm font-bold text-on-surface">SOC2 Type II</p>
+<p class="text-[11px] text-on-surface-variant uppercase tracking-wider">Security Certified</p>
+</div>
+</div>
+</div>
+</div>
+<div class="flex-1 relative w-full h-80 rounded-2xl overflow-hidden shadow-2xl">
+<img alt="Dashboard analytics visualization" class="w-full h-full object-cover" data-alt="A clean, professional high-fidelity digital dashboard showing advanced SEO analytics with indigo and teal line charts and data visualizations. The interface is displayed on a high-end studio monitor in a bright, modern office setting with soft ambient lighting. The atmosphere is professional, tech-focused, and data-driven, using a light-mode aesthetic consistent with corporate SaaS design standards." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWjZBgSnbl3jEpAhOi23He-FEGMdvWxuRYmtL69XAA7FUk5Fh-DWVosDPsNzzw2zDfqHxBlZ2JM9O329GH2ugcayNAG1743M_aFHrrGdO5orTUmDrQ9h53ojHFVpbFIIa9b6Z0k6U4CJcTfhe1dw6FQYAkCuuI8SrUftHceWYD98NMLHs6uFd70TFhnahevmZATlUj6KaBdpTgDmLmbH72OGfDl4XD8QSMolwSjd84brMLk94IZxsNIvgljTKnHQ-qu-TE0sb7iHc"/>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-gray-50 border-t border-gray-200 mt-24">
+<div class="mx-auto max-w-7xl px-6 py-12 md:flex md:items-center md:justify-between lg:px-8">
+<div class="flex justify-center space-x-6 md:order-2">
+<a class="text-gray-500 hover:text-gray-900 transition-colors font-inter text-xs hover:underline cursor-pointer" href="#">Privacy Policy</a>
+<a class="text-gray-500 hover:text-gray-900 transition-colors font-inter text-xs hover:underline cursor-pointer" href="#">Terms of Service</a>
+<a class="text-gray-500 hover:text-gray-900 transition-colors font-inter text-xs hover:underline cursor-pointer" href="#">API Status</a>
+<a class="text-gray-500 hover:text-gray-900 transition-colors font-inter text-xs hover:underline cursor-pointer" href="#">Cookie Settings</a>
+</div>
+<div class="mt-8 md:order-1 md:mt-0">
+<p class="text-center text-xs leading-5 text-gray-500 font-inter">
+                    © 2024 SEO Insight Pro. All rights reserved.
+                </p>
+</div>
+</div>
+</footer>
+</body></html>

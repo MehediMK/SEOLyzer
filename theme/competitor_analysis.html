@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Competitor Analysis - SEO Insight Pro</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-fixed": "#25005a",
+                    "on-surface": "#191c1d",
+                    "primary-fixed": "#e2dfff",
+                    "surface-container-low": "#f3f4f5",
+                    "tertiary": "#7e3000",
+                    "error-container": "#ffdad6",
+                    "outline-variant": "#c7c4d8",
+                    "surface-tint": "#4d44e3",
+                    "tertiary-container": "#a44100",
+                    "surface-container-high": "#e7e8e9",
+                    "on-tertiary-container": "#ffd2be",
+                    "surface-container-highest": "#e1e3e4",
+                    "on-tertiary-fixed": "#351000",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed": "#0f0069",
+                    "on-background": "#191c1d",
+                    "surface-container": "#edeeef",
+                    "on-primary-container": "#dad7ff",
+                    "outline": "#777587",
+                    "primary": "#3525cd",
+                    "tertiary-fixed-dim": "#ffb695",
+                    "inverse-surface": "#2e3132",
+                    "primary-container": "#4f46e5",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-fixed-dim": "#d2bbff",
+                    "secondary-fixed": "#eaddff",
+                    "tertiary-fixed": "#ffdbcc",
+                    "on-surface-variant": "#464555",
+                    "on-tertiary-fixed-variant": "#7b2f00",
+                    "on-primary-fixed-variant": "#3323cc",
+                    "on-error": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "surface-variant": "#e1e3e4",
+                    "inverse-on-surface": "#f0f1f2",
+                    "on-secondary-fixed-variant": "#5a00c6",
+                    "secondary-container": "#8a4cfc",
+                    "surface-dim": "#d9dadb",
+                    "surface-bright": "#f8f9fa",
+                    "error": "#ba1a1a",
+                    "on-primary": "#ffffff",
+                    "surface": "#f8f9fa",
+                    "background": "#f8f9fa",
+                    "secondary": "#712ae2",
+                    "on-secondary-container": "#fffbff",
+                    "inverse-primary": "#c3c0ff",
+                    "on-error-container": "#93000a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "md": "16px",
+                    "xs": "4px",
+                    "margin-page": "24px",
+                    "xl": "32px",
+                    "lg": "24px",
+                    "gutter": "16px",
+                    "sm": "8px",
+                    "base": "4px",
+                    "max-width": "1440px"
+            },
+            "fontFamily": {
+                    "h3": ["Inter"],
+                    "h1": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "h2": ["Inter"],
+                    "label-caps": ["Inter"],
+                    "table-data": ["Inter"]
+            },
+            "fontSize": {
+                    "h3": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "h1": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "h2": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "table-data": ["13px", {"lineHeight": "18px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .zebra-hover tr:hover {
+            background-color: #F3F4F6;
+        }
+    </style>
+</head>
+<body class="bg-background font-body-md text-on-background">
+<!-- SideNavBar -->
+<aside class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-64 lg:flex-col bg-white border-r border-gray-200">
+<div class="flex flex-col grow gap-y-5 overflow-y-auto px-6 pb-4">
+<div class="flex h-16 shrink-0 items-center gap-x-3">
+<div class="h-8 w-8 rounded-lg bg-primary-container flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-lg">insights</span>
+</div>
+<div class="flex flex-col">
+<span class="text-lg font-black tracking-tight text-gray-900 leading-tight">SEO Insight Pro</span>
+<span class="text-[10px] font-semibold uppercase tracking-widest text-indigo-600">Enterprise SEO</span>
+</div>
+</div>
+<nav class="flex flex-1 flex-col">
+<ul class="flex flex-1 flex-col gap-y-7" role="list">
+<li>
+<ul class="-mx-2 space-y-1" role="list">
+<li>
+<a class="group flex gap-x-3 rounded-md p-2 text-sm font-medium leading-6 text-gray-600 hover:bg-gray-50 hover:text-indigo-600 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined shrink-0" data-icon="dashboard">dashboard</span>
+                                    Dashboard
+                                </a>
+</li>
+<li>
+<a class="group flex gap-x-3 rounded-md p-2 text-sm font-medium leading-6 text-gray-600 hover:bg-gray-50 hover:text-indigo-600 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined shrink-0" data-icon="analytics">analytics</span>
+                                    Audit
+                                </a>
+</li>
+<li>
+<a class="group flex gap-x-3 rounded-md p-2 text-sm font-medium leading-6 text-gray-600 hover:bg-gray-50 hover:text-indigo-600 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined shrink-0" data-icon="key">key</span>
+                                    Keywords
+                                </a>
+</li>
+<li>
+<a class="group flex gap-x-3 rounded-md p-2 text-sm font-medium leading-6 text-gray-600 hover:bg-gray-50 hover:text-indigo-600 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined shrink-0" data-icon="link">link</span>
+                                    Backlinks
+                                </a>
+</li>
+<li>
+<a class="group flex gap-x-3 rounded-md p-2 text-sm font-medium leading-6 bg-gray-50 text-indigo-600 border-r-2 border-indigo-600 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined shrink-0" data-icon="compare_arrows">compare_arrows</span>
+                                    Competitors
+                                </a>
+</li>
+<li>
+<a class="group flex gap-x-3 rounded-md p-2 text-sm font-medium leading-6 text-gray-600 hover:bg-gray-50 hover:text-indigo-600 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined shrink-0" data-icon="settings">settings</span>
+                                    Settings
+                                </a>
+</li>
+</ul>
+</li>
+<li class="mt-auto">
+<button class="w-full mb-4 flex items-center justify-center gap-x-2 rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                            New Analysis
+                        </button>
+<ul class="-mx-2 space-y-1" role="list">
+<li>
+<a class="group flex gap-x-3 rounded-md p-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-indigo-600" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+                                    Help Center
+                                </a>
+</li>
+<li>
+<a class="group flex gap-x-3 rounded-md p-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-indigo-600" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+                                    Logout
+                                </a>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<div class="lg:pl-64">
+<!-- TopAppBar -->
+<header class="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 bg-white border-b border-gray-200 px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
+<div class="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
+<form action="#" class="relative flex flex-1 items-center" method="GET">
+<span class="material-symbols-outlined absolute left-0 text-gray-400 pointer-events-none" data-icon="search">search</span>
+<input class="block h-full w-full border-0 py-0 pl-8 pr-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm" id="search-field" name="search" placeholder="Search keywords or domains..." type="search"/>
+</form>
+<div class="flex items-center gap-x-4 lg:gap-x-6">
+<button class="p-2.5 text-gray-400 hover:text-indigo-600 transition-colors" type="button">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<div aria-hidden="true" class="hidden lg:block lg:h-6 lg:w-px lg:bg-gray-200"></div>
+<button class="text-sm font-semibold text-gray-500 hover:text-indigo-600" type="button">Support</button>
+<div class="flex items-center gap-x-3">
+<img alt="User profile" class="h-8 w-8 rounded-full bg-gray-50" data-alt="A professional headshot of a focused business executive in a high-tech corporate office environment. The lighting is soft and natural, suggesting an early morning atmosphere. The color palette is clean, with neutral tones that align with a modern corporate identity. The overall mood is one of quiet confidence and expertise." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBR4tGVvGFYQrFdYYN81i8Fg5CMPNtcNjiZjfkBByIJTg0EF8hNt2mYZReWLcuNI74gHDYolouJiAHcOjEyUgXtIXKkSwTVBiK7_26FdlLnZcy2QQMUJwzap8Kbwdnmu6ZIHEYrdHbA1N80O2UAyXPH4XNzWQ_uJ-JX1uJINTE3Hy0WVRoOreK3ayMADXxDIulfsnffDBE29PeSXQKU5SlMtb18nYDIHJZ3qOmeFdzOUaJpr4Gs_wsGJAPP3-Z_O5CUZ-VXclrUZAA"/>
+</div>
+</div>
+</div>
+</header>
+<main class="py-10">
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+<!-- Page Header -->
+<div class="md:flex md:items-center md:justify-between mb-8">
+<div class="min-w-0 flex-1">
+<h1 class="font-h1 text-h1 text-gray-900">Competitor Analysis</h1>
+<p class="mt-2 font-body-md text-gray-500">Benchmark your domain performance against industry leaders and direct rivals.</p>
+</div>
+<div class="mt-4 flex md:ml-4 md:mt-0 space-x-3">
+<button class="inline-flex items-center rounded-lg bg-white px-4 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" type="button">
+<span class="material-symbols-outlined mr-2 text-gray-400" data-icon="file_download">file_download</span>
+                            Export PDF
+                        </button>
+</div>
+</div>
+<!-- Compare Domains Search Bar -->
+<div class="mb-10 p-6 bg-white rounded-xl shadow-sm border border-gray-200">
+<div class="flex flex-col space-y-4">
+<h2 class="font-h3 text-h3 text-gray-900">Compare Domains</h2>
+<div class="flex flex-col md:flex-row gap-3">
+<div class="flex-1 relative">
+<div class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+<span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-1.5 rounded">YOU</span>
+</div>
+<input class="block w-full rounded-lg border-0 py-3 pl-14 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 bg-gray-50 sm:text-sm font-medium" readonly="" type="text" value="acme-saas.com"/>
+</div>
+<div class="flex items-center justify-center px-2">
+<span class="material-symbols-outlined text-gray-400" data-icon="bolt">bolt</span>
+</div>
+<div class="flex-1 relative">
+<div class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-gray-400" data-icon="language">language</span>
+</div>
+<input class="block w-full rounded-lg border-0 py-3 pl-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm" placeholder="Enter competitor domain (e.g. competitor.com)" type="text"/>
+</div>
+<div class="flex-1 relative">
+<div class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-gray-400" data-icon="language">language</span>
+</div>
+<input class="block w-full rounded-lg border-0 py-3 pl-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm" placeholder="Enter competitor domain" type="text"/>
+</div>
+<button class="bg-indigo-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition-colors shadow-md">Compare</button>
+</div>
+</div>
+</div>
+<!-- Bento Grid Visualization -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 mb-10">
+<!-- Organic Traffic Comparison (Bar Chart) -->
+<div class="md:col-span-8 p-6 bg-white rounded-xl shadow-sm border border-gray-200">
+<div class="flex justify-between items-center mb-6">
+<div>
+<h3 class="font-h3 text-h3 text-gray-900">Organic Traffic Volume</h3>
+<p class="text-sm text-gray-500">Estimated monthly visits from organic search</p>
+</div>
+<div class="flex items-center space-x-4">
+<div class="flex items-center"><span class="h-3 w-3 rounded-full bg-indigo-600 mr-2"></span><span class="text-xs font-medium text-gray-600">You</span></div>
+<div class="flex items-center"><span class="h-3 w-3 rounded-full bg-purple-500 mr-2"></span><span class="text-xs font-medium text-gray-600">Comp A</span></div>
+<div class="flex items-center"><span class="h-3 w-3 rounded-full bg-teal-400 mr-2"></span><span class="text-xs font-medium text-gray-600">Comp B</span></div>
+</div>
+</div>
+<div class="relative h-64 w-full flex items-end justify-between px-4 pb-4 border-b border-l border-gray-100">
+<!-- Y-axis guide lines -->
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none pb-4">
+<div class="border-t border-gray-50 w-full h-0"></div>
+<div class="border-t border-gray-50 w-full h-0"></div>
+<div class="border-t border-gray-50 w-full h-0"></div>
+<div class="border-t border-gray-50 w-full h-0"></div>
+</div>
+<!-- Bar 1 (Nov) -->
+<div class="flex flex-col items-center gap-2 w-full">
+<div class="flex items-end gap-1 h-48 w-full justify-center">
+<div class="w-4 bg-indigo-600 rounded-t-sm h-[60%]"></div>
+<div class="w-4 bg-purple-500 rounded-t-sm h-[85%]"></div>
+<div class="w-4 bg-teal-400 rounded-t-sm h-[40%]"></div>
+</div>
+<span class="text-[10px] font-semibold text-gray-400 uppercase">Nov</span>
+</div>
+<!-- Bar 2 (Dec) -->
+<div class="flex flex-col items-center gap-2 w-full">
+<div class="flex items-end gap-1 h-48 w-full justify-center">
+<div class="w-4 bg-indigo-600 rounded-t-sm h-[65%]"></div>
+<div class="w-4 bg-purple-500 rounded-t-sm h-[75%]"></div>
+<div class="w-4 bg-teal-400 rounded-t-sm h-[45%]"></div>
+</div>
+<span class="text-[10px] font-semibold text-gray-400 uppercase">Dec</span>
+</div>
+<!-- Bar 3 (Jan) -->
+<div class="flex flex-col items-center gap-2 w-full">
+<div class="flex items-end gap-1 h-48 w-full justify-center">
+<div class="w-4 bg-indigo-600 rounded-t-sm h-[75%]"></div>
+<div class="w-4 bg-purple-500 rounded-t-sm h-[70%]"></div>
+<div class="w-4 bg-teal-400 rounded-t-sm h-[55%]"></div>
+</div>
+<span class="text-[10px] font-semibold text-gray-400 uppercase">Jan</span>
+</div>
+<!-- Bar 4 (Feb) -->
+<div class="flex flex-col items-center gap-2 w-full">
+<div class="flex items-end gap-1 h-48 w-full justify-center">
+<div class="w-4 bg-indigo-600 rounded-t-sm h-[85%]"></div>
+<div class="w-4 bg-purple-500 rounded-t-sm h-[65%]"></div>
+<div class="w-4 bg-teal-400 rounded-t-sm h-[60%]"></div>
+</div>
+<span class="text-[10px] font-semibold text-gray-400 uppercase">Feb</span>
+</div>
+<!-- Bar 5 (Mar) -->
+<div class="flex flex-col items-center gap-2 w-full">
+<div class="flex items-end gap-1 h-48 w-full justify-center">
+<div class="w-4 bg-indigo-600 rounded-t-sm h-[95%]"></div>
+<div class="w-4 bg-purple-500 rounded-t-sm h-[60%]"></div>
+<div class="w-4 bg-teal-400 rounded-t-sm h-[65%]"></div>
+</div>
+<span class="text-[10px] font-semibold text-gray-400 uppercase">Mar</span>
+</div>
+</div>
+</div>
+<!-- Keyword Overlap (Venn Style) -->
+<div class="md:col-span-4 p-6 bg-white rounded-xl shadow-sm border border-gray-200 flex flex-col">
+<h3 class="font-h3 text-h3 text-gray-900 mb-2">Keyword Overlap</h3>
+<p class="text-sm text-gray-500 mb-8">Shared vs unique keywords</p>
+<div class="relative flex-1 flex items-center justify-center">
+<!-- SVG for Overlap -->
+<svg class="w-48 h-48 overflow-visible opacity-80" viewbox="0 0 100 100">
+<circle class="text-indigo-600/30" cx="40" cy="50" fill="currentColor" r="30"></circle>
+<circle class="text-purple-500/30" cx="60" cy="50" fill="currentColor" r="30"></circle>
+<circle class="text-teal-400/30" cx="50" cy="40" fill="currentColor" r="30"></circle>
+</svg>
+<div class="absolute text-[10px] font-bold text-gray-700 bg-white/90 px-1.5 py-0.5 rounded shadow-sm">12,403 Common</div>
+</div>
+<div class="mt-6 space-y-3">
+<div class="flex justify-between items-center text-sm">
+<span class="flex items-center"><span class="h-2 w-2 rounded-full bg-indigo-600 mr-2"></span>Unique to You</span>
+<span class="font-semibold">4.2k</span>
+</div>
+<div class="w-full bg-gray-100 h-1 rounded-full overflow-hidden">
+<div class="bg-indigo-600 h-full w-[35%]"></div>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="flex items-center"><span class="h-2 w-2 rounded-full bg-purple-500 mr-2"></span>Shared with All</span>
+<span class="font-semibold">12.4k</span>
+</div>
+<div class="w-full bg-gray-100 h-1 rounded-full overflow-hidden">
+<div class="bg-purple-500 h-full w-[85%]"></div>
+</div>
+</div>
+</div>
+<!-- Market Share Card -->
+<div class="md:col-span-4 p-6 bg-indigo-600 rounded-xl shadow-lg border border-indigo-700 text-white relative overflow-hidden">
+<div class="relative z-10">
+<div class="flex justify-between items-start mb-4">
+<span class="bg-white/20 p-2 rounded-lg">
+<span class="material-symbols-outlined" data-icon="insights">insights</span>
+</span>
+<span class="text-xs font-bold bg-white/30 px-2 py-1 rounded">+12.4%</span>
+</div>
+<h4 class="text-indigo-100 font-semibold text-sm">Projected Market Share</h4>
+<div class="text-4xl font-bold mt-1">28.4%</div>
+<p class="text-indigo-200 text-xs mt-4">Growth attributed to "Cloud Security" keyword clusters.</p>
+</div>
+<!-- Abstract Background Detail -->
+<div class="absolute bottom-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-3xl -mb-16 -mr-16"></div>
+</div>
+<!-- Domain Authority Comparison -->
+<div class="md:col-span-8 p-6 bg-white rounded-xl shadow-sm border border-gray-200">
+<h3 class="font-h3 text-h3 text-gray-900 mb-6">Domain Authority Metrics</h3>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
+<div class="flex flex-col items-center p-4 rounded-lg bg-gray-50 border border-gray-100">
+<span class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Your Domain</span>
+<div class="text-3xl font-black text-indigo-600">84</div>
+<div class="mt-4 w-full bg-gray-200 h-1.5 rounded-full">
+<div class="bg-indigo-600 h-full w-[84%]"></div>
+</div>
+</div>
+<div class="flex flex-col items-center p-4 rounded-lg border border-gray-100">
+<span class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Competitor A</span>
+<div class="text-3xl font-black text-gray-900">79</div>
+<div class="mt-4 w-full bg-gray-200 h-1.5 rounded-full">
+<div class="bg-purple-500 h-full w-[79%]"></div>
+</div>
+</div>
+<div class="flex flex-col items-center p-4 rounded-lg border border-gray-100">
+<span class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Competitor B</span>
+<div class="text-3xl font-black text-gray-900">91</div>
+<div class="mt-4 w-full bg-gray-200 h-1.5 rounded-full">
+<div class="bg-teal-400 h-full w-[91%]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Competitive Keyword Gap Table -->
+<div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+<div class="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
+<h3 class="text-lg font-bold text-gray-900">Keyword Gap Analysis</h3>
+<div class="flex gap-2">
+<button class="text-xs font-bold text-indigo-600 px-3 py-1.5 bg-indigo-50 rounded-lg">Missing Keywords</button>
+<button class="text-xs font-bold text-gray-500 px-3 py-1.5 hover:bg-gray-50 rounded-lg transition-colors">Shared Content</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left font-table-data">
+<thead class="bg-gray-50 text-gray-600 sticky top-0">
+<tr>
+<th class="px-6 py-3 font-semibold text-[11px] uppercase tracking-wider">Keyword</th>
+<th class="px-6 py-3 font-semibold text-[11px] uppercase tracking-wider">Volume</th>
+<th class="px-6 py-3 font-semibold text-[11px] uppercase tracking-wider">Difficulty</th>
+<th class="px-6 py-3 font-semibold text-[11px] uppercase tracking-wider">Your Pos.</th>
+<th class="px-6 py-3 font-semibold text-[11px] uppercase tracking-wider">Comp A Pos.</th>
+<th class="px-6 py-3 font-semibold text-[11px] uppercase tracking-wider">Comp B Pos.</th>
+<th class="px-6 py-3 font-semibold text-[11px] uppercase tracking-wider">Opportunity</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-gray-100 zebra-hover">
+<tr>
+<td class="px-6 py-4 font-medium text-gray-900">enterprise seo automation</td>
+<td class="px-6 py-4 text-gray-500">22.4k</td>
+<td class="px-6 py-4">
+<div class="flex items-center">
+<span class="text-amber-600 font-bold mr-2">68</span>
+<div class="w-16 bg-gray-100 h-1.5 rounded-full overflow-hidden">
+<div class="bg-amber-500 h-full w-[68%]"></div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-red-500 font-bold">Not Found</td>
+<td class="px-6 py-4 font-semibold text-gray-900">2</td>
+<td class="px-6 py-4 font-semibold text-gray-900">4</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center rounded-full bg-emerald-50 px-2 py-1 text-xs font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20">High</span>
+</td>
+</tr>
+<tr>
+<td class="px-6 py-4 font-medium text-gray-900">saas backlink strategy</td>
+<td class="px-6 py-4 text-gray-500">18.1k</td>
+<td class="px-6 py-4">
+<div class="flex items-center">
+<span class="text-red-600 font-bold mr-2">82</span>
+<div class="w-16 bg-gray-100 h-1.5 rounded-full overflow-hidden">
+<div class="bg-red-500 h-full w-[82%]"></div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-gray-900 font-semibold">14</td>
+<td class="px-6 py-4 font-semibold text-gray-900">1</td>
+<td class="px-6 py-4 font-semibold text-gray-900">3</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center rounded-full bg-amber-50 px-2 py-1 text-xs font-medium text-amber-700 ring-1 ring-inset ring-amber-600/20">Medium</span>
+</td>
+</tr>
+<tr>
+<td class="px-6 py-4 font-medium text-gray-900">ai content gap analysis</td>
+<td class="px-6 py-4 text-gray-500">9.5k</td>
+<td class="px-6 py-4">
+<div class="flex items-center">
+<span class="text-emerald-600 font-bold mr-2">34</span>
+<div class="w-16 bg-gray-100 h-1.5 rounded-full overflow-hidden">
+<div class="bg-emerald-500 h-full w-[34%]"></div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-red-500 font-bold">Not Found</td>
+<td class="px-6 py-4 font-semibold text-gray-900">18</td>
+<td class="px-6 py-4 font-semibold text-gray-900">1</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center rounded-full bg-emerald-50 px-2 py-1 text-xs font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20">Critical</span>
+</td>
+</tr>
+<tr>
+<td class="px-6 py-4 font-medium text-gray-900">keyword overlap tool</td>
+<td class="px-6 py-4 text-gray-500">12.0k</td>
+<td class="px-6 py-4">
+<div class="flex items-center">
+<span class="text-amber-600 font-bold mr-2">55</span>
+<div class="w-16 bg-gray-100 h-1.5 rounded-full overflow-hidden">
+<div class="bg-amber-500 h-full w-[55%]"></div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-indigo-600 font-black">1</td>
+<td class="px-6 py-4 font-semibold text-gray-900">3</td>
+<td class="px-6 py-4 font-semibold text-gray-900">8</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center rounded-full bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">Defend</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-gray-50 border-t border-gray-200">
+<div class="mx-auto max-w-7xl px-6 py-12 md:flex md:items-center md:justify-between lg:px-8">
+<div class="flex justify-center space-x-6 md:order-2">
+<a class="text-gray-500 hover:text-indigo-600 text-xs transition-colors" href="#">Privacy Policy</a>
+<a class="text-gray-500 hover:text-indigo-600 text-xs transition-colors" href="#">Terms of Service</a>
+<a class="text-gray-500 hover:text-indigo-600 text-xs transition-colors" href="#">API Status</a>
+<a class="text-gray-500 hover:text-indigo-600 text-xs transition-colors" href="#">Cookie Settings</a>
+</div>
+<div class="mt-8 md:order-1 md:mt-0">
+<p class="text-center font-inter text-xs text-gray-500">© 2024 SEO Insight Pro. All rights reserved.</p>
+</div>
+</div>
+</footer>
+</div>
+</body></html>

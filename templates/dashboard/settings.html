@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+
+{% block title %}Account Settings - SEO Insight Pro{% endblock %}
+{% block meta_description %}Manage your personal information, API integrations, and subscription plan.{% endblock %}
+
+{% block content %}
+<header class="mb-10">
+    <h1 class="font-h1 text-h1 text-on-surface">Account Settings</h1>
+    <p class="font-body-md text-body-md text-on-surface-variant mt-2">Manage your personal information, connected accounts, and subscription plans.</p>
+</header>
+
+<div class="grid grid-cols-1 gap-8 lg:grid-cols-3">
+
+    <!-- Left Column -->
+    <div class="lg:col-span-2 space-y-8">
+
+        <!-- Account Info Card -->
+        <section class="bg-white border border-gray-200 rounded-xl shadow-sm p-8">
+            <div class="flex items-center gap-6 mb-8">
+                <div class="relative">
+                    <img alt="User profile" class="h-24 w-24 rounded-2xl object-cover ring-4 ring-gray-50" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvGlHcAR1JuCg_vWlzJVm5-nkhxOTdc03scjKEJp3SvaSP7wa_RFtkuXw3ptLwzoB5UFEZKC5NQH7qnvYtGPTI42SK9Ry8RR-Sn1fti4653Z0Hw2yQAES4WLSU3w-JCzweX4C9gumZV3hVRbLN-jhT33jHuWz11DwukGQRiHyxjvb-53QiWR8PCC5U7r8oOu_5nEYILUhXFOqnrHcNL-xTk-EsuvzPX0aVpZdN22cYJfEQ3keAuCnUu4ToFUo9rGD3YpvPQJBTvLo"/>
+                    <button class="absolute -bottom-2 -right-2 bg-white p-1.5 rounded-lg border border-gray-200 shadow-md hover:bg-gray-50 transition-colors">
+                        <span class="material-symbols-outlined text-gray-600 text-sm">edit</span>
+                    </button>
+                </div>
+                <div>
+                    <h3 class="font-h3 text-h3 text-gray-900">Alex Strathmore</h3>
+                    <p class="font-body-sm text-body-sm text-gray-500">Chief SEO Strategist at Strathmore Analytics</p>
+                    <div class="mt-2 flex gap-2">
+                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wider uppercase bg-primary-container text-white">PRO</span>
+                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wider uppercase bg-gray-100 text-gray-600">Active</span>
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="space-y-1.5">
+                    <label class="font-label-caps text-label-caps text-gray-500 uppercase">First Name</label>
+                    <input class="w-full border-gray-200 rounded-lg text-body-sm focus:ring-primary focus:border-primary" type="text" value="Alex"/>
+                </div>
+                <div class="space-y-1.5">
+                    <label class="font-label-caps text-label-caps text-gray-500 uppercase">Last Name</label>
+                    <input class="w-full border-gray-200 rounded-lg text-body-sm focus:ring-primary focus:border-primary" type="text" value="Strathmore"/>
+                </div>
+                <div class="space-y-1.5 md:col-span-2">
+                    <label class="font-label-caps text-label-caps text-gray-500 uppercase">Email Address</label>
+                    <input class="w-full border-gray-200 rounded-lg text-body-sm focus:ring-primary focus:border-primary" type="email" value="alex@strathmore-analytics.io"/>
+                </div>
+            </div>
+            <div class="mt-8 flex justify-end gap-3">
+                <button class="px-4 py-2 border border-gray-200 text-gray-600 font-semibold rounded-lg hover:bg-gray-50 transition-colors text-body-sm">Cancel</button>
+                <button class="px-4 py-2 bg-primary text-white font-semibold rounded-lg hover:opacity-90 transition-colors text-body-sm">Save Changes</button>
+            </div>
+        </section>
+
+        <!-- API Integrations Card -->
+        <section class="bg-white border border-gray-200 rounded-xl shadow-sm p-8">
+            <div class="flex items-center gap-2 mb-6">
+                <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">integration_instructions</span>
+                <h3 class="font-h3 text-h3 text-gray-900">API Integrations</h3>
+            </div>
+            <div class="space-y-4">
+                <!-- Google Search Console -->
+                <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl border border-gray-100 hover:border-primary-container transition-all">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center border border-gray-100 shadow-sm">
+                            <span class="material-symbols-outlined text-red-500">search</span>
+                        </div>
+                        <div>
+                            <p class="font-body-md font-bold text-gray-900">Google Search Console</p>
+                            <p class="text-xs text-gray-500">Sync organic traffic data and impressions</p>
+                        </div>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input checked class="sr-only peer" type="checkbox"/>
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                    </label>
+                </div>
+                <!-- Google Analytics 4 -->
+                <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl border border-gray-100 hover:border-primary-container transition-all">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center border border-gray-100 shadow-sm">
+                            <span class="material-symbols-outlined text-blue-500">monitoring</span>
+                        </div>
+                        <div>
+                            <p class="font-body-md font-bold text-gray-900">Google Analytics 4</p>
+                            <p class="text-xs text-gray-500">Import engagement and conversion metrics</p>
+                        </div>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input checked class="sr-only peer" type="checkbox"/>
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                    </label>
+                </div>
+                <!-- Custom Webhooks -->
+                <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl border border-gray-100 hover:border-primary-container transition-all">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center border border-gray-100 shadow-sm">
+                            <span class="material-symbols-outlined text-indigo-500">webhook</span>
+                        </div>
+                        <div>
+                            <p class="font-body-md font-bold text-gray-900">Custom Webhooks</p>
+                            <p class="text-xs text-gray-500">Send report notifications to your CRM</p>
+                        </div>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input class="sr-only peer" type="checkbox"/>
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                    </label>
+                </div>
+            </div>
+        </section>
+
+    </div><!-- end Left Column -->
+
+    <!-- Right Column: Subscription -->
+    <div class="space-y-8">
+
+        <!-- Current Plan Card -->
+        <section class="bg-indigo-600 rounded-xl p-8 text-white relative overflow-hidden shadow-lg">
+            <div class="relative z-10">
+                <h3 class="font-label-caps text-label-caps text-indigo-200 uppercase tracking-widest mb-1">Current Plan</h3>
+                <p class="font-h2 text-h2 mb-4">Pro Enterprise</p>
+                <p class="text-body-sm text-indigo-100 mb-6">Your plan renews on <span class="font-bold">January 15, 2025</span>. Next charge: <span class="font-bold">$199.00</span></p>
+                <a href="{% url 'pricing' %}" class="block w-full py-3 bg-white text-primary font-bold rounded-lg hover:bg-indigo-50 transition-colors shadow-sm text-center">Upgrade Plan</a>
+                <button class="w-full mt-3 py-2 text-indigo-200 hover:text-white transition-colors text-body-sm">Change Billing Cycle</button>
+            </div>
+            <div class="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-0 left-0 -ml-8 -mb-8 w-32 h-32 bg-indigo-500/30 rounded-full blur-2xl"></div>
+        </section>
+
+        <!-- Billing History -->
+        <section class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+            <div class="p-6 border-b border-gray-100">
+                <h3 class="font-body-md font-bold text-gray-900">Billing History</h3>
+            </div>
+            <div class="divide-y divide-gray-50">
+                <div class="p-4 flex items-center justify-between hover:bg-gray-50 transition-colors group">
+                    <div class="flex items-center gap-3">
+                        <div class="bg-emerald-50 text-emerald-600 p-2 rounded-lg">
+                            <span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                        </div>
+                        <div>
+                            <p class="text-body-sm font-semibold text-gray-900">Dec 15, 2024</p>
+                            <p class="text-[10px] text-gray-500">Invoice #INV-90210</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-body-sm font-bold text-gray-900">$199.00</p>
+                        <a class="text-[10px] text-primary hover:underline" href="#">Download PDF</a>
+                    </div>
+                </div>
+                <div class="p-4 flex items-center justify-between hover:bg-gray-50 transition-colors group">
+                    <div class="flex items-center gap-3">
+                        <div class="bg-emerald-50 text-emerald-600 p-2 rounded-lg">
+                            <span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                        </div>
+                        <div>
+                            <p class="text-body-sm font-semibold text-gray-900">Nov 15, 2024</p>
+                            <p class="text-[10px] text-gray-500">Invoice #INV-89332</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-body-sm font-bold text-gray-900">$199.00</p>
+                        <a class="text-[10px] text-primary hover:underline" href="#">Download PDF</a>
+                    </div>
+                </div>
+                <div class="p-4 flex items-center justify-between hover:bg-gray-50 transition-colors group">
+                    <div class="flex items-center gap-3">
+                        <div class="bg-emerald-50 text-emerald-600 p-2 rounded-lg">
+                            <span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                        </div>
+                        <div>
+                            <p class="text-body-sm font-semibold text-gray-900">Oct 15, 2024</p>
+                            <p class="text-[10px] text-gray-500">Invoice #INV-88114</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-body-sm font-bold text-gray-900">$199.00</p>
+                        <a class="text-[10px] text-primary hover:underline" href="#">Download PDF</a>
+                    </div>
+                </div>
+            </div>
+            <button class="w-full py-4 bg-gray-50 text-body-sm font-semibold text-gray-600 hover:text-primary transition-colors border-t border-gray-100">
+                View Full History
+            </button>
+        </section>
+
+    </div><!-- end Right Column -->
+
+</div><!-- end grid -->
+{% endblock %}
