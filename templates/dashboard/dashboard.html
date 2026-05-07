@@ -35,7 +35,7 @@
                 <circle class="text-indigo-600" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-dasharray="364" stroke-dashoffset="55" stroke-width="8"></circle>
             </svg>
             <div class="absolute flex flex-col items-center">
-                <span class="text-3xl font-bold text-gray-900">85</span>
+                <span class="text-3xl font-bold text-gray-900">{{ audit.health_score|default:"--" }}</span>
                 <span class="text-[10px] text-gray-400 font-bold uppercase">/ 100</span>
             </div>
         </div>
@@ -54,9 +54,9 @@
             <span class="text-[10px] font-bold text-gray-400 tracking-widest uppercase">Backlinks</span>
         </div>
         <div class="mt-4">
-            <div class="text-3xl font-bold text-gray-900">1.2k</div>
+            <div class="text-3xl font-bold text-gray-900">{{ backlinks_count|default:"0" }}</div>
             <div class="flex items-center gap-2 mt-1">
-                <span class="text-sm font-medium text-emerald-600">+128</span>
+                <span class="text-sm font-medium text-emerald-600">+{{ new_backlinks_count|default:"0" }}</span>
                 <span class="text-xs text-gray-400">new links found</span>
             </div>
         </div>
@@ -74,10 +74,10 @@
             <span class="text-[10px] font-bold text-gray-400 tracking-widest uppercase">Keywords</span>
         </div>
         <div class="mt-4">
-            <div class="text-3xl font-bold text-gray-900">450</div>
+            <div class="text-3xl font-bold text-gray-900">{{ keywords|length }}</div>
             <div class="flex items-center gap-2 mt-1">
-                <span class="text-sm font-medium text-gray-700">12 in Top 3</span>
-                <span class="text-xs text-emerald-600 font-bold">+2</span>
+                <span class="text-sm font-medium text-gray-700">{{ top_3_keywords|default:"0" }} in Top 3</span>
+                <span class="text-xs text-emerald-600 font-bold">+{{ positive_rank_changes|default:"0" }}</span>
             </div>
         </div>
         <div class="mt-6 flex gap-1">
@@ -99,16 +99,20 @@
             <span class="text-[10px] font-bold text-gray-400 tracking-widest uppercase">Site Health</span>
         </div>
         <div class="mt-4">
-            <div class="text-3xl font-bold text-gray-900">92%</div>
+            <div class="text-3xl font-bold text-gray-900">{{ audit.health_score|default:"0" }}%</div>
             <div class="flex items-center gap-2 mt-1">
-                <span class="text-sm font-medium text-emerald-600">Healthy</span>
-                <span class="text-xs text-gray-400">8 critical errors</span>
+                <span class="text-sm font-medium {% if audit.health_score >= 80 %}text-emerald-600{% else %}text-orange-600{% endif %}">
+                    {% if audit.health_score >= 80 %}Healthy{% else %}Needs Attention{% endif %}
+                </span>
+                <span class="text-xs text-gray-400">{{ audit.total_errors|default:"0" }} critical errors</span>
             </div>
         </div>
         <div class="mt-6 flex flex-col gap-2">
             <div class="flex justify-between text-[10px] font-bold text-gray-400 uppercase">
                 <span>Core Web Vitals</span>
-                <span class="text-emerald-600">Passed</span>
+                <span class="{% if audit.passed_core_web_vitals %}text-emerald-600{% else %}text-red-600{% endif %}">
+                    {% if audit.passed_core_web_vitals %}Passed{% else %}Failed{% endif %}
+                </span>
             </div>
             <div class="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
                 <div class="bg-teal-500 h-full w-[92%] rounded-full"></div>
@@ -233,34 +237,21 @@
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-100">
+                {% for k in keywords %}
                 <tr class="hover:bg-gray-50 transition-colors cursor-pointer group">
-                    <td class="px-8 py-4 font-table-data text-table-data text-gray-900 font-semibold">seo reporting software</td>
-                    <td class="px-8 py-4 font-table-data text-table-data text-gray-600">4</td>
-                    <td class="px-8 py-4 font-table-data text-table-data text-emerald-600 font-bold">+2</td>
-                    <td class="px-8 py-4 font-table-data text-table-data text-gray-600">8.4k</td>
-                    <td class="px-8 py-4 font-table-data text-table-data text-gray-600">$12.40</td>
+                    <td class="px-8 py-4 font-table-data text-table-data text-gray-900 font-semibold">{{ k.keyword }}</td>
+                    <td class="px-8 py-4 font-table-data text-table-data text-gray-600">{{ k.rank }}</td>
+                    <td class="px-8 py-4 font-table-data text-table-data {% if k.rank_change > 0 %}text-emerald-600{% elif k.rank_change < 0 %}text-red-600{% else %}text-gray-400{% endif %} font-bold">
+                        {% if k.rank_change > 0 %}+{{ k.rank_change }}{% elif k.rank_change < 0 %}{{ k.rank_change }}{% else %}—{% endif %}
+                    </td>
+                    <td class="px-8 py-4 font-table-data text-table-data text-gray-600">{{ k.search_volume }}</td>
+                    <td class="px-8 py-4 font-table-data text-table-data text-gray-600">${{ k.cpc }}</td>
                 </tr>
-                <tr class="hover:bg-gray-50 transition-colors cursor-pointer group">
-                    <td class="px-8 py-4 font-table-data text-table-data text-gray-900 font-semibold">best seo auditor</td>
-                    <td class="px-8 py-4 font-table-data text-table-data text-gray-600">1</td>
-                    <td class="px-8 py-4 font-table-data text-table-data text-gray-400">—</td>
-                    <td class="px-8 py-4 font-table-data text-table-data text-gray-600">1.2k</td>
-                    <td class="px-8 py-4 font-table-data text-table-data text-gray-600">$8.15</td>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="px-8 py-4 text-center text-gray-500">No keyword data available.</td>
                 </tr>
-                <tr class="hover:bg-gray-50 transition-colors cursor-pointer group">
-                    <td class="px-8 py-4 font-table-data text-table-data text-gray-900 font-semibold">enterprise seo dashboard</td>
-                    <td class="px-8 py-4 font-table-data text-table-data text-gray-600">12</td>
-                    <td class="px-8 py-4 font-table-data text-table-data text-red-600 font-bold">-3</td>
-                    <td class="px-8 py-4 font-table-data text-table-data text-gray-600">3.5k</td>
-                    <td class="px-8 py-4 font-table-data text-table-data text-gray-600">$15.90</td>
-                </tr>
-                <tr class="hover:bg-gray-50 transition-colors cursor-pointer group">
-                    <td class="px-8 py-4 font-table-data text-table-data text-gray-900 font-semibold">backlink analyzer tool</td>
-                    <td class="px-8 py-4 font-table-data text-table-data text-gray-600">8</td>
-                    <td class="px-8 py-4 font-table-data text-table-data text-emerald-600 font-bold">+1</td>
-                    <td class="px-8 py-4 font-table-data text-table-data text-gray-600">12.1k</td>
-                    <td class="px-8 py-4 font-table-data text-table-data text-gray-600">$4.20</td>
-                </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>
