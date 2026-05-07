@@ -210,10 +210,13 @@
                             </a>
                         </li>
                         <li>
-                            <a class="text-gray-600 hover:text-indigo-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm font-medium" href="#">
-                                <span class="material-symbols-outlined">logout</span>
-                                Logout
-                            </a>
+                            <form method="POST" action="{% url 'logout' %}">
+                                {% csrf_token %}
+                                <button type="submit" class="w-full text-left text-gray-600 hover:text-indigo-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm font-medium">
+                                    <span class="material-symbols-outlined">logout</span>
+                                    Logout
+                                </button>
+                            </form>
                         </li>
                     </ul>
                 </li>
@@ -300,10 +303,13 @@
                             </a>
                         </li>
                         <li>
-                            <a class="text-gray-600 hover:text-indigo-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm font-medium" href="#">
-                                <span class="material-symbols-outlined">logout</span>
-                                Logout
-                            </a>
+                            <form method="POST" action="{% url 'logout' %}">
+                                {% csrf_token %}
+                                <button type="submit" class="w-full text-left text-gray-600 hover:text-indigo-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm font-medium">
+                                    <span class="material-symbols-outlined">logout</span>
+                                    Logout
+                                </button>
+                            </form>
                         </li>
                     </ul>
                 </li>
