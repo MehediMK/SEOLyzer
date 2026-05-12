@@ -18,7 +18,13 @@
     <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-8">
         <form method="POST" action="{% url 'analyze_url' %}" id="analyze-form">
             {% csrf_token %}
+            {% if save_project %}
+            <input type="hidden" name="project" value="{{ save_project.pk }}"/>
+            {% endif %}
             <label class="block text-sm font-semibold text-gray-700 mb-3">Website URL to Analyze</label>
+            {% if save_project %}
+            <p class="text-xs font-semibold text-indigo-600 mb-3">Results will be saved to {{ save_project.name }}.</p>
+            {% endif %}
             <div class="flex gap-3">
                 <div class="flex-1 relative">
                     <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">language</span>
@@ -211,19 +217,32 @@
     </div>
 
     <!-- Save to Project -->
-    {% if projects %}
+    {% if save_project %}
+    <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-6">
+        <h3 class="font-semibold text-emerald-900 mb-3 flex items-center gap-2">
+            <span class="material-symbols-outlined">task_alt</span>
+            Analysis Saved
+        </h3>
+        <p class="text-sm text-emerald-700 mb-4">This audit has been saved to {{ save_project.name }} and is available on the audit report page.</p>
+        <a href="{% url 'seo_audit' %}" class="inline-flex items-center gap-2 bg-emerald-600 text-white px-6 py-2.5 rounded-lg text-sm font-bold hover:bg-emerald-700 transition-colors">
+            <span class="material-symbols-outlined text-sm">analytics</span>
+            View Audit Report
+        </a>
+    </div>
+    {% else %}
     <div class="bg-indigo-50 border border-indigo-200 rounded-2xl p-6">
         <h3 class="font-semibold text-indigo-900 mb-3 flex items-center gap-2">
             <span class="material-symbols-outlined">save</span>
             Save Analysis to Project
         </h3>
         <p class="text-sm text-indigo-700 mb-4">Create a new project from this URL to start tracking keywords and backlinks.</p>
-        <form method="POST" action="{% url 'create_project' %}" class="flex items-center gap-3">
+        <form method="POST" action="{% url 'create_project' %}" class="flex flex-col sm:flex-row sm:items-center gap-3">
             {% csrf_token %}
-            <input type="hidden" name="domain" value="{{ result.url }}"/>
-            <input type="text" name="name" placeholder="Project name (e.g. My Client Site)"
+            <input type="hidden" name="source" value="url_analyzer"/>
+            <input type="hidden" name="domain" value="{{ result.final_url }}"/>
+            <input type="text" name="name" value="{{ result.project_name }}" placeholder="Project name (e.g. My Client Site)" required
                 class="flex-1 border border-indigo-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"/>
-            <button type="submit" class="bg-indigo-600 text-white px-6 py-2.5 rounded-lg text-sm font-bold hover:bg-indigo-700 transition-colors">
+            <button type="submit" class="bg-indigo-600 text-white px-6 py-2.5 rounded-lg text-sm font-bold hover:bg-indigo-700 transition-colors whitespace-nowrap">
                 Create Project
             </button>
         </form>

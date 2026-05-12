@@ -30,6 +30,86 @@ def get_user_project(request, pk=None):
     return qs.first()
 
 
+def _analysis_session_snapshot(result):
+    return {
+        'url': result.get('url', ''),
+        'final_url': result.get('final_url', ''),
+        'score': result.get('score', 0),
+        'score_label': result.get('score_label', ''),
+        'issues': result.get('issues', []),
+        'pagespeed': result.get('pagespeed') or {},
+    }
+
+
+def _issue_icon(issue_type):
+    return {
+        'critical': 'error',
+        'warning': 'warning',
+        'passed': 'check_circle',
+    }.get(issue_type, 'error')
+
+
+def _issue_category(message):
+    message = message.lower()
+    if 'title' in message or 'meta' in message or 'h1' in message or 'canonical' in message:
+        return 'On-Page'
+    if 'image' in message or 'alt' in message:
+        return 'Accessibility'
+    if 'ssl' in message or 'https' in message:
+        return 'Security'
+    if 'redirect' in message:
+        return 'Crawlability'
+    return 'Technical'
+
+
+def _save_analysis_to_project(project, analysis):
+    issues = analysis.get('issues', [])
+    pagespeed = analysis.get('pagespeed') or {}
+    critical_count = sum(1 for issue in issues if issue.get('type') == 'critical')
+    warning_count = sum(1 for issue in issues if issue.get('type') == 'warning')
+    passed_count = sum(1 for issue in issues if issue.get('type') == 'passed')
+    recommendation = next(
+        (issue.get('msg', '') for issue in issues if issue.get('type') in ('critical', 'warning')),
+        'Keep monitoring this site for new SEO opportunities.',
+    )
+
+    audit, _ = AuditResult.objects.update_or_create(
+        project=project,
+        defaults={
+            'health_score': analysis.get('score') or 0,
+            'total_errors': critical_count,
+            'total_warnings': warning_count,
+            'total_passed': passed_count,
+            'passed_core_web_vitals': (pagespeed.get('performance', 100) or 0) >= 80,
+            'lcp_value': pagespeed.get('lcp', 'N/A'),
+            'fid_value': pagespeed.get('fid', 'N/A'),
+            'cls_value': pagespeed.get('cls', 'N/A'),
+            'quick_recommendation': recommendation,
+        },
+    )
+    audit.issues.all().delete()
+
+    for issue in issues:
+        message = issue.get('msg', 'SEO audit check')
+        AuditIssue.objects.create(
+            audit=audit,
+            severity=issue.get('type', 'warning'),
+            title=message[:255],
+            description=message,
+            category=_issue_category(message),
+            icon=_issue_icon(issue.get('type')),
+        )
+
+    return audit
+
+
+def _create_project_audit(project, analysis=None):
+    if not analysis:
+        return AuditResult.objects.create(project=project)
+
+    return _save_analysis_to_project(project, analysis)
+
+
 # ───────────────────────────────────────────────
 # PROJECT SWITCHER
 # ───────────────────────────────────────────────
@@ -49,9 +129,18 @@ def create_project(request):
             project = form.save(commit=False)
             project.user = request.user
             project.save()
-            # Auto-create empty audit
-            AuditResult.objects.create(project=project)
+            analysis = None
+            if request.POST.get('source') == 'url_analyzer':
+                analysis = request.session.get('last_url_analysis')
+                posted_domain = request.POST.get('domain', '')
+                analysis_urls = {analysis.get('url'), analysis.get('final_url')} if analysis else set()
+                if posted_domain not in analysis_urls:
+                    analysis = None
+            _create_project_audit(project, analysis)
             request.session['active_project_pk'] = project.pk
+            if analysis:
+                messages.success(request, f'Project "{project.name}" created with the latest audit analysis.')
+                return redirect('seo_audit')
             messages.success(request, f'Project "{project.name}" created! Analyze it now.')
             return redirect('dashboard')
         else:
@@ -83,6 +172,12 @@ def analyze_url(request):
     result = None
     error = None
     url = ''
+    save_project = None
+    project_pk = request.POST.get('project') if request.method == 'POST' else request.GET.get('project')
+    if project_pk:
+        save_project = Project.objects.filter(user=request.user, pk=project_pk).first()
+        if save_project:
+            url = save_project.domain
 
     if request.method == 'POST':
         url = request.POST.get('url', '').strip()
@@ -96,6 +191,12 @@ def analyze_url(request):
                 # Optionally fetch PageSpeed if API key is set
                 if settings.GOOGLE_PAGESPEED_API_KEY:
                     result['pagespeed'] = _fetch_pagespeed(url)
+                analysis = _analysis_session_snapshot(result)
+                request.session['last_url_analysis'] = analysis
+                if save_project:
+                    _save_analysis_to_project(save_project, analysis)
+                    request.session['active_project_pk'] = save_project.pk
+                    messages.success(request, f'Audit results saved to "{save_project.name}".')
             except Exception as e:
                 error = f'Could not analyze URL: {str(e)}'
 
@@ -104,6 +205,7 @@ def analyze_url(request):
         'result': result,
         'error': error,
         'projects': Project.objects.filter(user=request.user),
+        'save_project': save_project,
     })
 
 
@@ -195,6 +297,7 @@ def _scrape_url(url):
     return {
         'url': url,
         'final_url': resp.url,
+        'project_name': parsed.netloc or url,
         'status_code': resp.status_code,
         'title': title,
         'title_length': len(title),
@@ -252,6 +355,126 @@ def _fetch_pagespeed(url):
         return None
 
 
+def _checklist_style(status):
+    styles = {
+        'passed': {
+            'badge': 'PASSED',
+            'row_class': 'border-gray-100 hover:border-primary/20',
+            'box_class': 'border-green-500 bg-green-50',
+            'icon': 'check',
+            'icon_class': 'text-green-600',
+            'badge_class': 'text-green-600 bg-green-50',
+        },
+        'required': {
+            'badge': 'REQUIRED',
+            'row_class': 'border-error/20 bg-red-50/20',
+            'box_class': 'border-error',
+            'icon': '',
+            'icon_class': '',
+            'badge_class': 'text-error bg-red-50',
+        },
+        'pending': {
+            'badge': 'PENDING',
+            'row_class': 'border-gray-100 hover:border-primary/20',
+            'box_class': 'border-gray-300',
+            'icon': '',
+            'icon_class': '',
+            'badge_class': 'text-gray-500 bg-gray-50',
+        },
+    }
+    return styles[status]
+
+
+def _issue_status(issue):
+    if not issue:
+        return 'pending'
+    if issue.severity == 'passed':
+        return 'passed'
+    if issue.severity == 'critical':
+        return 'required'
+    return 'pending'
+
+
+def _build_audit_checklist(audit):
+    rules = [
+        ('H1 tags are present', ('h1',)),
+        ('Image alt text optimized', ('image', 'alt')),
+        ('Target keyword in Title tag', ('title',)),
+        ('External links use nofollow', ('external', 'nofollow')),
+    ]
+    issues = list(audit.issues.all()) if audit else []
+    checklist = []
+
+    for label, terms in rules:
+        match = next(
+            (
+                issue for issue in issues
+                if all(
+                    term in f'{issue.title} {issue.description} {issue.category}'.lower()
+                    for term in terms
+                )
+            ),
+            None,
+        )
+        status = _issue_status(match)
+        item = {'label': label, 'status': status}
+        item.update(_checklist_style(status))
+        checklist.append(item)
+
+    return checklist
+
+
+def _build_action_plan(critical_issues, warning_issues):
+    issue_items = list(critical_issues[:3])
+    if len(issue_items) < 3:
+        issue_items.extend(list(warning_issues[:3 - len(issue_items)]))
+
+    plan = [
+        {
+            'number': f'{index:02}',
+            'title': issue.title,
+            'description': issue.description,
+            'link_label': 'Review issue',
+            'link_icon': 'chevron_right',
+            'link_url': '#tab-critical' if issue.severity == 'critical' else '#tab-warning',
+            'tab_name': issue.severity,
+        }
+        for index, issue in enumerate(issue_items, start=1)
+    ]
+
+    fallback_items = [
+        {
+            'title': 'Compress Large Assets',
+            'description': 'Use Brotli compression and serve images in next-gen formats like AVIF or WebP to reduce page weight.',
+            'link_label': 'Instruction Guide',
+            'link_icon': 'open_in_new',
+            'link_url': '#',
+        },
+        {
+            'title': 'Fix Schema Markups',
+            'description': 'Review structured data blocks and update invalid JSON-LD to match current Schema.org requirements.',
+            'link_label': 'View Errors',
+            'link_icon': 'open_in_new',
+            'link_url': '#',
+        },
+        {
+            'title': 'Consolidate Redirect Chains',
+            'description': 'Update source links so they point directly to the final destination URL and avoid multi-hop redirects.',
+            'link_label': 'Download List',
+            'link_icon': 'download',
+            'link_url': '#',
+        },
+    ]
+
+    for fallback in fallback_items:
+        if len(plan) >= 3:
+            break
+        fallback['number'] = f'{len(plan) + 1:02}'
+        plan.append(fallback)
+
+    return plan
+
+
 # ───────────────────────────────────────────────
 # DASHBOARD
 # ───────────────────────────────────────────────
@@ -281,14 +504,25 @@ def dashboard(request):
 @login_required
 def seo_audit(request):
     project = get_user_project(request)
+    critical_issues = AuditIssue.objects.none()
+    warning_issues = AuditIssue.objects.none()
+    passed_issues = AuditIssue.objects.none()
+    audit = None
     context = {'project': project, 'all_projects': Project.objects.filter(user=request.user)}
     if project:
         audit = getattr(project, 'audit', None)
         context['audit'] = audit
         if audit:
-            context['critical_issues'] = audit.issues.filter(severity='critical')
-            context['warning_issues'] = audit.issues.filter(severity='warning')
-            context['passed_issues'] = audit.issues.filter(severity='passed')
+            critical_issues = audit.issues.filter(severity='critical')
+            warning_issues = audit.issues.filter(severity='warning')
+            passed_issues = audit.issues.filter(severity='passed')
+    context.update({
+        'critical_issues': critical_issues,
+        'warning_issues': warning_issues,
+        'passed_issues': passed_issues,
+        'checklist_items': _build_audit_checklist(audit),
+        'action_plan_items': _build_action_plan(critical_issues, warning_issues),
+    })
     return render(request, 'dashboard/seo_audit.html', context)
 
 

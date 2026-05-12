@@ -11,14 +11,14 @@
         <p class="font-body-md text-body-md text-gray-500 mt-1">Real-time overview of your site's SEO performance.</p>
     </div>
     <div class="flex items-center gap-3">
-        <button class="inline-flex items-center gap-x-2 rounded-lg bg-white px-4 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 transition-colors">
+        <a href="{% url 'create_project' %}" class="inline-flex items-center gap-x-2 rounded-lg bg-white px-4 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 transition-colors">
             <span class="material-symbols-outlined text-[20px]">add</span>
             Add Project
-        </button>
-        <button class="inline-flex items-center gap-x-2 rounded-lg bg-primary-container px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-primary transition-colors">
+        </a>
+        <a href="{% url 'analyze_url' %}{% if project %}?project={{ project.pk }}{% endif %}" class="inline-flex items-center gap-x-2 rounded-lg bg-primary-container px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-primary transition-colors">
             <span class="material-symbols-outlined text-[20px]">play_arrow</span>
             Run Audit
-        </button>
+        </a>
     </div>
 </div>
 

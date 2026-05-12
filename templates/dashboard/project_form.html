@@ -13,15 +13,26 @@
     <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-8">
         <form method="POST" class="space-y-6">
             {% csrf_token %}
+            {% if form.non_field_errors %}
+            <div class="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                {{ form.non_field_errors }}
+            </div>
+            {% endif %}
             <!-- Allow domain to be pre-filled from URL analyzer -->
             <div>
                 <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Project Name *</label>
                 {{ form.name }}
+                {% if form.name.errors %}
+                <div class="mt-1 text-xs font-medium text-red-600">{{ form.name.errors }}</div>
+                {% endif %}
                 <p class="text-xs text-gray-400 mt-1">e.g. "My Portfolio", "Client: Acme Corp"</p>
             </div>
             <div>
                 <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Website URL *</label>
                 {{ form.domain }}
+                {% if form.domain.errors %}
+                <div class="mt-1 text-xs font-medium text-red-600">{{ form.domain.errors }}</div>
+                {% endif %}
                 <p class="text-xs text-gray-400 mt-1">Full URL including https://</p>
             </div>
             <div class="flex justify-end gap-3 pt-4">

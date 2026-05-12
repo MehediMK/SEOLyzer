@@ -127,17 +127,17 @@
     <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden" x-data="{ tab: 'critical' }">
         <div class="border-b border-gray-200 bg-gray-50/50 flex items-center justify-between px-6">
             <nav aria-label="Tabs" class="flex">
-                <button onclick="showTab('critical', this)"
+                <button onclick="showTab('critical', this)" data-tab-name="critical"
                     class="tab-btn active-tab border-b-2 border-indigo-600 py-4 px-6 text-sm font-semibold text-indigo-600 flex items-center gap-2">
                     <span class="w-2 h-2 rounded-full bg-error"></span>
                     Critical ({{ critical_issues|length }})
                 </button>
-                <button onclick="showTab('warning', this)"
+                <button onclick="showTab('warning', this)" data-tab-name="warning"
                     class="tab-btn border-b-2 border-transparent py-4 px-6 text-sm font-medium text-gray-500 hover:text-gray-700 flex items-center gap-2 transition-colors">
                     <span class="w-2 h-2 rounded-full bg-amber-500"></span>
                     Warnings ({{ warning_issues|length }})
                 </button>
-                <button onclick="showTab('passed', this)"
+                <button onclick="showTab('passed', this)" data-tab-name="passed"
                     class="tab-btn border-b-2 border-transparent py-4 px-6 text-sm font-medium text-gray-500 hover:text-gray-700 flex items-center gap-2 transition-colors">
                     <span class="w-2 h-2 rounded-full bg-green-500"></span>
                     Passed ({{ passed_issues|length }})
@@ -238,6 +238,73 @@
             {% endfor %}
         </div>
     </div><!-- end Issues Section -->
+
+    <!-- Two Column Layout: Recommendations & Checklist -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+        <!-- On-Page SEO Checklist -->
+        <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+            <h3 class="font-h3 text-h3 mb-6 flex items-center gap-2">
+                <span class="material-symbols-outlined text-indigo-600">checklist</span>
+                On-Page SEO Checklist
+            </h3>
+            <div class="space-y-4">
+                {% for item in checklist_items %}
+                <div class="flex items-center gap-4 p-4 border rounded-lg transition-all {{ item.row_class }}">
+                    <div class="h-6 w-6 shrink-0 rounded border-2 flex items-center justify-center {{ item.box_class }}">
+                        {% if item.icon %}
+                        <span class="material-symbols-outlined text-sm {{ item.icon_class }}">{{ item.icon }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <span class="font-body-md font-medium text-on-surface">{{ item.label }}</span>
+                    </div>
+                    <span class="text-xs font-semibold px-2 py-1 rounded whitespace-nowrap {{ item.badge_class }}">{{ item.badge }}</span>
+                </div>
+                {% empty %}
+                <div class="p-8 text-center text-gray-500 border border-gray-100 rounded-lg">
+                    <span class="material-symbols-outlined text-4xl text-gray-300">checklist</span>
+                    <p class="mt-2 font-medium">No checklist data available.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Strategic Recommendations -->
+        <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+            <h3 class="font-h3 text-h3 mb-6 flex items-center gap-2">
+                <span class="material-symbols-outlined text-indigo-600">lightbulb</span>
+                Action Plan
+            </h3>
+            <div class="space-y-6">
+                {% for item in action_plan_items %}
+                <div class="flex gap-4">
+                    <div class="text-h2 font-black text-indigo-100 leading-none">{{ item.number }}</div>
+                    <div class="space-y-2">
+                        <h4 class="font-body-md font-bold">{{ item.title }}</h4>
+                        <p class="text-sm text-on-surface-variant">{{ item.description }}</p>
+                        {% if item.tab_name %}
+                        <button type="button" onclick="showTab('{{ item.tab_name }}', document.querySelector('[data-tab-name={{ item.tab_name }}]'))" class="text-sm font-semibold text-primary inline-flex items-center gap-1">
+                            {{ item.link_label }}
+                            <span class="material-symbols-outlined text-sm">{{ item.link_icon }}</span>
+                        </button>
+                        {% else %}
+                        <a class="text-sm font-semibold text-primary inline-flex items-center gap-1" href="{{ item.link_url }}">
+                            {{ item.link_label }}
+                            <span class="material-symbols-outlined text-sm">{{ item.link_icon }}</span>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% empty %}
+                <div class="p-8 text-center text-gray-500 border border-gray-100 rounded-lg">
+                    <span class="material-symbols-outlined text-4xl text-gray-300">task_alt</span>
+                    <p class="mt-2 font-medium">No action plan items available.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 
 </div><!-- end space-y-lg -->
 
