@@ -130,7 +130,7 @@
         <div class="flex items-center justify-between mb-8">
             <div>
                 <h3 class="font-h3 text-h3 text-gray-900">Traffic &amp; Ranking Trends</h3>
-                <p class="text-sm text-gray-500">Organic performance over the last 30 days.</p>
+                <p class="text-sm text-gray-500">Organic performance over the last 10 days.</p>
             </div>
             <div class="flex items-center gap-4">
                 <div class="flex items-center gap-2">
@@ -143,9 +143,8 @@
                 </div>
             </div>
         </div>
-        <!-- Visual multi-series line graph -->
+        {% if trend %}
         <div class="relative h-[300px] w-full flex items-end justify-between gap-1 group">
-            <!-- Background Grid Lines -->
             <div class="absolute inset-0 flex flex-col justify-between pointer-events-none">
                 <div class="w-full border-t border-gray-100"></div>
                 <div class="w-full border-t border-gray-100"></div>
@@ -153,37 +152,26 @@
                 <div class="w-full border-t border-gray-100"></div>
                 <div class="w-full border-t border-gray-100"></div>
             </div>
-            <!-- Traffic Series (Indigo) -->
-            <div class="relative flex-1 bg-indigo-100/30 border-t-2 border-indigo-600 h-[40%] group-hover:h-[45%] transition-all duration-500"></div>
-            <div class="relative flex-1 bg-indigo-100/30 border-t-2 border-indigo-600 h-[45%] group-hover:h-[50%] transition-all duration-500"></div>
-            <div class="relative flex-1 bg-indigo-100/30 border-t-2 border-indigo-600 h-[42%] group-hover:h-[48%] transition-all duration-500"></div>
-            <div class="relative flex-1 bg-indigo-100/30 border-t-2 border-indigo-600 h-[55%] group-hover:h-[60%] transition-all duration-500"></div>
-            <div class="relative flex-1 bg-indigo-100/30 border-t-2 border-indigo-600 h-[62%] group-hover:h-[65%] transition-all duration-500"></div>
-            <div class="relative flex-1 bg-indigo-100/30 border-t-2 border-indigo-600 h-[58%] group-hover:h-[62%] transition-all duration-500"></div>
-            <div class="relative flex-1 bg-indigo-100/30 border-t-2 border-indigo-600 h-[70%] group-hover:h-[75%] transition-all duration-500"></div>
-            <div class="relative flex-1 bg-indigo-100/30 border-t-2 border-indigo-600 h-[75%] group-hover:h-[80%] transition-all duration-500"></div>
-            <div class="relative flex-1 bg-indigo-100/30 border-t-2 border-indigo-600 h-[82%] group-hover:h-[85%] transition-all duration-500"></div>
-            <div class="relative flex-1 bg-indigo-100/30 border-t-2 border-indigo-600 h-[90%] group-hover:h-[95%] transition-all duration-500"></div>
-            <!-- Rankings Series (Teal overlay) -->
-            <div class="absolute inset-0 flex items-end justify-between gap-1 px-0.5">
-                <div class="flex-1 h-[20%] border-t-2 border-teal-500"></div>
-                <div class="flex-1 h-[25%] border-t-2 border-teal-500"></div>
-                <div class="flex-1 h-[22%] border-t-2 border-teal-500"></div>
-                <div class="flex-1 h-[30%] border-t-2 border-teal-500"></div>
-                <div class="flex-1 h-[35%] border-t-2 border-teal-500"></div>
-                <div class="flex-1 h-[32%] border-t-2 border-teal-500"></div>
-                <div class="flex-1 h-[40%] border-t-2 border-teal-500"></div>
-                <div class="flex-1 h-[45%] border-t-2 border-teal-500"></div>
-                <div class="flex-1 h-[42%] border-t-2 border-teal-500"></div>
-                <div class="flex-1 h-[50%] border-t-2 border-teal-500"></div>
+            {% for s in trend %}
+            <div class="relative flex-1 flex flex-col items-center justify-end group/bar">
+                <div class="w-full bg-indigo-100/30 border-t-2 border-indigo-600 transition-all duration-500 group-hover/bar:opacity-80" style="height: {{ s.traffic_pct }}%"></div>
+                <div class="absolute bottom-0 w-full border-t-2 border-teal-500 transition-all duration-500" style="height: {{ s.rank_pct }}%"></div>
+                <div class="absolute -top-7 left-1/2 -translate-x-1/2 opacity-0 group-hover/bar:opacity-100 transition-opacity bg-gray-900 text-white text-[10px] px-2 py-1 rounded whitespace-nowrap z-10">
+                    T: {{ s.traffic_estimate }} | R: {{ s.avg_rank }}
+                </div>
             </div>
+            {% endfor %}
         </div>
         <div class="mt-4 flex justify-between text-[10px] font-bold text-gray-400 uppercase tracking-widest px-2">
-            <span>01 May</span>
-            <span>10 May</span>
-            <span>20 May</span>
-            <span>30 May</span>
+            {% for s in trend %}
+            <span>{{ s.date|date:"d M" }}</span>
+            {% endfor %}
         </div>
+        {% else %}
+        <div class="h-[300px] flex items-center justify-center text-gray-400">
+            <p>Run an audit and add keywords to see trend data.</p>
+        </div>
+        {% endif %}
     </div>
 
     <!-- Audit Alerts Panel -->

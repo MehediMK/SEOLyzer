@@ -13,7 +13,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 
 from .forms import AuditIssueForm, BacklinkForm, CompetitorForm, KeywordForm, ProjectForm
-from .models import AuditIssue, AuditResult, Backlink, Competitor, Keyword, Project
+from .models import (AuditIssue, AuditResult, Backlink, Competitor, DailySnapshot, Keyword,
+                      Project)
 
 
 # ───────────────────────────────────────────────
@@ -685,6 +686,19 @@ def dashboard(request):
     if project:
         audit = getattr(project, 'audit', None)
         all_keywords = project.keywords.all()
+        DailySnapshot.compute_and_save(project)
+        snapshots = list(project.snapshots.order_by('date')[:10])
+        max_traffic = max((s.traffic_estimate for s in snapshots), default=1)
+        max_rank = max((s.avg_rank for s in snapshots), default=1)
+        trend = []
+        for s in snapshots:
+            trend.append({
+                'date': s.date,
+                'traffic_estimate': int(s.traffic_estimate),
+                'avg_rank': s.avg_rank,
+                'traffic_pct': round((s.traffic_estimate / max_traffic) * 90 + 5) if max_traffic else 5,
+                'rank_pct': round(((max_rank - s.avg_rank + 1) / max_rank) * 50 + 5) if max_rank else 5,
+            })
         context.update({
             'audit': audit,
             'keywords': all_keywords[:10],
@@ -693,6 +707,7 @@ def dashboard(request):
             'top_3_keywords': all_keywords.filter(rank__lte=3).count(),
             'positive_rank_changes': sum(1 for k in all_keywords if k.rank_change > 0),
             'alerts': audit.issues.filter(severity='critical').order_by('-id')[:3] if audit else [],
+            'trend': trend,
         })
     return render(request, 'dashboard/dashboard.html', context)
 

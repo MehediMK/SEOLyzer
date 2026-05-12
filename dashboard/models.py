@@ -1,6 +1,37 @@
+from datetime import date
+from urllib.parse import urlparse
+import re
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+
+
+def parse_volume(s):
+    if not s:
+        return 0
+    s = str(s).strip().upper()
+    m = re.match(r'^([\d.]+)([KM])?$', s)
+    if not m:
+        try:
+            return int(float(s.replace(',', '')))
+        except (ValueError, AttributeError):
+            return 0
+    num = float(m.group(1))
+    suffix = m.group(2)
+    if suffix == 'K':
+        return int(num * 1000)
+    if suffix == 'M':
+        return int(num * 1000000)
+    return int(num)
+
+
+def _ctr_for_rank(rank):
+    if rank is None or rank <= 0:
+        return 0.0
+    curve = {1: 0.35, 2: 0.20, 3: 0.11, 4: 0.08, 5: 0.055,
+             6: 0.04, 7: 0.03, 8: 0.025, 9: 0.02, 10: 0.015}
+    return curve.get(rank, 0.01 if rank <= 20 else 0.005)
 
 
 class Project(models.Model):
@@ -126,7 +157,6 @@ class Backlink(models.Model):
 
     @property
     def domain_name(self):
-        from urllib.parse import urlparse
         parsed = urlparse(self.url)
         return parsed.netloc or self.url
 
@@ -158,6 +188,59 @@ class Competitor(models.Model):
 
     @property
     def domain_name(self):
-        from urllib.parse import urlparse
         parsed = urlparse(self.domain)
         return parsed.netloc or self.domain
+
+
+class DailySnapshot(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='snapshots')
+    date = models.DateField(default=date.today)
+    traffic_estimate = models.FloatField(default=0.0)
+    avg_rank = models.FloatField(default=0.0)
+    performance_score = models.IntegerField(default=0)
+    backlinks_count = models.IntegerField(default=0)
+    new_backlinks = models.IntegerField(default=0)
+
+    class Meta:
+        unique_together = ('project', 'date')
+        ordering = ['date']
+
+    def __str__(self):
+        return f"{self.project.name} / {self.date}"
+
+    @classmethod
+    def compute_and_save(cls, project):
+        today = date.today()
+        keywords = project.keywords.all()
+        audit = getattr(project, 'audit', None)
+
+        traffic_est = 0.0
+        total_ctr = 0.0
+        rank_sum = 0
+        rank_count = 0
+        for kw in keywords:
+            vol = parse_volume(kw.search_volume)
+            ctr = _ctr_for_rank(kw.rank)
+            traffic_est += vol * ctr
+            total_ctr += ctr
+            if kw.rank is not None:
+                rank_sum += kw.rank
+                rank_count += 1
+
+        avg_rank = round(rank_sum / rank_count, 1) if rank_count else 0.0
+        perf_score = audit.health_score if audit else 0
+        bl_count = project.backlinks.count()
+        new_bl = project.backlinks.filter(is_new=True).count()
+
+        snapshot, created = cls.objects.update_or_create(
+            project=project,
+            date=today,
+            defaults={
+                'traffic_estimate': round(traffic_est, 0),
+                'avg_rank': avg_rank,
+                'performance_score': perf_score,
+                'backlinks_count': bl_count,
+                'new_backlinks': new_bl,
+            },
+        )
+        return snapshot, created
