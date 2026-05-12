@@ -14,11 +14,22 @@
             </h1>
             <p class="text-gray-500 text-sm mt-1">Track rankings, search volume, CPC and difficulty for your keywords.</p>
         </div>
-        <button onclick="document.getElementById('add-keyword-modal').classList.remove('hidden')"
-            class="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 transition-colors">
-            <span class="material-symbols-outlined text-sm">add</span>
-            Add Keyword
-        </button>
+        <div class="flex flex-wrap items-center gap-3">
+            {% if project %}
+            <form method="POST" action="{% url 'discover_keywords' %}">
+                {% csrf_token %}
+                <button type="submit" class="inline-flex items-center gap-2 rounded-lg bg-indigo-50 px-4 py-2.5 text-sm font-semibold text-indigo-700 hover:bg-indigo-100 transition-colors">
+                    <span class="material-symbols-outlined text-sm">travel_explore</span>
+                    Discover from Website
+                </button>
+            </form>
+            {% endif %}
+            <button onclick="document.getElementById('add-keyword-modal').classList.remove('hidden')"
+                class="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 transition-colors">
+                <span class="material-symbols-outlined text-sm">add</span>
+                Add Keyword
+            </button>
+        </div>
     </div>
 
     <!-- Django Messages -->
@@ -35,6 +46,13 @@
             {{ message }}
         </div>
         {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if project %}
+    <div class="rounded-xl border border-blue-200 bg-blue-50 p-4 text-sm text-blue-800 flex gap-3">
+        <span class="material-symbols-outlined text-blue-600">info</span>
+        <p>Website discovery imports keyword candidates from the page title, meta description and headings. Ranking, search volume and CPC are not available from the website HTML and need Google Search Console or a keyword data API.</p>
     </div>
     {% endif %}
 
@@ -55,7 +73,7 @@
                 <h3 class="font-label-caps text-label-caps text-gray-500 uppercase tracking-wider">Top 3 Rankings</h3>
                 <span class="material-symbols-outlined text-emerald-500 bg-emerald-50 p-2 rounded-lg">emoji_events</span>
             </div>
-            <div class="text-4xl font-bold text-gray-900">{{ keywords|length|default:"0" }}</div>
+            <div class="text-4xl font-bold text-gray-900">{{ top_3_keywords|default:"0" }}</div>
             <p class="text-sm text-emerald-600 mt-1 font-medium">Ranking in top positions</p>
         </div>
         <!-- Avg Difficulty -->
@@ -64,7 +82,7 @@
                 <h3 class="font-label-caps text-label-caps text-gray-500 uppercase tracking-wider">Avg. Difficulty</h3>
                 <span class="material-symbols-outlined text-amber-500 bg-amber-50 p-2 rounded-lg">bar_chart</span>
             </div>
-            <div class="text-4xl font-bold text-gray-900">{{ avg_difficulty }}</div>
+            <div class="text-4xl font-bold text-gray-900">{{ avg_difficulty }}%</div>
             <div class="mt-2 w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
                 <div class="bg-amber-500 h-full rounded-full" style="width: {{ avg_difficulty|floatformat:0 }}%"></div>
             </div>

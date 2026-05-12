@@ -151,7 +151,7 @@
         <!-- Critical Issues -->
         <div id="tab-critical" class="tab-content divide-y divide-gray-100">
             {% for issue in critical_issues %}
-            <div class="p-6 flex items-start justify-between group hover:bg-gray-50/50 transition-colors">
+            <div id="issue-{{ issue.pk }}" class="p-6 flex items-start justify-between group hover:bg-gray-50/50 transition-colors">
                 <div class="flex gap-6">
                     <div class="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-red-50 text-error">
                         <span class="material-symbols-outlined">{{ issue.icon }}</span>
@@ -186,7 +186,7 @@
         <!-- Warning Issues -->
         <div id="tab-warning" class="tab-content hidden divide-y divide-gray-100">
             {% for issue in warning_issues %}
-            <div class="p-6 flex items-start justify-between group hover:bg-gray-50/50 transition-colors">
+            <div id="issue-{{ issue.pk }}" class="p-6 flex items-start justify-between group hover:bg-gray-50/50 transition-colors">
                 <div class="flex gap-6">
                     <div class="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-amber-50 text-amber-600">
                         <span class="material-symbols-outlined">{{ issue.icon }}</span>
@@ -216,7 +216,7 @@
         <!-- Passed Issues -->
         <div id="tab-passed" class="tab-content hidden divide-y divide-gray-100">
             {% for issue in passed_issues %}
-            <div class="p-6 flex items-start justify-between group hover:bg-gray-50/50 transition-colors">
+            <div id="issue-{{ issue.pk }}" class="p-6 flex items-start justify-between group hover:bg-gray-50/50 transition-colors">
                 <div class="flex gap-6">
                     <div class="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-green-50 text-green-600">
                         <span class="material-symbols-outlined">{{ issue.icon }}</span>
@@ -244,22 +244,53 @@
 
         <!-- On-Page SEO Checklist -->
         <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
-            <h3 class="font-h3 text-h3 mb-6 flex items-center gap-2">
-                <span class="material-symbols-outlined text-indigo-600">checklist</span>
-                On-Page SEO Checklist
-            </h3>
+            <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
+                <div>
+                    <h3 class="font-h3 text-h3 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-indigo-600">checklist</span>
+                        On-Page SEO Checklist
+                    </h3>
+                    <p class="text-sm text-on-surface-variant mt-1">
+                        {{ checklist_summary.passed }} of {{ checklist_summary.total }} checks passed
+                        {% if checklist_summary.needs_attention %}<span class="text-amber-700">&middot; {{ checklist_summary.needs_attention }} need review</span>{% endif %}
+                    </p>
+                </div>
+                {% if project %}
+                <a href="{% url 'analyze_url' %}?project={{ project.pk }}" class="inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-indigo-50 text-indigo-700 text-sm font-semibold hover:bg-indigo-100 transition-colors">
+                    <span class="material-symbols-outlined text-sm">refresh</span>
+                    Run Audit
+                </a>
+                {% endif %}
+            </div>
             <div class="space-y-4">
                 {% for item in checklist_items %}
-                <div class="flex items-center gap-4 p-4 border rounded-lg transition-all {{ item.row_class }}">
-                    <div class="h-6 w-6 shrink-0 rounded border-2 flex items-center justify-center {{ item.box_class }}">
-                        {% if item.icon %}
+                <div class="p-4 border rounded-lg transition-all {{ item.row_class }}">
+                    <div class="flex items-start gap-4">
+                        <div class="mt-0.5 h-7 w-7 shrink-0 rounded border-2 flex items-center justify-center {{ item.box_class }}">
                         <span class="material-symbols-outlined text-sm {{ item.icon_class }}">{{ item.icon }}</span>
-                        {% endif %}
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                                <span class="font-body-md font-semibold text-on-surface">{{ item.label }}</span>
+                                <span class="text-xs font-semibold px-2 py-1 rounded whitespace-nowrap self-start {{ item.badge_class }}">{{ item.badge }}</span>
+                            </div>
+                            <p class="text-sm text-on-surface-variant mt-1">{{ item.description }}</p>
+                            <p class="text-xs text-gray-500 mt-2">{{ item.message }}</p>
+                            <div class="mt-3">
+                                {% if item.issue_id %}
+                                <button type="button" onclick="focusIssue('{{ item.tab_name }}', 'issue-{{ item.issue_id }}')" class="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline">
+                                    {{ item.action_label }}
+                                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                                </button>
+                                {% elif project %}
+                                <a href="{% url 'analyze_url' %}?project={{ project.pk }}" class="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline">
+                                    {{ item.action_label }}
+                                    <span class="material-symbols-outlined text-sm">refresh</span>
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
                     </div>
-                    <div class="flex-1 min-w-0">
-                        <span class="font-body-md font-medium text-on-surface">{{ item.label }}</span>
-                    </div>
-                    <span class="text-xs font-semibold px-2 py-1 rounded whitespace-nowrap {{ item.badge_class }}">{{ item.badge }}</span>
                 </div>
                 {% empty %}
                 <div class="p-8 text-center text-gray-500 border border-gray-100 rounded-lg">
@@ -283,8 +314,8 @@
                     <div class="space-y-2">
                         <h4 class="font-body-md font-bold">{{ item.title }}</h4>
                         <p class="text-sm text-on-surface-variant">{{ item.description }}</p>
-                        {% if item.tab_name %}
-                        <button type="button" onclick="showTab('{{ item.tab_name }}', document.querySelector('[data-tab-name={{ item.tab_name }}]'))" class="text-sm font-semibold text-primary inline-flex items-center gap-1">
+                        {% if item.tab_name and item.issue_id %}
+                        <button type="button" onclick="focusIssue('{{ item.tab_name }}', 'issue-{{ item.issue_id }}')" class="text-sm font-semibold text-primary inline-flex items-center gap-1">
                             {{ item.link_label }}
                             <span class="material-symbols-outlined text-sm">{{ item.link_icon }}</span>
                         </button>
@@ -319,14 +350,32 @@
 {% block extra_js %}
 <script>
 function showTab(name, btn) {
+    btn = btn || document.querySelector('[data-tab-name="' + name + '"]');
+    const tab = document.getElementById('tab-' + name);
+    if (!tab || !btn) {
+        return;
+    }
     document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
     document.querySelectorAll('.tab-btn').forEach(b => {
         b.classList.remove('border-indigo-600', 'text-indigo-600');
         b.classList.add('border-transparent', 'text-gray-500');
     });
-    document.getElementById('tab-' + name).classList.remove('hidden');
+    tab.classList.remove('hidden');
     btn.classList.add('border-indigo-600', 'text-indigo-600');
     btn.classList.remove('border-transparent', 'text-gray-500');
+}
+
+function focusIssue(tabName, issueId) {
+    showTab(tabName);
+    const issue = document.getElementById(issueId);
+    if (!issue) {
+        return;
+    }
+    issue.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    issue.classList.add('ring-2', 'ring-indigo-500', 'ring-offset-2');
+    window.setTimeout(() => {
+        issue.classList.remove('ring-2', 'ring-indigo-500', 'ring-offset-2');
+    }, 1800);
 }
 </script>
 {% endblock %}

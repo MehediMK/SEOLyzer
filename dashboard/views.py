@@ -1,6 +1,8 @@
 import csv
+import re
 import requests
-from urllib.parse import urlparse
+from collections import Counter
+from urllib.parse import urljoin, urlparse
 
 from django.conf import settings
 from django.contrib import messages
@@ -8,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Avg
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
+from django.views.decorators.http import require_POST
 
 from .forms import AuditIssueForm, BacklinkForm, CompetitorForm, KeywordForm, ProjectForm
 from .models import AuditIssue, AuditResult, Backlink, Competitor, Keyword, Project
@@ -276,6 +279,8 @@ def _scrape_url(url):
         issues.append({'type': 'warning', 'msg': f'{len(images_without_alt)} image(s) missing alt text'})
     elif all_images:
         issues.append({'type': 'passed', 'msg': f'All {len(all_images)} images have alt text'})
+    else:
+        issues.append({'type': 'passed', 'msg': 'No images found requiring alt text'})
 
     if not canonical:
         issues.append({'type': 'warning', 'msg': 'No canonical URL tag found'})
@@ -291,6 +296,9 @@ def _scrape_url(url):
     # Redirect check
     if resp.url != url:
         issues.append({'type': 'warning', 'msg': f'Redirect detected: {url} → {resp.url[:80]}'})
+
+    else:
+        issues.append({'type': 'passed', 'msg': 'No redirect detected'})
 
     score = _calculate_score(issues)
 
@@ -355,31 +363,166 @@ def _fetch_pagespeed(url):
         return None
 
 
+SEO_STOP_WORDS = {
+    'about', 'above', 'after', 'again', 'also', 'and', 'are', 'because', 'been',
+    'but', 'can', 'com', 'contact', 'for', 'from', 'get', 'has', 'have', 'here',
+    'home', 'how', 'into', 'its', 'learn', 'more', 'not', 'our', 'page', 'read',
+    'site', 'that', 'the', 'their', 'this', 'to', 'use', 'was', 'website',
+    'what', 'when', 'where', 'which', 'who', 'will', 'with', 'www', 'you',
+    'your',
+}
+
+
+def _fetch_soup(url):
+    if not url.startswith(('http://', 'https://')):
+        url = 'https://' + url
+
+    from bs4 import BeautifulSoup
+
+    headers = {'User-Agent': 'Mozilla/5.0 (compatible; SEOInsightBot/1.0)'}
+    resp = requests.get(url, headers=headers, timeout=15, allow_redirects=True)
+    resp.raise_for_status()
+    return resp, BeautifulSoup(resp.text, 'html.parser')
+
+
+def _clean_keyword_text(text):
+    text = re.sub(r'[^a-zA-Z0-9\s-]', ' ', text.lower())
+    return re.sub(r'\s+', ' ', text).strip()
+
+
+def _tokenize_keyword_text(text):
+    return [
+        token for token in re.findall(r'[a-zA-Z][a-zA-Z0-9-]{2,}', text.lower())
+        if token not in SEO_STOP_WORDS
+    ]
+
+
+def _discover_keyword_candidates(url, limit=15):
+    _, soup = _fetch_soup(url)
+    sources = []
+
+    title = soup.find('title')
+    if title:
+        sources.append(title.get_text(' ', strip=True))
+
+    meta_desc = soup.find('meta', attrs={'name': 'description'})
+    if meta_desc and meta_desc.get('content'):
+        sources.append(meta_desc['content'])
+
+    for tag in soup.find_all(['h1', 'h2', 'h3']):
+        sources.append(tag.get_text(' ', strip=True))
+
+    page_text = ' '.join(sources)
+    tokens = _tokenize_keyword_text(page_text)
+    phrase_counts = Counter()
+
+    for source in sources:
+        source_tokens = _tokenize_keyword_text(source)
+        for size in (3, 2):
+            for index in range(len(source_tokens) - size + 1):
+                phrase = ' '.join(source_tokens[index:index + size])
+                phrase_counts[phrase] += 1
+
+    candidates = []
+    seen = set()
+
+    for source in sources:
+        phrase = _clean_keyword_text(source)
+        words = [word for word in phrase.split() if word not in SEO_STOP_WORDS]
+        if 2 <= len(words) <= 6:
+            phrase = ' '.join(words)
+            if phrase and phrase not in seen:
+                candidates.append(phrase)
+                seen.add(phrase)
+
+    for phrase, _ in phrase_counts.most_common(limit * 2):
+        if phrase not in seen:
+            candidates.append(phrase)
+            seen.add(phrase)
+        if len(candidates) >= limit:
+            break
+
+    if len(candidates) < limit:
+        for word, _ in Counter(tokens).most_common(limit * 2):
+            if word not in seen:
+                candidates.append(word)
+                seen.add(word)
+            if len(candidates) >= limit:
+                break
+
+    return candidates[:limit]
+
+
+def _discover_external_links(url, limit=50):
+    resp, soup = _fetch_soup(url)
+    base = urlparse(resp.url)
+    links = []
+    seen = set()
+
+    for tag in soup.find_all('a', href=True):
+        href = tag['href'].strip()
+        if not href or href.startswith(('#', 'mailto:', 'tel:', 'javascript:')):
+            continue
+
+        absolute_url = urljoin(resp.url, href)
+        parsed = urlparse(absolute_url)
+        if not parsed.scheme.startswith('http') or not parsed.netloc:
+            continue
+        if parsed.netloc == base.netloc:
+            continue
+        if absolute_url in seen:
+            continue
+
+        seen.add(absolute_url)
+        links.append({
+            'url': absolute_url,
+            'domain': parsed.netloc,
+            'anchor_text': tag.get_text(' ', strip=True) or '(no anchor)',
+            'rel': ' '.join(tag.get('rel', [])) if tag.get('rel') else '',
+        })
+        if len(links) >= limit:
+            break
+
+    return links
+
+
 def _checklist_style(status):
     styles = {
         'passed': {
             'badge': 'PASSED',
-            'row_class': 'border-gray-100 hover:border-primary/20',
+            'row_class': 'border-green-100 bg-green-50/30 hover:border-green-200',
             'box_class': 'border-green-500 bg-green-50',
             'icon': 'check',
             'icon_class': 'text-green-600',
             'badge_class': 'text-green-600 bg-green-50',
+            'action_label': 'View Check',
         },
         'required': {
-            'badge': 'REQUIRED',
+            'badge': 'FIX',
             'row_class': 'border-error/20 bg-red-50/20',
             'box_class': 'border-error',
-            'icon': '',
-            'icon_class': '',
+            'icon': 'priority_high',
+            'icon_class': 'text-error',
             'badge_class': 'text-error bg-red-50',
+            'action_label': 'Review Issue',
+        },
+        'review': {
+            'badge': 'REVIEW',
+            'row_class': 'border-amber-200 bg-amber-50/30 hover:border-amber-300',
+            'box_class': 'border-amber-500 bg-amber-50',
+            'icon': 'warning',
+            'icon_class': 'text-amber-600',
+            'badge_class': 'text-amber-700 bg-amber-50',
+            'action_label': 'Review Issue',
         },
         'pending': {
-            'badge': 'PENDING',
+            'badge': 'NOT CHECKED',
             'row_class': 'border-gray-100 hover:border-primary/20',
             'box_class': 'border-gray-300',
-            'icon': '',
-            'icon_class': '',
+            'icon': 'radio_button_unchecked',
+            'icon_class': 'text-gray-400',
             'badge_class': 'text-gray-500 bg-gray-50',
+            'action_label': 'Run Audit',
         },
     }
     return styles[status]
@@ -392,36 +535,91 @@ def _issue_status(issue):
         return 'passed'
     if issue.severity == 'critical':
         return 'required'
-    return 'pending'
+    return 'review'
+
+
+def _find_check_issue(issues, terms, match_all=True):
+    for issue in issues:
+        haystack = f'{issue.title} {issue.description} {issue.category}'.lower()
+        if match_all and all(term in haystack for term in terms):
+            return issue
+        if not match_all and any(term in haystack for term in terms):
+            return issue
+    return None
 
 
 def _build_audit_checklist(audit):
-    rules = [
-        ('H1 tags are present', ('h1',)),
-        ('Image alt text optimized', ('image', 'alt')),
-        ('Target keyword in Title tag', ('title',)),
-        ('External links use nofollow', ('external', 'nofollow')),
+    checks = [
+        {
+            'label': 'Title tag is present and sized correctly',
+            'description': 'Confirms the page has a title tag and keeps it within the recommended search snippet range.',
+            'terms': ('title',),
+            'match_all': True,
+        },
+        {
+            'label': 'Meta description is present',
+            'description': 'Checks whether the page has a meta description that can support search result click-through rate.',
+            'terms': ('meta description',),
+            'match_all': True,
+        },
+        {
+            'label': 'H1 structure is valid',
+            'description': 'Verifies that the page has exactly one primary H1 heading.',
+            'terms': ('h1',),
+            'match_all': True,
+        },
+        {
+            'label': 'Image alt text is covered',
+            'description': 'Reviews images for missing alt attributes that affect accessibility and image SEO.',
+            'terms': ('image', 'alt'),
+            'match_all': True,
+        },
+        {
+            'label': 'Canonical URL is configured',
+            'description': 'Checks for a canonical tag to help search engines choose the preferred page URL.',
+            'terms': ('canonical',),
+            'match_all': True,
+        },
+        {
+            'label': 'HTTPS / SSL is active',
+            'description': 'Confirms the audited URL is using HTTPS.',
+            'terms': ('https', 'ssl'),
+            'match_all': False,
+        },
+        {
+            'label': 'Redirect behavior is clean',
+            'description': 'Flags unexpected redirects that may slow crawling or create canonical confusion.',
+            'terms': ('redirect',),
+            'match_all': True,
+        },
     ]
     issues = list(audit.issues.all()) if audit else []
     checklist = []
 
-    for label, terms in rules:
-        match = next(
-            (
-                issue for issue in issues
-                if all(
-                    term in f'{issue.title} {issue.description} {issue.category}'.lower()
-                    for term in terms
-                )
-            ),
-            None,
-        )
+    for check in checks:
+        match = _find_check_issue(issues, check['terms'], check['match_all'])
         status = _issue_status(match)
-        item = {'label': label, 'status': status}
+        item = {
+            'label': check['label'],
+            'description': check['description'],
+            'status': status,
+            'message': match.description if match else 'Run an audit to evaluate this check.',
+            'issue_id': match.pk if match else None,
+            'tab_name': match.severity if match else '',
+        }
         item.update(_checklist_style(status))
         checklist.append(item)
 
     return checklist
+
+
+def _build_checklist_summary(checklist):
+    return {
+        'total': len(checklist),
+        'passed': sum(1 for item in checklist if item['status'] == 'passed'),
+        'needs_attention': sum(1 for item in checklist if item['status'] in ('required', 'review')),
+        'not_checked': sum(1 for item in checklist if item['status'] == 'pending'),
+    }
 
 
 def _build_action_plan(critical_issues, warning_issues):
@@ -438,6 +636,7 @@ def _build_action_plan(critical_issues, warning_issues):
             'link_icon': 'chevron_right',
             'link_url': '#tab-critical' if issue.severity == 'critical' else '#tab-warning',
             'tab_name': issue.severity,
+            'issue_id': issue.pk,
         }
         for index, issue in enumerate(issue_items, start=1)
     ]
@@ -516,11 +715,13 @@ def seo_audit(request):
             critical_issues = audit.issues.filter(severity='critical')
             warning_issues = audit.issues.filter(severity='warning')
             passed_issues = audit.issues.filter(severity='passed')
+    checklist_items = _build_audit_checklist(audit)
     context.update({
         'critical_issues': critical_issues,
         'warning_issues': warning_issues,
         'passed_issues': passed_issues,
-        'checklist_items': _build_audit_checklist(audit),
+        'checklist_items': checklist_items,
+        'checklist_summary': _build_checklist_summary(checklist_items),
         'action_plan_items': _build_action_plan(critical_issues, warning_issues),
     })
     return render(request, 'dashboard/seo_audit.html', context)
@@ -563,15 +764,57 @@ def keywords(request):
     project = get_user_project(request)
     kw_list = project.keywords.all().order_by('rank') if project else Keyword.objects.none()
     form = KeywordForm()
+    avg_difficulty = kw_list.aggregate(avg=Avg('difficulty'))['avg'] or 0
     context = {
         'project': project,
         'all_projects': Project.objects.filter(user=request.user),
         'keywords': kw_list,
         'form': form,
         'total_keywords': kw_list.count(),
-        'avg_difficulty': round(kw_list.aggregate(avg=Avg('difficulty'))['avg'] or 0, 2),
+        'top_3_keywords': kw_list.filter(rank__lte=3).count(),
+        'avg_difficulty': round(avg_difficulty * 100),
     }
     return render(request, 'dashboard/keywords.html', context)
+
+
+@login_required
+@require_POST
+def discover_keywords(request):
+    project = get_user_project(request)
+    if not project:
+        messages.error(request, "No project found. Create one first.")
+        return redirect('create_project')
+
+    try:
+        candidates = _discover_keyword_candidates(project.domain)
+    except Exception as e:
+        messages.error(request, f'Could not discover keywords from {project.domain}: {e}')
+        return redirect('keywords')
+
+    created = 0
+    skipped = 0
+    for keyword in candidates:
+        if project.keywords.filter(keyword__iexact=keyword).exists():
+            skipped += 1
+            continue
+        Keyword.objects.create(
+            project=project,
+            keyword=keyword,
+            difficulty=0.5,
+            intent='informational',
+            trend='flat',
+        )
+        created += 1
+
+    if created:
+        messages.success(
+            request,
+            f'Imported {created} on-page keyword candidate(s) from {project.domain}. '
+            'Rank, volume and CPC need Search Console or keyword API data.',
+        )
+    else:
+        messages.warning(request, f'No new keyword candidates found. {skipped} candidate(s) were already tracked.')
+    return redirect('keywords')
 
 
 @login_required
@@ -639,16 +882,44 @@ def backlinks(request):
     project = get_user_project(request)
     bl_list = project.backlinks.all().order_by('-found_at') if project else Backlink.objects.none()
     form = BacklinkForm()
+    discovered_external_links = request.session.get('discovered_external_links', [])
     context = {
         'project': project,
         'all_projects': Project.objects.filter(user=request.user),
         'backlinks': bl_list,
+        'discovered_external_links': discovered_external_links,
         'form': form,
         'total_backlinks': bl_list.count(),
         'new_backlinks': bl_list.filter(is_new=True).count(),
         'avg_authority': round(bl_list.aggregate(avg=Avg('domain_authority'))['avg'] or 0),
     }
     return render(request, 'dashboard/backlinks.html', context)
+
+
+@login_required
+@require_POST
+def discover_external_links(request):
+    project = get_user_project(request)
+    if not project:
+        messages.error(request, "No project found.")
+        return redirect('backlinks')
+
+    try:
+        links = _discover_external_links(project.domain)
+    except Exception as e:
+        messages.error(request, f'Could not scan external links from {project.domain}: {e}')
+        return redirect('backlinks')
+
+    request.session['discovered_external_links'] = links
+    if links:
+        messages.success(
+            request,
+            f'Found {len(links)} outbound external link(s) on {project.domain}. '
+            'True backlinks require Google Search Console or a backlink provider.',
+        )
+    else:
+        messages.warning(request, 'No outbound external links found on the active project page.')
+    return redirect('backlinks')
 
 
 @login_required
