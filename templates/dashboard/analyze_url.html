@@ -1,0 +1,265 @@
+{% extends 'base.html' %}
+
+{% block title %}Analyze URL - SEO Insight Pro{% endblock %}
+{% block meta_description %}Instantly analyze any website URL for on-page SEO issues, meta tags, Core Web Vitals and more.{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto space-y-8">
+
+    <!-- Header -->
+    <div>
+        <h1 class="font-h1 text-h1 text-on-surface">🔍 URL Analyzer</h1>
+        <p class="font-body-md text-body-md text-on-surface-variant mt-2">
+            Enter any website URL to instantly analyze its SEO health — meta tags, headings, images, and Core Web Vitals.
+        </p>
+    </div>
+
+    <!-- Search Box -->
+    <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-8">
+        <form method="POST" action="{% url 'analyze_url' %}" id="analyze-form">
+            {% csrf_token %}
+            {% if save_project %}
+            <input type="hidden" name="project" value="{{ save_project.pk }}"/>
+            {% endif %}
+            <label class="block text-sm font-semibold text-gray-700 mb-3">Website URL to Analyze</label>
+            {% if save_project %}
+            <p class="text-xs font-semibold text-indigo-600 mb-3">Results will be saved to {{ save_project.name }}.</p>
+            {% endif %}
+            <div class="flex gap-3">
+                <div class="flex-1 relative">
+                    <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">language</span>
+                    <input type="url" name="url" id="url-input" value="{{ url }}"
+                        class="w-full pl-12 pr-4 py-4 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                        placeholder="https://example.com" required/>
+                </div>
+                <button type="submit" id="analyze-btn"
+                    class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-8 py-4 rounded-xl transition-colors shadow-md shadow-indigo-500/30">
+                    <span class="material-symbols-outlined text-sm">search</span>
+                    Analyze
+                </button>
+            </div>
+            <p class="text-xs text-gray-400 mt-2">Works on any public website. Analysis takes 5–10 seconds.</p>
+        </form>
+    </div>
+
+    <!-- Error -->
+    {% if error %}
+    <div class="flex items-start gap-3 p-5 bg-red-50 border border-red-200 rounded-xl text-red-800">
+        <span class="material-symbols-outlined text-red-500 mt-0.5">error</span>
+        <div>
+            <p class="font-semibold">Analysis Failed</p>
+            <p class="text-sm mt-1">{{ error }}</p>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if result %}
+    <!-- Score Hero -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div class="md:col-span-1 bg-white rounded-2xl border border-gray-200 shadow-sm p-6 flex flex-col items-center justify-center text-center">
+            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">SEO Score</p>
+            <div class="relative flex items-center justify-center">
+                <svg class="w-32 h-32 transform -rotate-90">
+                    <circle cx="64" cy="64" fill="transparent" r="58" stroke="#f3f4f6" stroke-width="8"></circle>
+                    <circle cx="64" cy="64" fill="transparent" r="58" stroke="
+                        {% if result.score >= 80 %}#10b981{% elif result.score >= 60 %}#f59e0b{% else %}#ef4444{% endif %}"
+                        stroke-dasharray="364"
+                        stroke-dashoffset="{{ result.score | add:0 }}"
+                        stroke-width="8"></circle>
+                </svg>
+                <div class="absolute flex flex-col items-center">
+                    <span class="text-3xl font-bold text-gray-900">{{ result.score }}</span>
+                    <span class="text-[10px] text-gray-400 font-bold uppercase">/100</span>
+                </div>
+            </div>
+            <p class="mt-3 font-semibold
+                {% if result.score >= 80 %}text-emerald-600{% elif result.score >= 60 %}text-amber-600{% else %}text-red-600{% endif %}">
+                {{ result.score_label }}
+            </p>
+        </div>
+
+        <div class="md:col-span-3 grid grid-cols-2 sm:grid-cols-3 gap-4">
+            <div class="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
+                <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Status</p>
+                <p class="text-2xl font-bold {% if result.status_code == 200 %}text-emerald-600{% else %}text-red-600{% endif %}">{{ result.status_code }}</p>
+                <p class="text-xs text-gray-500">HTTP response</p>
+            </div>
+            <div class="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
+                <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Title Length</p>
+                <p class="text-2xl font-bold {% if result.title_length >= 30 and result.title_length <= 60 %}text-emerald-600{% else %}text-amber-600{% endif %}">{{ result.title_length }}</p>
+                <p class="text-xs text-gray-500">chars (ideal 30–60)</p>
+            </div>
+            <div class="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
+                <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Meta Desc</p>
+                <p class="text-2xl font-bold {% if result.meta_desc_length >= 50 and result.meta_desc_length <= 160 %}text-emerald-600{% else %}text-amber-600{% endif %}">{{ result.meta_desc_length }}</p>
+                <p class="text-xs text-gray-500">chars (ideal 50–160)</p>
+            </div>
+            <div class="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
+                <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">H1 Tags</p>
+                <p class="text-2xl font-bold {% if result.h1_tags|length == 1 %}text-emerald-600{% else %}text-red-600{% endif %}">{{ result.h1_tags|length }}</p>
+                <p class="text-xs text-gray-500">should be exactly 1</p>
+            </div>
+            <div class="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
+                <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Internal Links</p>
+                <p class="text-2xl font-bold text-gray-900">{{ result.internal_links_count }}</p>
+                <p class="text-xs text-gray-500">found on page</p>
+            </div>
+            <div class="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
+                <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Images Missing Alt</p>
+                <p class="text-2xl font-bold {% if result.images_without_alt_count == 0 %}text-emerald-600{% else %}text-red-600{% endif %}">{{ result.images_without_alt_count }}</p>
+                <p class="text-xs text-gray-500">of {{ result.images_total }} total</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- PageSpeed Results -->
+    {% if result.pagespeed %}
+    <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
+        <h3 class="font-h3 text-h3 mb-6 flex items-center gap-2">
+            <span class="material-symbols-outlined text-indigo-600">speed</span>
+            Core Web Vitals (Google PageSpeed)
+        </h3>
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+            <div class="bg-gray-50 rounded-xl p-4 text-center">
+                <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Performance</p>
+                <p class="text-3xl font-bold {% if result.pagespeed.performance >= 90 %}text-emerald-600{% elif result.pagespeed.performance >= 50 %}text-amber-600{% else %}text-red-600{% endif %} mt-1">{{ result.pagespeed.performance }}</p>
+            </div>
+            <div class="bg-gray-50 rounded-xl p-4 text-center">
+                <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">SEO</p>
+                <p class="text-3xl font-bold {% if result.pagespeed.seo >= 90 %}text-emerald-600{% elif result.pagespeed.seo >= 50 %}text-amber-600{% else %}text-red-600{% endif %} mt-1">{{ result.pagespeed.seo }}</p>
+            </div>
+            <div class="bg-gray-50 rounded-xl p-4 text-center">
+                <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">LCP</p>
+                <p class="text-xl font-bold text-gray-900 mt-1">{{ result.pagespeed.lcp }}</p>
+            </div>
+            <div class="bg-gray-50 rounded-xl p-4 text-center">
+                <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">CLS</p>
+                <p class="text-xl font-bold text-gray-900 mt-1">{{ result.pagespeed.cls }}</p>
+            </div>
+            <div class="bg-gray-50 rounded-xl p-4 text-center">
+                <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">FCP</p>
+                <p class="text-xl font-bold text-gray-900 mt-1">{{ result.pagespeed.fcp }}</p>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Meta Details -->
+    <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
+        <h3 class="font-h3 text-h3 mb-6 flex items-center gap-2">
+            <span class="material-symbols-outlined text-indigo-600">code</span>
+            On-Page SEO Details
+        </h3>
+        <div class="space-y-5">
+            <div class="p-4 bg-gray-50 rounded-xl">
+                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Title Tag</p>
+                <p class="font-semibold text-gray-900 mt-1">{{ result.title|default:"(none found)" }}</p>
+                <p class="text-xs text-gray-500 mt-0.5">{{ result.title_length }} characters</p>
+            </div>
+            <div class="p-4 bg-gray-50 rounded-xl">
+                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Meta Description</p>
+                <p class="text-sm text-gray-700 mt-1">{{ result.meta_desc|default:"(none found)" }}</p>
+                <p class="text-xs text-gray-500 mt-0.5">{{ result.meta_desc_length }} characters</p>
+            </div>
+            {% if result.h1_tags %}
+            <div class="p-4 bg-gray-50 rounded-xl">
+                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">H1 Tag(s)</p>
+                {% for h1 in result.h1_tags %}
+                <p class="font-semibold text-gray-900 mt-1">{{ h1 }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+            <div class="p-4 bg-gray-50 rounded-xl">
+                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Canonical URL</p>
+                <p class="text-sm text-gray-700 mt-1 font-mono">{{ result.canonical|default:"Not set" }}</p>
+            </div>
+            <div class="p-4 bg-gray-50 rounded-xl">
+                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Robots Meta</p>
+                <p class="text-sm text-gray-700 mt-1">{{ result.robots }}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Issues -->
+    <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+        <div class="px-6 py-5 border-b border-gray-100 flex items-center justify-between bg-gray-50">
+            <h3 class="font-h3 text-lg text-gray-900">Detected Issues</h3>
+            <div class="flex gap-3 text-xs font-semibold">
+                <span class="text-red-600">{{ result.issues|length }} checks</span>
+            </div>
+        </div>
+        <div class="divide-y divide-gray-100">
+            {% for issue in result.issues %}
+            <div class="flex items-center gap-4 p-5 hover:bg-gray-50/50 transition-colors">
+                <span class="material-symbols-outlined text-xl
+                    {% if issue.type == 'critical' %}text-red-500
+                    {% elif issue.type == 'warning' %}text-amber-500
+                    {% else %}text-emerald-500{% endif %}">
+                    {% if issue.type == 'critical' %}error
+                    {% elif issue.type == 'warning' %}warning
+                    {% else %}check_circle{% endif %}
+                </span>
+                <span class="text-sm
+                    {% if issue.type == 'critical' %}font-semibold text-red-900
+                    {% elif issue.type == 'warning' %}font-medium text-amber-900
+                    {% else %}text-gray-700{% endif %}">
+                    {{ issue.msg }}
+                </span>
+                <span class="ml-auto text-[10px] font-bold uppercase px-2 py-0.5 rounded-full
+                    {% if issue.type == 'critical' %}bg-red-50 text-red-700
+                    {% elif issue.type == 'warning' %}bg-amber-50 text-amber-700
+                    {% else %}bg-emerald-50 text-emerald-700{% endif %}">
+                    {{ issue.type }}
+                </span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Save to Project -->
+    {% if save_project %}
+    <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-6">
+        <h3 class="font-semibold text-emerald-900 mb-3 flex items-center gap-2">
+            <span class="material-symbols-outlined">task_alt</span>
+            Analysis Saved
+        </h3>
+        <p class="text-sm text-emerald-700 mb-4">This audit has been saved to {{ save_project.name }} and is available on the audit report page.</p>
+        <a href="{% url 'seo_audit' %}" class="inline-flex items-center gap-2 bg-emerald-600 text-white px-6 py-2.5 rounded-lg text-sm font-bold hover:bg-emerald-700 transition-colors">
+            <span class="material-symbols-outlined text-sm">analytics</span>
+            View Audit Report
+        </a>
+    </div>
+    {% else %}
+    <div class="bg-indigo-50 border border-indigo-200 rounded-2xl p-6">
+        <h3 class="font-semibold text-indigo-900 mb-3 flex items-center gap-2">
+            <span class="material-symbols-outlined">save</span>
+            Save Analysis to Project
+        </h3>
+        <p class="text-sm text-indigo-700 mb-4">Create a new project from this URL to start tracking keywords and backlinks.</p>
+        <form method="POST" action="{% url 'create_project' %}" class="flex flex-col sm:flex-row sm:items-center gap-3">
+            {% csrf_token %}
+            <input type="hidden" name="source" value="url_analyzer"/>
+            <input type="hidden" name="domain" value="{{ result.final_url }}"/>
+            <input type="text" name="name" value="{{ result.project_name }}" placeholder="Project name (e.g. My Client Site)" required
+                class="flex-1 border border-indigo-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"/>
+            <button type="submit" class="bg-indigo-600 text-white px-6 py-2.5 rounded-lg text-sm font-bold hover:bg-indigo-700 transition-colors whitespace-nowrap">
+                Create Project
+            </button>
+        </form>
+    </div>
+    {% endif %}
+
+    {% endif %}
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.getElementById('analyze-form').addEventListener('submit', function() {
+    const btn = document.getElementById('analyze-btn');
+    btn.innerHTML = '<span class="animate-spin material-symbols-outlined text-sm">autorenew</span> Analyzing...';
+    btn.disabled = true;
+});
+</script>
+{% endblock %}

@@ -12,14 +12,26 @@ urlpatterns = [
     path('pricing/', views.pricing, name='pricing'),
     path('landing/', views.landing_page, name='landing_page'),
 
-    # Keyword CRUD
+    # Live URL Analyzer
+    path('analyze/', views.analyze_url, name='analyze_url'),
+
+    # Project management
+    path('projects/create/', views.create_project, name='create_project'),
+    path('projects/<int:pk>/switch/', views.switch_project, name='switch_project'),
+    path('projects/<int:pk>/delete/', views.delete_project, name='delete_project'),
+
+    # Keyword CRUD + export
+    path('keywords/discover/', views.discover_keywords, name='discover_keywords'),
     path('keywords/add/', views.add_keyword, name='add_keyword'),
     path('keywords/<int:pk>/edit/', views.edit_keyword, name='edit_keyword'),
     path('keywords/<int:pk>/delete/', views.delete_keyword, name='delete_keyword'),
+    path('keywords/export/', views.export_keywords_csv, name='export_keywords_csv'),
 
-    # Backlink CRUD
+    # Backlink CRUD + export
+    path('backlinks/discover-external-links/', views.discover_external_links, name='discover_external_links'),
     path('backlinks/add/', views.add_backlink, name='add_backlink'),
     path('backlinks/<int:pk>/delete/', views.delete_backlink, name='delete_backlink'),
+    path('backlinks/export/', views.export_backlinks_csv, name='export_backlinks_csv'),
 
     # Competitor CRUD
     path('competitors/add/', views.add_competitor, name='add_competitor'),
